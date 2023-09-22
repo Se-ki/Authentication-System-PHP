@@ -1,4 +1,3 @@
-
 function isPasswordRobust(password) {
     var strengthIndicator = document.getElementById('password-strength');
     var regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;

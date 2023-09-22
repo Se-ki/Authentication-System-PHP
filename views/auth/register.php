@@ -21,8 +21,8 @@
                 <div class="col-lg-6 mb-5 mb-lg-0">
                     <div class="card">
                         <div class="card-body py-5 px-md-5">
-                            <form action="/register" method="POST">
-                                <p class="text-danger">
+                            <form action="/register" method="POST" onsubmit="return formValidation()">
+                                <p class=" text-danger">
                                     <?= $error['credentials'] ?? null ?>
                                 </p>
                                 <p class="text-success">
@@ -33,14 +33,16 @@
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline">
                                             <input type="text" name="firstname" maxlength="15" id="form3Example1"
-                                                class="form-control" value="<?= $_POST['firstname'] ?? null ?>" />
+                                                class="form-control" value="<?= $_POST['firstname'] ?? null ?>"
+                                                required />
                                             <label class="form-label" for="form3Example1">First name</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline">
                                             <input type="text" name="lastname" maxlength="15" id="form3Example2"
-                                                class="form-control" value="<?= $_POST['lastname'] ?? null ?>" />
+                                                class="form-control" value="<?= $_POST['lastname'] ?? null ?>"
+                                                required />
                                             <label class="form-label" for="form3Example2">Last name</label>
                                         </div>
                                     </div>
@@ -49,14 +51,16 @@
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline">
                                             <input type="text" name="middlename" maxlength="15" id="form3Example1"
-                                                class="form-control" value="<?= $_POST['middlename'] ?? null ?>" />
+                                                class="form-control" value="<?= $_POST['middlename'] ?? null ?>"
+                                                required />
                                             <label class="form-label" for="form3Example1">Middle Name</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline">
                                             <input type="text" name="extensionName" maxlength="15" id="form3Example2"
-                                                class="form-control" value="<?= $_POST['extensionName'] ?? null ?>" />
+                                                class="form-control" value="<?= $_POST['extensionName'] ?? null ?>"
+                                                required />
                                             <label class="form-label" for="form3Example2">Suffix name</label>
                                         </div>
                                     </div>
@@ -79,13 +83,13 @@
 
                                 <div class="form-outline mb-4">
                                     <input type="number" name="age" id="form3Example3" class="form-control"
-                                        value="<?= $_POST['age'] ?? null ?>" />
+                                        value="<?= $_POST['age'] ?? null ?>" required />
                                     <label class="form-label" for="form3Example3">Age</label>
                                 </div>
 
                                 <div class="form-outline mb-4">
                                     <input type="text" name="contactNumber" id="form3Example3" class="form-control"
-                                        value="<?= $_POST['contactNumber'] ?? null ?>" />
+                                        value="<?= $_POST['contactNumber'] ?? null ?>" required />
                                     <label class="form-label" for="form3Example3">Contact Number</label>
                                 </div>
 
@@ -93,14 +97,14 @@
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline">
                                             <input type="text" name="country" id="form3Example1" class="form-control"
-                                                value="<?= $_POST['country'] ?? null ?>" />
+                                                value="<?= $_POST['country'] ?? null ?>" required />
                                             <label class="form-label" for="form3Example1">Country</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline">
                                             <input type="text" name="province" id="form3Example2" class="form-control"
-                                                value="<?= $_POST['province'] ?? null ?>" />
+                                                value="<?= $_POST['province'] ?? null ?>" required />
                                             <label class="form-label" for="form3Example2">Province</label>
                                         </div>
                                     </div>
@@ -110,14 +114,14 @@
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline">
                                             <input type="text" name="city" id="form3Example1" class="form-control"
-                                                value="<?= $_POST['city'] ?? null ?>" />
+                                                value="<?= $_POST['city'] ?? null ?>" required />
                                             <label class="form-label" for="form3Example1">Municipal / City</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline">
                                             <input type="text" name="barangay" id="form3Example2" class="form-control"
-                                                value="<?= $_POST['barangay'] ?? null ?>" />
+                                                value="<?= $_POST['barangay'] ?? null ?>" required />
                                             <label class="form-label" for="form3Example2">Barangay</label>
                                         </div>
                                     </div>
@@ -126,7 +130,7 @@
                                 <!-- Username input -->
                                 <div class="form-outline mb-4">
                                     <input type="username" name="username" id="form3Example3" class="form-control"
-                                        value="<?= $_POST['username'] ?? null ?>" />
+                                        value="<?= $_POST['username'] ?? null ?>" required />
                                     <label class="form-label" for="form3Example3">Username</label>
                                 </div>
 

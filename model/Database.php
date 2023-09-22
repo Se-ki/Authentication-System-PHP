@@ -47,10 +47,10 @@ class Database
     }
     public function register($firstname, $lastname, $middlename, $extensionName, $sex, $age, $contactNumber, $country, $province, $city, $barangay, $email, $username, $password, $confirmPassword)
     {
-        // if (!$firstname || !$lastname || !$sex || !$country || !$province || !$city || !$barangay || !$username || !$email || !$contactNumber || !$password) {
-        //     $_SESSION['error'] = ["credentials" => "All fields must be filled."];
-        //     redirect('/register');
-        // }
+        if (!$firstname || !$lastname || !$sex || !$country || !$province || !$city || !$barangay || !$username || !$email || !$contactNumber || !$password) {
+            $_SESSION['error'] = ["credentials" => "All fields must be filled."];
+            redirect('/register');
+        }
 
         //Validate if input has contains numbers
         if (!Validation::isNameStringOnly($firstname)) {
