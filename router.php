@@ -2,7 +2,6 @@
 require "./function.php";
 require "./validator/php/Validation.php";
 require "./model/Database.php";
-// var_dump($_SESSION);
 // $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 
 // $routes = [
@@ -25,10 +24,6 @@ if ($uri === "/") {
     require "./views/index.php";
 } else if ($uri === "/login") {
     require "./controller/auth/login.php";
-} else if ($uri === "/email") {
-    require "./controller/auth/email.php";
-} else if ($uri === "/email/verification") {
-    require "./controller/auth/verification.php";
 } else if ($uri === "/home") {
     require "./controller/home.php";
 } else if ($uri === "/register") {

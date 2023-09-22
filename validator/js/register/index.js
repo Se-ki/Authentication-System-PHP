@@ -1,8 +1,6 @@
 
 function isPasswordRobust(password) {
-    console.log("Ahrrol: " + password);
     var strengthIndicator = document.getElementById('password-strength');
-
     var regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
     var isStrong = regex.test(password);
 

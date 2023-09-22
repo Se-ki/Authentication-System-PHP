@@ -1,5 +1,4 @@
 <?php require "./views/partial/header.php" ?>
-
 <section class="gradient-custom">
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-0">
@@ -26,12 +25,12 @@
                                         id="typePasswordX" class="form-control form-control-lg" required />
                                     <label class="form-label" for="typePasswordX">Password</label>
                                 </div> 
-
+                                
                                 <?php if (isset($_SESSION['login_attempt']) && $_SESSION['login_attempt'] > 2): ?>
                                     <?php unset($_SESSION['error']); ?>
                                     <?php unset($_SESSION['attempts']); ?>
                                     <?php $_SESSION['locked'] = time(); ?>
-                                    <p>Please wait for 10 seconds</p>
+                                    <p id="countdown">Please wait for 30 seconds</p>
                                 <?php else: ?>
                                     <button class="btn btn-outline-light btn-lg px-5" name="submit"
                                         type="submit">Login</button>
@@ -39,9 +38,8 @@
                                 <!-- form -->
                             </form>
                         </div>
-                                            
                         <div>
-                            <p class="mb-0">Don't have an account? <a href="/email"
+                            <p class="mb-0">Don't have an account? <a href="/register"
                                     class="text-white-50 fw-bold">Sign
                                     Up</a>
                             </p>
@@ -52,4 +50,5 @@
         </div>
     </div>
 </section>
+<script src="./validator/js/login/index.js"></script>
 <?php require "./views/partial/footer.php" ?>

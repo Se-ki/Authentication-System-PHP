@@ -45,45 +45,202 @@ class Database
             redirect("/home");
         }
     }
-    public function register($firstname, $lastname, $middlename, $extensionName, $sex, $age, $contactNumber, $address, $username, $password, $confirmPassword)
+    public function register($firstname, $lastname, $middlename, $extensionName, $sex, $age, $contactNumber, $country, $province, $city, $barangay, $email, $username, $password, $confirmPassword)
     {
-        if (!$firstname || !$lastname || !$sex || !$address || !$contactNumber || !$password) {
-            $_SESSION['error'] = ["credentials" => "All fields must be filled."];
+        // if (!$firstname || !$lastname || !$sex || !$country || !$province || !$city || !$barangay || !$username || !$email || !$contactNumber || !$password) {
+        //     $_SESSION['error'] = ["credentials" => "All fields must be filled."];
+        //     redirect('/register');
+        // }
+
+        //Validate if input has contains numbers
+        if (!Validation::isNameStringOnly($firstname)) {
+            $_SESSION['error'] = ["credentials" => "Firstname should not contain numeric number and special characters."];
+            redirect('/register');
+        }
+        if (!Validation::isNameStringOnly($lastname)) {
+            $_SESSION['error'] = ["credentials" => "Lastname should not contain numeric number and special characters."];
+            redirect('/register');
+        }
+        if (!Validation::isNameStringOnly($middlename) && isset($middlename)) {
+            $_SESSION['error'] = ["credentials" => "Middlename should not contain numeric number and special characters."];
+            redirect('/register');
+        }
+        if (!Validation::isNameStringOnly($extensionName)) {
+            $_SESSION['error'] = ["credentials" => "Suffix Name should not contain numeric number and special characters."];
+            redirect('/register');
+        }
+        if (!Validation::isNameStringOnly($country)) {
+            $_SESSION['error'] = ["credentials" => "Country should not contain numeric number and special characters."];
+            redirect('/register');
+        }
+        if (!Validation::isNameStringOnly($province)) {
+            $_SESSION['error'] = ["credentials" => "Province should not contain numeric number and special characters."];
+            redirect('/register');
+        }
+        if (!Validation::isNameStringOnly($city)) {
+            $_SESSION['error'] = ["credentials" => "City should not contain numeric number and special characters."];
             redirect('/register');
         }
 
-        if (!Validation::isNameStringOnly($firstname) || !Validation::isNameStringOnly($lastname)) {
-            $_SESSION['error'] = ["credentials" => "Firstname and lastname should not contain numeric number."];
+
+        //Input should capitalize the first letter
+        if (!Validation::isInputCapitalized($firstname)) {
+            $_SESSION['error'] = ["credentials" => "The first letter of the firstname should be capitalized."];
+            redirect('/register');
+        }
+        if (!Validation::isInputCapitalized($lastname)) {
+            $_SESSION['error'] = ["credentials" => "The first letter of the lastname should be capitalized."];
+            redirect('/register');
+        }
+        if (!Validation::isInputCapitalized($middlename)) {
+            $_SESSION['error'] = ["credentials" => "The first letter of the middlename should be capitalized."];
+            redirect('/register');
+        }
+        if (!Validation::isInputCapitalized($extensionName)) {
+            $_SESSION['error'] = ["credentials" => "The first letter of the suffix name should be capitalized."];
+            redirect('/register');
+        }
+        if (!Validation::isInputCapitalized($country)) {
+            $_SESSION['error'] = ["credentials" => "The first letter of the country name should be capitalized."];
+            redirect('/register');
+        }
+        if (!Validation::isInputCapitalized($province)) {
+            $_SESSION['error'] = ["credentials" => "The first letter of the province name should be capitalized."];
+            redirect('/register');
+        }
+        if (!Validation::isInputCapitalized($city)) {
+            $_SESSION['error'] = ["credentials" => "The first letter of the city name should be capitalized."];
             redirect('/register');
         }
 
-        if (!Validation::isInputCapitalized($firstname) || !Validation::isInputCapitalized($lastname)) {
-            $_SESSION['error'] = ["credentials" => "The first letter of the firstname and lastname should be capitalized."];
+
+        //Input should not contains repeated letters
+        if (Validation::hasRepeatedLetters($firstname)) {
+            $_SESSION['error'] = ["credentials" => "Firstname contains repeated letters."];
+            redirect('/register');
+        }
+        if (Validation::hasRepeatedLetters($lastname)) {
+            $_SESSION['error'] = ["credentials" => "Lastname contains repeated letters."];
+            redirect('/register');
+        }
+        if (Validation::hasRepeatedLetters($middlename)) {
+            $_SESSION['error'] = ["credentials" => "Middlename contains repeated letters."];
+            redirect('/register');
+        }
+        if (Validation::hasRepeatedLetters($extensionName)) {
+            $_SESSION['error'] = ["credentials" => "Suffix name contains repeated letters."];
+            redirect('/register');
+        }
+        if (Validation::hasRepeatedLetters($country)) {
+            $_SESSION['error'] = ["credentials" => "Country name contains repeated letters."];
+            redirect('/register');
+        }
+        if (Validation::hasRepeatedLetters($province)) {
+            $_SESSION['error'] = ["credentials" => "Province name contains repeated letters."];
+            redirect('/register');
+        }
+        if (Validation::hasRepeatedLetters($city)) {
+            $_SESSION['error'] = ["credentials" => "City name contains repeated letters."];
             redirect('/register');
         }
 
-        if (Validation::hasRepeatedLetters($firstname) || Validation::hasRepeatedLetters($lastname)) {
-            $_SESSION['error'] = ["credentials" => "The string contains repeated letters."];
+
+        //restrict if contains double spaces
+        if (!Validation::validateDoubleSpace($firstname)) {
+            $_SESSION['error'] = ["credentials" => "Firstname should not contain double space."];
+            redirect('/register');
+        }
+        if (!Validation::validateDoubleSpace($lastname)) {
+            $_SESSION['error'] = ["credentials" => "Lastname should not contain double space."];
+            redirect('/register');
+        }
+        if (!Validation::validateDoubleSpace($middlename)) {
+            $_SESSION['error'] = ["credentials" => "Middlename should not contain double space."];
+            redirect('/register');
+        }
+        if (!Validation::validateDoubleSpace($extensionName)) {
+            $_SESSION['error'] = ["credentials" => "Suffix name should not contain double space."];
+            redirect('/register');
+        }
+        if (!Validation::validateDoubleSpace($country)) {
+            $_SESSION['error'] = ["credentials" => "Country should not contain double space."];
+            redirect('/register');
+        }
+        if (!Validation::validateDoubleSpace($province)) {
+            $_SESSION['error'] = ["credentials" => "Province should not contain double space."];
+            redirect('/register');
+        }
+        if (!Validation::validateDoubleSpace($city)) {
+            $_SESSION['error'] = ["credentials" => "City should not contain double space."];
+            redirect('/register');
+        }
+        if (!Validation::validateDoubleSpace($barangay)) {
+            $_SESSION['error'] = ["credentials" => "Barangay should not contain double space."];
             redirect('/register');
         }
 
-        if (Validation::isNameDoubleSpace($firstname) || Validation::isNameDoubleSpace($lastname)) {
-            $_SESSION['error'] = ["credentials" => "Name should not contain double space."];
+
+        //restrict if first part of input contains double spaces
+        if (!Validation::validateFirstPartHasDoubleSpace($firstname)) {
+            $_SESSION['error'] = ["credentials" => "The first part of the firstname must not contain double space."];
+            redirect('/register');
+        }
+        if (!Validation::validateFirstPartHasDoubleSpace($lastname)) {
+            $_SESSION['error'] = ["credentials" => "The first part of the input lastname not contain double space."];
+            redirect('/register');
+        }
+        if (!Validation::validateFirstPartHasDoubleSpace($middlename)) {
+            $_SESSION['error'] = ["credentials" => "The first part of the middlename must not contain double space."];
+            redirect('/register');
+        }
+        if (!Validation::validateFirstPartHasDoubleSpace($extensionName)) {
+            $_SESSION['error'] = ["credentials" => "The first part of the suffix name must not contain double space."];
+            redirect('/register');
+        }
+        if (!Validation::validateFirstPartHasDoubleSpace($country)) {
+            $_SESSION['error'] = ["credentials" => "The first part of the country must not contain double space."];
+            redirect('/register');
+        }
+        if (!Validation::validateFirstPartHasDoubleSpace($province)) {
+            $_SESSION['error'] = ["credentials" => "The first part of the province must not contain double space."];
+            redirect('/register');
+        }
+        if (!Validation::validateFirstPartHasDoubleSpace($city)) {
+            $_SESSION['error'] = ["credentials" => "The first part of the city must not contain double space."];
+            redirect('/register');
+        }
+        if (!Validation::validateFirstPartHasDoubleSpace($barangay)) {
+            $_SESSION['error'] = ["credentials" => "The first part of the barangay must not contain double space."];
             redirect('/register');
         }
 
-        if (Validation::isUserExist($username, $this)) {
+
+        //validate inputted numbers that contains string characters
+        if (!Validation::validateNumber($age)) {
+            $_SESSION['error'] = ["credentials" => "Age must not contain letters or special characters."];
+            redirect('/register');
+        }
+        if (!Validation::validateNumber($contactNumber)) {
+            $_SESSION['error'] = ["credentials" => "Contact number must not contain letters or special characters."];
+            redirect('/register');
+        }
+
+
+        //Validate if contact number is same format as the format of the philippines
+        if (!Validation::validatePhilippineContactNumber($contactNumber)) {
+            $_SESSION['error'] = ["credentials" => "The contact number is invalid."];
+            redirect('/register');
+        }
+
+        //check if username is exist 
+        if (Validation::isUsernameExist($username, $this)) {
             $_SESSION['error'] = ["credentials" => "Username named {$username} is already exist."];
             redirect('/register');
         }
 
-        // if (Validation::isUserExist($email, $this)) {
-        //     $_SESSION['error'] = ["credentials" => "Email named {$email} is already exist."];
-        //     redirect('/register');
-        // }
-
-        if (!Validation::confirmedPassword($password, $confirmPassword)) {
-            $_SESSION['error'] = ["password" => "Password is not match with confirm password"];
+        //check if email exist
+        if (Validation::isEmailExist($email, $this)) {
+            $_SESSION['error'] = ["credentials" => "Email named {$email} is already exist."];
             redirect('/register');
         }
 
@@ -92,11 +249,14 @@ class Database
             redirect('/register');
         }
 
-        // Validation::emailVerify($email);
+        if (!Validation::confirmedPassword($password, $confirmPassword)) {
+            $_SESSION['error'] = ["password" => "Password is not match with confirm password"];
+            redirect('/register');
+        }
 
         $hashed_pwd = password_hash($password, PASSWORD_DEFAULT);
 
-        $this->query("INSERT INTO `users` VALUES (null, :firstname, :lastname,:middlename, :extensionName, :sex, :age, :contactNumber, :address, :username, :email, :password, null, NOW())", [
+        $this->query("INSERT INTO `users` VALUES (null, :firstname, :lastname,:middlename, :extensionName, :sex, :age, :contactNumber, :country, :province, :city, :barangay, null, :username, :email, :password, null, NOW())", [
             "firstname" => $firstname,
             "lastname" => $lastname,
             "middlename" => $middlename,
@@ -104,9 +264,12 @@ class Database
             "sex" => $sex,
             "age" => $age,
             "contactNumber" => $contactNumber,
-            "address" => $address,
+            "country" => $country,
+            "province" => $province,
+            "city" => $city,
+            "barangay" => $barangay,
             "username" => $username,
-            "email" => $_SESSION['email'],
+            "email" => $email,
             "password" => $hashed_pwd,
         ])->get();
 

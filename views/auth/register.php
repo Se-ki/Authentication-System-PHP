@@ -33,16 +33,14 @@
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline">
                                             <input type="text" name="firstname" maxlength="15" id="form3Example1"
-                                                class="form-control" value="<?= $_POST['firstname'] ?? null ?>"
-                                                required />
+                                                class="form-control" value="<?= $_POST['firstname'] ?? null ?>" />
                                             <label class="form-label" for="form3Example1">First name</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline">
                                             <input type="text" name="lastname" maxlength="15" id="form3Example2"
-                                                class="form-control" value="<?= $_POST['lastname'] ?? null ?>"
-                                                required />
+                                                class="form-control" value="<?= $_POST['lastname'] ?? null ?>" />
                                             <label class="form-label" for="form3Example2">Last name</label>
                                         </div>
                                     </div>
@@ -59,7 +57,7 @@
                                         <div class="form-outline">
                                             <input type="text" name="extensionName" maxlength="15" id="form3Example2"
                                                 class="form-control" value="<?= $_POST['extensionName'] ?? null ?>" />
-                                            <label class="form-label" for="form3Example2">Extension Name</label>
+                                            <label class="form-label" for="form3Example2">Suffix name</label>
                                         </div>
                                     </div>
                                 </div>
@@ -91,23 +89,39 @@
                                     <label class="form-label" for="form3Example3">Contact Number</label>
                                 </div>
 
-
-                                <div class="form-outline mb-4">
-                                    <textarea name="address" id="" cols="" id="form3Example3" class="form-control"
-                                        rows=""><?= $_POST['address'] ?? null ?></textarea>
-                                    <label class="form-label" for="form3Example3">Address</label>
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline">
+                                            <input type="text" name="country" id="form3Example1" class="form-control"
+                                                value="<?= $_POST['country'] ?? null ?>" />
+                                            <label class="form-label" for="form3Example1">Country</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline">
+                                            <input type="text" name="province" id="form3Example2" class="form-control"
+                                                value="<?= $_POST['province'] ?? null ?>" />
+                                            <label class="form-label" for="form3Example2">Province</label>
+                                        </div>
+                                    </div>
                                 </div>
-                                <!-- <select id="region"></select>
-                                <input type="hidden" name="region_text" id="region-text">
 
-                                <select id="province"></select>
-                                <input type="hidden" name="province_text" id="province-text">
-
-                                <select id="city"></select>
-                                <input type="hidden" name="city_text" id="city-text">
-
-                                <select id="barangay"></select>
-                                <input type="hidden" name="barangay_text" id="barangay-text"> -->
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline">
+                                            <input type="text" name="city" id="form3Example1" class="form-control"
+                                                value="<?= $_POST['city'] ?? null ?>" />
+                                            <label class="form-label" for="form3Example1">Municipal / City</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline">
+                                            <input type="text" name="barangay" id="form3Example2" class="form-control"
+                                                value="<?= $_POST['barangay'] ?? null ?>" />
+                                            <label class="form-label" for="form3Example2">Barangay</label>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <!-- Username input -->
                                 <div class="form-outline mb-4">
@@ -117,23 +131,18 @@
                                 </div>
 
                                 <!-- Email input -->
-                                <!-- <div class="form-outline mb-4">
-                                    <input type="email" name="email" id="form3Example3" class="form-control"
-                                        value="" />
+                                <div class="form-outline mb-4">
+                                    <input type="email" name="email" id="form3Example3" class="form-control" value="" />
                                     <label class="form-label" for="form3Example3">Email</label>
-                                </div> -->
-                                <!-- pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}"-->
+                                </div>
+
                                 <!-- Password input -->
                                 <div id="password-strength"></div>
                                 <div class="form-outline form-white mb-4">
                                     <input class="form-control form-control-sm" type="password" name="password"
                                         id="password" autocomplete="off"
                                         title="at least one number and one uppercase and lowercase letter and one special character, and at least 8 or more characters"
-                                        oninput="isPasswordRobust(this.value)" required>
-                                    <!-- <button type="button" id="togglePassword"
-                                            style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%); background: none; border: none;">
-                                            <i class="fa fa-eye">eye</i>
-                                        </button> -->
+                                        oninput="isPasswordRobust(this.value)">
                                     <label for="password">Password</label>
                                 </div>
                                 <p class="text-danger">
@@ -165,6 +174,6 @@
     </div>
     <!-- Jumbotron -->
 </section>
-<script src="./validator/js/index.js"></script>
+<script src="./validator/js/register/index.js"></script>
 <!-- Section: Design Block -->
 <?php require "./views/partial/footer.php" ?>
