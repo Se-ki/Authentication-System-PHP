@@ -1,22 +1,3 @@
-function validateForm() {
-    var firstname = document.querySelector("input[name=firstname]").value;
-    var middlename = document.querySelector("input[name=middlename]").value;
-    var lastname = document.querySelector("input[name=lastname]").value;
-    var suffix = document.querySelector("input[name=suffix]").value;
-    var age = document.querySelector("input[name=age]").value;
-    var contactnumber = document.querySelector("input[name=contactnumber]").value;
-    var country = document.querySelector("input[name=country]").value;
-    var province = document.querySelector("input[name=province]").value;
-    var city = document.querySelector("input[name=city]").value;
-    var barangay = document.querySelector("input[name=barangay]").value;
-    var username = document.querySelector("input[name=username]").value;
-    var email = document.querySelector("input[name=email]").value;
-    var password = document.querySelector("input[name=password]").value;
-    var confirmpass = document.querySelector("input[name=confirmPassword]").value;
-    console.log(firstname);
-    return false;
-}
-
 function isPasswordRobust(password) {
     var strengthIndicator = document.getElementById('password-strength');
     var regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
