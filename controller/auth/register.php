@@ -24,5 +24,4 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 }
 
 $header = 'Sign up';
-$error = $_SESSION['error'] ?? null;
 require "./views/auth/register.php";
