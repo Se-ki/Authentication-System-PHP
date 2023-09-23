@@ -45,225 +45,290 @@ class Database
             redirect("/home");
         }
     }
-    public function register($firstname, $lastname, $middlename, $extensionName, $sex, $age, $contactNumber, $country, $province, $city, $barangay, $email, $username, $password, $confirmPassword)
+    public function register($firstname, $lastname, $middlename, $suffix, $sex, $age, $mobilenum, $country, $province, $city, $barangay, $email, $username, $password, $confirmPassword)
     {
-        if (!$firstname || !$lastname || !$sex || !$country || !$province || !$city || !$barangay || !$username || !$email || !$contactNumber || !$password) {
-            $_SESSION['error'] = ["credentials" => "All fields must be filled."];
-            redirect('/register');
-        }
+        // if (!$firstname || !$lastname || !$sex || !$country || !$province || !$city || !$barangay || !$username || !$email || !$contactNumber || !$password) {
+        //     Session::flash('error', "All fields must be filled.");
+        //     redirect('/register');
+        // }
 
         //Validate if input has contains numbers
         if (!Validation::isNameStringOnly($firstname)) {
-            $_SESSION['error'] = ["credentials" => "Firstname should not contain numeric number and special characters."];
+            Session::flash('error', [
+                "firstname" => "firstname should not contain numeric number and special characters."
+            ]);
             redirect('/register');
         }
         if (!Validation::isNameStringOnly($lastname)) {
-            $_SESSION['error'] = ["credentials" => "Lastname should not contain numeric number and special characters."];
+            Session::flash('error', [
+                "lastname" => "Lastname should not contain numeric number and special characters."
+            ]);
             redirect('/register');
         }
-        if (!Validation::isNameStringOnly($middlename) && isset($middlename)) {
-            $_SESSION['error'] = ["credentials" => "Middlename should not contain numeric number and special characters."];
+        if (!Validation::isNameStringOnly($middlename)) {
+            Session::flash('error', [
+                "middlename" => "Middlename should not contain numeric number and special characters."
+            ]);
             redirect('/register');
         }
-        if (!Validation::isNameStringOnly($extensionName)) {
-            $_SESSION['error'] = ["credentials" => "Suffix Name should not contain numeric number and special characters."];
+        if (!Validation::isNameStringOnly($suffix)) {
+            Session::flash('error', [
+                "suffix" => "Suffix should not contain numeric number and special characters."
+            ]);
             redirect('/register');
         }
         if (!Validation::isNameStringOnly($country)) {
-            $_SESSION['error'] = ["credentials" => "Country should not contain numeric number and special characters."];
+            Session::flash('error', [
+                "country" => "Country should not contain numeric number and special characters."
+            ]);
             redirect('/register');
         }
         if (!Validation::isNameStringOnly($province)) {
-            $_SESSION['error'] = ["credentials" => "Province should not contain numeric number and special characters."];
+            Session::flash('error', [
+                "province" => "Province should not contain numeric number and special characters."
+            ]);
             redirect('/register');
         }
         if (!Validation::isNameStringOnly($city)) {
-            $_SESSION['error'] = ["credentials" => "City should not contain numeric number and special characters."];
+            Session::flash('error', [
+                "city" => "Municipal or city should not contain numeric number and special characters."
+            ]);
             redirect('/register');
         }
 
 
         //Input should capitalize the first letter
         if (!Validation::isInputCapitalized($firstname)) {
-            $_SESSION['error'] = ["credentials" => "The first letter of the firstname should be capitalized."];
+            Session::flash('error', [
+                "firstname" => "The first letter of the firstname should be capitalized."
+            ]);
             redirect('/register');
         }
         if (!Validation::isInputCapitalized($lastname)) {
-            $_SESSION['error'] = ["credentials" => "The first letter of the lastname should be capitalized."];
+            Session::flash('error', [
+                "lastname" => "The first letter of the lastname should be capitalized."
+            ]);
             redirect('/register');
         }
         if (!Validation::isInputCapitalized($middlename)) {
-            $_SESSION['error'] = ["credentials" => "The first letter of the middlename should be capitalized."];
+            Session::flash('error', [
+                "middlename" => "The first letter of the middlename should be capitalized."
+            ]);
             redirect('/register');
         }
-        if (!Validation::isInputCapitalized($extensionName)) {
-            $_SESSION['error'] = ["credentials" => "The first letter of the suffix name should be capitalized."];
+        if (!Validation::isInputCapitalized($suffix)) {
+            Session::flash('error', [
+                "suffix" => "The first letter of the suffix should be capitalized."
+            ]);
             redirect('/register');
         }
         if (!Validation::isInputCapitalized($country)) {
-            $_SESSION['error'] = ["credentials" => "The first letter of the country name should be capitalized."];
+            Session::flash('error', [
+                "country" => "The first letter of the country should be capitalized."
+            ]);
             redirect('/register');
         }
         if (!Validation::isInputCapitalized($province)) {
-            $_SESSION['error'] = ["credentials" => "The first letter of the province name should be capitalized."];
+            Session::flash('error', [
+                "province" => "The first letter of the province should be capitalized."
+            ]);
             redirect('/register');
         }
         if (!Validation::isInputCapitalized($city)) {
-            $_SESSION['error'] = ["credentials" => "The first letter of the city name should be capitalized."];
+            Session::flash('error', [
+                "city" => "The first letter of the municipal / city should be capitalized."
+            ]);
             redirect('/register');
         }
 
 
         //Input should not contains repeated letters
         if (Validation::hasRepeatedLetters($firstname)) {
-            $_SESSION['error'] = ["credentials" => "Firstname contains repeated letters."];
+            Session::flash('error', [
+                "firstname" => "Firstname contains repeated letters."
+            ]);
             redirect('/register');
         }
         if (Validation::hasRepeatedLetters($lastname)) {
-            $_SESSION['error'] = ["credentials" => "Lastname contains repeated letters."];
+            Session::flash('error', [
+                "lastname" => "Lastname contains repeated letters."
+            ]);
             redirect('/register');
         }
         if (Validation::hasRepeatedLetters($middlename)) {
-            $_SESSION['error'] = ["credentials" => "Middlename contains repeated letters."];
+            Session::flash('error', [
+                "middlename" => "Middlename contains repeated letters."
+            ]);
             redirect('/register');
         }
-        if (Validation::hasRepeatedLetters($extensionName)) {
-            $_SESSION['error'] = ["credentials" => "Suffix name contains repeated letters."];
+        if (Validation::hasRepeatedLetters($suffix)) {
+            Session::flash('error', [
+                "suffix" => "Suffix contains repeated letters."
+            ]);
             redirect('/register');
         }
         if (Validation::hasRepeatedLetters($country)) {
-            $_SESSION['error'] = ["credentials" => "Country name contains repeated letters."];
+            Session::flash('error', [
+                "country" => "Country contains repeated letters."
+            ]);
             redirect('/register');
         }
         if (Validation::hasRepeatedLetters($province)) {
-            $_SESSION['error'] = ["credentials" => "Province name contains repeated letters."];
+            Session::flash('error', [
+                "province" => "Province contains repeated letters."
+            ]);
             redirect('/register');
         }
         if (Validation::hasRepeatedLetters($city)) {
-            $_SESSION['error'] = ["credentials" => "City name contains repeated letters."];
+            Session::flash('error', [
+                "city" => "City contains repeated letters."
+            ]);
+            redirect('/register');
+        }
+        if (Validation::hasRepeatedLetters($username)) {
+            Session::flash('error', [
+                "username" => "Username contains repeated letters."
+            ]);
+            redirect('/register');
+        }
+        if (Validation::hasRepeatedLetters($email)) {
+            Session::flash('error', [
+                "email" => "Email contains repeated letters."
+            ]);
             redirect('/register');
         }
 
 
         //restrict if contains double spaces
-        if (!Validation::validateDoubleSpace($firstname)) {
-            $_SESSION['error'] = ["credentials" => "Firstname should not contain double space."];
+        if (!Validation::validateDoubleSpace($firstname) || !Validation::validateFirstPartHasDoubleSpace($firstname)) {
+            Session::flash('error', [
+                "firstname" => "Firstname should not contain double space."
+            ]);
             redirect('/register');
         }
-        if (!Validation::validateDoubleSpace($lastname)) {
-            $_SESSION['error'] = ["credentials" => "Lastname should not contain double space."];
+        if (!Validation::validateDoubleSpace($lastname) || !Validation::validateFirstPartHasDoubleSpace($lastname)) {
+            Session::flash('error', [
+                "lastname" => "Lastname should not contain double space."
+            ]);
             redirect('/register');
         }
-        if (!Validation::validateDoubleSpace($middlename)) {
-            $_SESSION['error'] = ["credentials" => "Middlename should not contain double space."];
+        if (!Validation::validateDoubleSpace($middlename) || !Validation::validateFirstPartHasDoubleSpace($middlename)) {
+            Session::flash('error', [
+                "middlename" => "Middlename should not contain double space."
+            ]);
             redirect('/register');
         }
-        if (!Validation::validateDoubleSpace($extensionName)) {
-            $_SESSION['error'] = ["credentials" => "Suffix name should not contain double space."];
+        if (!Validation::validateDoubleSpace($suffix) || !Validation::validateFirstPartHasDoubleSpace($suffix)) {
+            Session::flash('error', [
+                "suffix" => "Suffix should not contain double space."
+            ]);
             redirect('/register');
         }
-        if (!Validation::validateDoubleSpace($country)) {
-            $_SESSION['error'] = ["credentials" => "Country should not contain double space."];
+        if (!Validation::validateDoubleSpace($country) || !Validation::validateFirstPartHasDoubleSpace($country)) {
+            Session::flash('error', [
+                "country" => "Country should not contain double space."
+            ]);
             redirect('/register');
         }
-        if (!Validation::validateDoubleSpace($province)) {
-            $_SESSION['error'] = ["credentials" => "Province should not contain double space."];
+        if (!Validation::validateDoubleSpace($province) || !Validation::validateFirstPartHasDoubleSpace($province)) {
+            Session::flash('error', [
+                "province" => "Province should not contain double space."
+            ]);
             redirect('/register');
         }
-        if (!Validation::validateDoubleSpace($city)) {
-            $_SESSION['error'] = ["credentials" => "City should not contain double space."];
+        if (!Validation::validateDoubleSpace($city) || !Validation::validateFirstPartHasDoubleSpace($city)) {
+            Session::flash('error', [
+                "city" => "Municipal / city should not contain double space."
+            ]);
             redirect('/register');
         }
-        if (!Validation::validateDoubleSpace($barangay)) {
-            $_SESSION['error'] = ["credentials" => "Barangay should not contain double space."];
+        if (!Validation::validateDoubleSpace($barangay) || !Validation::validateFirstPartHasDoubleSpace($barangay)) {
+            Session::flash('error', [
+                "barangay" => "Barangay should not contain double space."
+            ]);
             redirect('/register');
         }
-
-
-        //restrict if first part of input contains double spaces
-        if (!Validation::validateFirstPartHasDoubleSpace($firstname)) {
-            $_SESSION['error'] = ["credentials" => "The first part of the firstname must not contain double space."];
+        if (!Validation::validateDoubleSpace($username) || !Validation::validateFirstPartHasDoubleSpace($username)) {
+            Session::flash('error', [
+                "username" => "Username should not contain double space."
+            ]);
             redirect('/register');
         }
-        if (!Validation::validateFirstPartHasDoubleSpace($lastname)) {
-            $_SESSION['error'] = ["credentials" => "The first part of the input lastname not contain double space."];
+        if (!Validation::validateDoubleSpace($mobilenum) || !Validation::validateFirstPartHasDoubleSpace($mobilenum)) {
+            Session::flash('error', [
+                "mobilenum" => "Mobile Number should not contain double space."
+            ]);
             redirect('/register');
         }
-        if (!Validation::validateFirstPartHasDoubleSpace($middlename)) {
-            $_SESSION['error'] = ["credentials" => "The first part of the middlename must not contain double space."];
-            redirect('/register');
-        }
-        if (!Validation::validateFirstPartHasDoubleSpace($extensionName)) {
-            $_SESSION['error'] = ["credentials" => "The first part of the suffix name must not contain double space."];
-            redirect('/register');
-        }
-        if (!Validation::validateFirstPartHasDoubleSpace($country)) {
-            $_SESSION['error'] = ["credentials" => "The first part of the country must not contain double space."];
-            redirect('/register');
-        }
-        if (!Validation::validateFirstPartHasDoubleSpace($province)) {
-            $_SESSION['error'] = ["credentials" => "The first part of the province must not contain double space."];
-            redirect('/register');
-        }
-        if (!Validation::validateFirstPartHasDoubleSpace($city)) {
-            $_SESSION['error'] = ["credentials" => "The first part of the city must not contain double space."];
-            redirect('/register');
-        }
-        if (!Validation::validateFirstPartHasDoubleSpace($barangay)) {
-            $_SESSION['error'] = ["credentials" => "The first part of the barangay must not contain double space."];
+        if (!Validation::validateDoubleSpace($email) || !Validation::validateFirstPartHasDoubleSpace($email)) {
+            Session::flash('error', [
+                "email" => "Email should not contain double space."
+            ]);
             redirect('/register');
         }
 
 
         //validate inputted numbers that contains string characters
         if (!Validation::validateNumber($age)) {
-            $_SESSION['error'] = ["credentials" => "Age must not contain letters or special characters."];
+            Session::flash('error', [
+                "age" => "Age must not contain letters or special characters."
+            ]);
             redirect('/register');
         }
-        if (!Validation::validateNumber($contactNumber)) {
-            $_SESSION['error'] = ["credentials" => "Contact number must not contain letters or special characters."];
+        if (!Validation::validateNumber($mobilenum)) {
+            Session::flash('error', [
+                "age" => "Contact number must not contain letters or special characters."
+            ]);
             redirect('/register');
         }
 
 
         //Validate if contact number is same format as the format of the philippines
-        if (!Validation::validatePhilippineContactNumber($contactNumber)) {
-            $_SESSION['error'] = ["credentials" => "The contact number is invalid."];
+        if (!Validation::validatePhilippineContactNumber($mobilenum)) {
+            Session::flash('error', [
+                "mobilenum" => "The contact number is invalid."
+            ]);
             redirect('/register');
         }
 
         //check if username is exist 
         if (Validation::isUsernameExist($username, $this)) {
-            $_SESSION['error'] = ["credentials" => "Username named {$username} is already exist."];
+            Session::flash('error', [
+                "username" => "Username named {$username} is already exist."
+            ]);
             redirect('/register');
         }
 
         //check if email exist
         if (Validation::isEmailExist($email, $this)) {
-            $_SESSION['error'] = ["credentials" => "Email named {$email} is already exist."];
+            Session::flash('error', [
+                "email" => "Email named {$email} is already exist."
+            ]);
             redirect('/register');
         }
 
         if (Validation::passwordValidation($password)) {
-            $_SESSION['error'] = ["password" => "Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character."];
+            Session::flash('error', [
+                "password" => "Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character."
+            ]);
             redirect('/register');
         }
 
         if (!Validation::confirmedPassword($password, $confirmPassword)) {
-            $_SESSION['error'] = ["password" => "Password is not match with confirm password"];
+            Session::flash('error', ['confirm' => "Password is not match"]);
             redirect('/register');
         }
 
         $hashed_pwd = password_hash($password, PASSWORD_DEFAULT);
 
-        $this->query("INSERT INTO `users` VALUES (null, :firstname, :lastname,:middlename, :extensionName, :sex, :age, :contactNumber, :country, :province, :city, :barangay, null, :username, :email, :password, null, NOW())", [
+        $this->query("INSERT INTO `users` VALUES (null, :firstname, :lastname,:middlename, :suffix, :sex, :age, :mobilenum, :country, :province, :city, :barangay, null, :username, :email, :password, null, NOW())", [
             "firstname" => $firstname,
             "lastname" => $lastname,
             "middlename" => $middlename,
-            "extensionName" => $extensionName,
+            "suffix" => $suffix,
             "sex" => $sex,
             "age" => $age,
-            "contactNumber" => $contactNumber,
+            "mobilenum" => $mobilenum,
             "country" => $country,
             "province" => $province,
             "city" => $city,
@@ -273,10 +338,8 @@ class Database
             "password" => $hashed_pwd,
         ])->get();
 
-        $_SESSION['error'] = [
-            "success" => "Successfully Registered, you can now <a href='/login'>LOGIN.</a>"
-        ];
-        unset($_SESSION['email']);
+        Session::unflash();
+        Session::flash('error', ["success" => "Successfully Registered, you can now <a href='/login'>LOGIN.</a>"]);
         redirect('/register');
     }
     public function logout()

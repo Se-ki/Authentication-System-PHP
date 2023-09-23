@@ -2,6 +2,7 @@
 require "./function.php";
 require "./validator/php/Validation.php";
 require "./model/Database.php";
+require "./Session.php";
 // $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 
 // $routes = [
