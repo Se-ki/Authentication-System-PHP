@@ -32,3 +32,26 @@ function attempts()
         $_SESSION['attempts'] = 3;
     }
 }
+
+function remainData($firstname, $lastname, $middlename, $suffix, $sex, $age, $mobilenum, $country, $province, $city, $barangay, $zipcode, $address, $username, $email, $password, $confirmpassword)
+{
+    Session::flash('users', [
+        'firstname' => $firstname,
+        'lastname' => $lastname,
+        'middlename' => $middlename,
+        'suffix' => $suffix,
+        'sex' => $sex,
+        'age' => $age,
+        'mobilenum' => $mobilenum,
+        'country' => $country,
+        'province' => $province,
+        'city' => $city,
+        'barangay' => $barangay,
+        'zipcode' => $zipcode,
+        'address' => $address,
+        'username' => $username,
+        'email' => $email,
+        'password' => $password,
+        'confirmpassword' => $confirmpassword
+    ]);
+}

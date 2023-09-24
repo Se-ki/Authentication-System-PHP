@@ -11,14 +11,13 @@
         <?= $user['firstname'] ?>
         <?= $user['lastname'] ?>
         <?= $user['middlename'] ?>
-        <?= $user['extensionName'] ?>
+        <?= $user['suffix'] ?>
         <?= $user['sex'] ?>
         <?= $user['age'] ?>
-        <?= $user['contactNumber'] ?>
+        <?= $user['mobilenumber'] ?>
         <?= $user['address'] ?>
         <?= $user['username'] ?>
         <?= $user['email'] ?>
-        <?= $user['contactNumber'] ?>
     <?php endforeach; ?>
 </div>
 <?php require "./views/partial/footer.php" ?>

@@ -10,22 +10,27 @@
                             <p class="text-white-50 mb-5">Please enter your login and password!</p>
                             <form action="/login" method="POST">
                                 <!-- form -->
-                                <div class="form-outline form-white mb-4">
-                                    <p class="text-danger">
-                                        <?= $error['credentials'] ?? null ?>
-                                    </p>
-                                    <input type="text" name="username" id="typeEmailX"
-                                        class="form-control form-control-lg" 
-                                        value="<?= $_POST['username'] ?? null ?>" required />
-                                    <label class="form-label" for="typeEmailX">Username</label>
+                                <p class="text-danger">
+                                    <?= $message ?>
+                                </p>
+                                <div class="mb-4 pb-2">
+                                    <div class="form-floating mb-3 text-dark">
+                                        <input class="form-control form-control-sm " type="text"
+                                            placeholder=".form-control-sm" aria-label=".form-control-sm example"
+                                            minlength="3" maxlength="20" name="username" required>
+                                        <label for='floatingInput'>Username</label>
+                                    </div>
                                 </div>
 
-                                <div class="form-outline form-white mb-4">
-                                    <input type="password" name="password" 
-                                        id="typePasswordX" class="form-control form-control-lg" required />
-                                    <label class="form-label" for="typePasswordX">Password</label>
-                                </div> 
-                                
+                                <div class="mb-4 pb-2">
+                                    <div class="form-floating mb-3 text-dark">
+                                        <input class="form-control form-control-sm " type="password"
+                                            placeholder=".form-control-sm" aria-label=".form-control-sm example"
+                                            minlength="3" maxlength="20" name="password" required>
+                                        <label for='floatingInput'>Password</label>
+                                    </div>
+                                </div>
+
                                 <?php if (isset($_SESSION['login_attempt']) && $_SESSION['login_attempt'] > 2): ?>
                                     <?php unset($_SESSION['error']); ?>
                                     <?php unset($_SESSION['attempts']); ?>
@@ -50,5 +55,5 @@
         </div>
     </div>
 </section>
-<script src="./validator/js/login/index.js"></script>
+<script src="../../js/validator/login/index.js"></script>
 <?php require "./views/partial/footer.php" ?>
