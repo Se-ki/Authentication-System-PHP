@@ -4,7 +4,7 @@
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-12">
                 <div class="text-success p-3">
-                    <?= $message['success'] ?>
+                    <?= $message['success'] ?? null ?>
                 </div>
                 <div class="card card-registration card-registration-2" style="border-radius: 15px;">
                     <div class="card-body p-0">
@@ -12,7 +12,8 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <h3 class="fw-normal mb-5" style="color: #4835d4;">General Infomation</h3>
-                                    <form action="/register" method="POST" onsubmit="return validateForm()">
+                                    <form action="/register" method="POST" id="register-form"
+                                        onsubmit="return validateForm(event)">
                                         <div class="row"> <!-- firstname  and lastname row -->
                                             <!-- firstname -->
                                             <div class="col-md-6 mb-4">
@@ -86,9 +87,9 @@
                                                 <input class="form-control form-control-sm" type="number"
                                                     placeholder=".form-control-sm" aria-label=".form-control-sm example"
                                                     value="<?= $user['age'] ?? null ?>" min="5" max="200" minlength="3"
-                                                    maxlength="20" name="age">
-                                                <label for='floatingInput'>Age</label>
-                                                <span class="text-danger fs-6"></span>
+                                                    maxlength="20" name="age" id="age">
+                                                <label for='floatingInput' id="age-label">Age</label>
+                                                <span class="text-danger fs-6" id="is-valid-age"></span>
                                             </div>
                                         </div>
 
@@ -108,6 +109,7 @@
 
                                         <!-- password -->
                                         <div class="mb-4 pb-2">
+                                            <span class="fs-6 text-danger" id="is-valid-password"></span>
                                             <div class="form-floating mb-3 text-dark">
                                                 <input class="form-control form-control-sm " type="password"
                                                     placeholder=".form-control-sm" aria-label=".form-control-sm example"
@@ -115,7 +117,7 @@
                                                     maxlength="80" name="password" id="password" />
                                                 <label for='floatingInput' id="password-label">Password</label>
                                                 <i class="fa fa-eye showhide" id="togglePassword"></i>
-                                                <div id="password-strength" class="fs-6"></div>
+                                                <span id="password-strength" class="fs-6"></span>
                                             </div>
                                         </div>
 
@@ -129,8 +131,8 @@
                                                     maxlength="80" name="confirmpassword" id="confirmpassword">
                                                 <label for='floatingInput' id="confirmpassword-label">Confirm
                                                     Password</label>
-                                                <span class="text-danger fs-6" id="is-valid-confirmpassword"></span>
                                                 <i class="fa fa-eye showhide" id="toggleConfirmPassword"></i>
+                                                <span class="text-danger fs-6" id="is-valid-confirmpassword"></span>
                                             </div>
                                         </div>
                                 </div>
@@ -220,11 +222,9 @@
                                                 <input class="form-control form-control-sm " type="text"
                                                     placeholder=".form-control-sm" aria-label=".form-control-sm example"
                                                     value="<?= $user['mobilenum'] ?? null ?>" minlength="3"
-                                                    maxlength="20" name="mobilenum">
-                                                <label for='floatingInput'>Mobile Number</label>
-                                                <span class="text-danger fs-6">
-
-                                                </span>
+                                                    maxlength="20" name="mobilenum" id="mobilenum">
+                                                <label for='floatingInput' id="mobilenum-label">Mobile Number</label>
+                                                <span class="text-danger fs-6" id="is-valid-mobilenum"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -233,7 +233,7 @@
                                     <div class="mb-4">
                                         <div class="mb-4 pb-2">
                                             <div class="form-floating mb-3 text-dark">
-                                                <input class="form-control form-control-sm " type="text"
+                                                <input class="form-control form-control-sm " type="email"
                                                     placeholder=".form-control-sm" aria-label=".form-control-sm example"
                                                     value="<?= $user['email'] ?? null ?>" minlength="5" maxlength="60"
                                                     name="email" id="email">

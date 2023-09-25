@@ -73,11 +73,9 @@ class Database
             "email" => $email,
             "password" => $hashed_pwd,
         ])->get();
-
         Session::flash('response', [
             'success' => "Successfully Registered, you can now <a href='/login'>LOGIN.</a>"
         ]);
-
         redirect('/register');
     }
     public function logout()

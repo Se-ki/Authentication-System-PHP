@@ -17,6 +17,9 @@ class Validation
     }
     public static function checkUserExist($type, $value)
     {
+        if (!$value) {
+            return false;
+        }
         $user = (new Database)->query("SELECT * FROM users WHERE {$type} = :{$type}", [
             "{$type}" => $value
         ])->get();
