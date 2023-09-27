@@ -13,7 +13,8 @@
                                 <div class="p-5">
                                     <h3 class="fw-normal mb-5" style="color: #4835d4;">General Infomation</h3>
                                     <form action="/register" method="POST" id="register-form"
-                                        onsubmit="return validateForm(event)">
+                                        onsubmit="return validateForm(event)" class="needs-validation">
+
                                         <div class="row"> <!-- firstname  and lastname row -->
                                             <!-- firstname -->
                                             <div class="col-md-6 mb-4">
@@ -22,7 +23,7 @@
                                                         placeholder=".form-control-sm"
                                                         aria-label=".form-control-sm example" minlength="3"
                                                         maxlength="20" name="firstname" id="firstname"
-                                                        value="<?= $user['firstname'] ?? null ?>" />
+                                                        value="<?= $user['firstname'] ?? null ?>" autofocus required />
                                                     <label for='floatingInput' id="firstname-label">Firstname</label>
                                                     <span class="text-danger fs-6" id="is-valid-firstname"></span>
                                                 </div>
@@ -34,7 +35,7 @@
                                                         placeholder=".form-control-sm"
                                                         aria-label=".form-control-sm example"
                                                         value="<?= $user['lastname'] ?? null ?>" minlength="3"
-                                                        maxlength="20" name="lastname" id="lastname">
+                                                        maxlength="20" name="lastname" id="lastname" required />
                                                     <label for='floatingInput' id="lastname-label">Lastname</label>
                                                     <span class="text-danger fs-6" id="is-valid-lastname"></span>
                                                 </div>
@@ -81,13 +82,23 @@
                                             </div>
                                         </div>
 
+                                        <!-- birthday -->
+                                        <div class="mb-4 pb-2">
+                                            <div class="form-floating mb-3 text-dark">
+                                                <input type="date" id="birthdate" name="birthdate"
+                                                    class="form-control input-sm" id="floatingstart"
+                                                    placeholder="Birthdate" required>
+                                                <label for="floatingstart">Birthdate</label>
+                                            </div>
+                                        </div>
+
                                         <!-- age -->
                                         <div class="mb-4 pb-2">
                                             <div class="form-floating mb-3 text-dark">
                                                 <input class="form-control form-control-sm" type="number"
                                                     placeholder=".form-control-sm" aria-label=".form-control-sm example"
-                                                    value="<?= $user['age'] ?? null ?>" min="5" max="200" minlength="3"
-                                                    maxlength="20" name="age" id="age">
+                                                    value="<?= $user['age'] ?? null ?>" min="18" max="150" minlength="3"
+                                                    maxlength="20" name="age" id="age" required />
                                                 <label for='floatingInput' id="age-label">Age</label>
                                                 <span class="text-danger fs-6" id="is-valid-age"></span>
                                             </div>
@@ -99,7 +110,7 @@
                                                 <input class="form-control form-control-sm " type="text"
                                                     placeholder=".form-control-sm" aria-label=".form-control-sm example"
                                                     value="<?= $user['username'] ?? null ?>" minlength="5"
-                                                    maxlength="20" name="username" id="username">
+                                                    maxlength="20" name="username" id="username" required />
                                                 <label for='floatingInput' id="username-label">Username</label>
                                                 <span class="text-danger fs-6" id="is-valid-username">
                                                     <?= $message['error-username'] ?? null ?>
@@ -114,7 +125,7 @@
                                                 <input class="form-control form-control-sm " type="password"
                                                     placeholder=".form-control-sm" aria-label=".form-control-sm example"
                                                     value="<?= $user['password'] ?? null ?>" minlength="3"
-                                                    maxlength="80" name="password" id="password" />
+                                                    maxlength="80" name="password" id="password" required />
                                                 <label for='floatingInput' id="password-label">Password</label>
                                                 <i class="fa fa-eye showhide" id="togglePassword"></i>
                                                 <span id="password-strength" class="fs-6"></span>
@@ -128,7 +139,8 @@
                                                 <input class="form-control form-control-sm " type="password"
                                                     placeholder=".form-control-sm" aria-label=".form-control-sm example"
                                                     value="<?= $user['confirmpassword'] ?? null ?>" minlength="3"
-                                                    maxlength="80" name="confirmpassword" id="confirmpassword">
+                                                    maxlength="80" name="confirmpassword" id="confirmpassword"
+                                                    required />
                                                 <label for='floatingInput' id="confirmpassword-label">Confirm
                                                     Password</label>
                                                 <i class="fa fa-eye showhide" id="toggleConfirmPassword"></i>
@@ -146,7 +158,7 @@
                                             <input class="form-control form-control-sm " type="text"
                                                 placeholder=".form-control-sm" aria-label=".form-control-sm example"
                                                 value="<?= $user['country'] ?? null ?>" minlength="3" maxlength="20"
-                                                name="country" id="country">
+                                                name="country" id="country" required />
                                             <label for='floatingInput' id="country-label">Country</label>
                                             <span class="text-danger text-bg-light fs-6" id="is-valid-country"></span>
                                         </div>
@@ -158,7 +170,7 @@
                                                 <input class="form-control form-control-sm " type="text"
                                                     placeholder=".form-control-sm" aria-label=".form-control-sm example"
                                                     value="<?= $user['province'] ?? null ?>" minlength="2"
-                                                    maxlength="20" name="province" id="province">
+                                                    maxlength="20" name="province" id="province" required />
                                                 <label for='floatingInput' id="province-label">Province</label>
                                                 <span class="text-danger fs-6" id="is-valid-province"></span>
                                             </div>
@@ -169,7 +181,7 @@
                                                 <input class="form-control form-control-sm " type="text"
                                                     placeholder=".form-control-sm" aria-label=".form-control-sm example"
                                                     value="<?= $user['city'] ?? null ?>" minlength="2" maxlength="20"
-                                                    name="city" id="city">
+                                                    name="city" id="city" required />
                                                 <label for='floatingInput' id="city-label">Municipal / City</label>
                                                 <span class="text-danger fs-6" id="is-valid-city"></span>
                                             </div>
@@ -183,7 +195,7 @@
                                                 <input class="form-control form-control-sm " type="text"
                                                     placeholder=".form-control-sm" aria-label=".form-control-sm example"
                                                     value="<?= $user['barangay'] ?? null ?>" minlength="1"
-                                                    maxlength="20" name="barangay" id="barangay">
+                                                    maxlength="20" name="barangay" id="barangay" required />
                                                 <label for='floatingInput' id="barangay-label">Barangay</label>
                                                 <span class="text-danger fs-6" id="is-valid-barangay"></span>
                                             </div>
@@ -191,10 +203,10 @@
                                         <!-- zipcode -->
                                         <div class="col-md-6 mb-4">
                                             <div class="form-floating mb-3 text-dark">
-                                                <input class="form-control form-control-sm" type="text"
+                                                <input class="form-control form-control-sm" type="number"
                                                     value="<?= $user['zipcode'] ?? null ?>"
                                                     placeholder=".form-control-sm" aria-label=".form-control-sm example"
-                                                    minlength="2" maxlength="10" name="zipcode">
+                                                    minlength="2" maxlength="10" name="zipcode" required />
                                                 <label for='floatingInput'>Zipcode</label>
                                                 <span class="text-danger fs-6">
                                                     <!-- error output -->
@@ -209,7 +221,7 @@
                                             <input class="form-control form-control-sm " type="text"
                                                 placeholder=".form-control-sm" aria-label=".form-control-sm example"
                                                 value="<?= $user['address'] ?? null ?>" minlength="10" maxlength="100"
-                                                name="address" id="address">
+                                                name="address" id="address" required />
                                             <label for='floatingInput' id="address-label">Address</label>
                                             <span class="text-danger text-bg-light fs-6" id="is-valid-address"></span>
                                         </div>
@@ -222,7 +234,7 @@
                                                 <input class="form-control form-control-sm " type="text"
                                                     placeholder=".form-control-sm" aria-label=".form-control-sm example"
                                                     value="<?= $user['mobilenum'] ?? null ?>" minlength="3"
-                                                    maxlength="20" name="mobilenum" id="mobilenum">
+                                                    maxlength="20" name="mobilenum" id="mobilenum" required />
                                                 <label for='floatingInput' id="mobilenum-label">Mobile Number</label>
                                                 <span class="text-danger fs-6" id="is-valid-mobilenum"></span>
                                             </div>
@@ -236,9 +248,11 @@
                                                 <input class="form-control form-control-sm " type="email"
                                                     placeholder=".form-control-sm" aria-label=".form-control-sm example"
                                                     value="<?= $user['email'] ?? null ?>" minlength="5" maxlength="60"
-                                                    name="email" id="email">
+                                                    name="email" id="email" required />
                                                 <label for='floatingInput' id="email-label">Email</label>
-                                                <span class="text-danger fs-6" id="is-valid-email"></span>
+                                                <span class="text-danger fs-6" id="is-valid-email">
+                                                    <?= $message['error-email'] ?? null ?>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>

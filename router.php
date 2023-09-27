@@ -1,7 +1,7 @@
 <?php
 require "./function.php";
 require "./model/Database.php";
-require "./Validation.php";
+require "./Validation.php";     
 require "./Session.php";
 
 // $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
@@ -20,6 +20,7 @@ require "./Session.php";
 // } else {
 //     abort(Response::NOT_FOUND, "Sorry. Page not found.");
 // }
+
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 
 if ($uri === "/") {

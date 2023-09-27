@@ -29,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         test_input($_POST['middlename'] ?? null),
         test_input($_POST['extensionName'] ?? null),
         test_input($_POST['sex']),
+        test_input($_POST['birthdate']),
         test_input($_POST['age']),
         test_input($_POST['mobilenum']),
         test_input($_POST['country']),

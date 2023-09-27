@@ -70,7 +70,6 @@ function passwordValidation(value) {
 
 //validate form
 function validateForm(e) {
-    e.preventDefault()
     //get the value that inputted
     var firstname = document.querySelector("input[name=firstname]").value;
     var middlename = document.querySelector("input[name=middlename]").value;
@@ -474,7 +473,23 @@ function validateForm(e) {
         document.getElementById('email').style.border = "1px solid red";
         return false
     }
+
+    return true;
 }
+
+
+//validate if the user is 18 above
+const startInput = document.getElementById('birthdate');
+startInput.addEventListener('change', () => {
+    const startDate = new Date(startInput.value);
+    const today = new Date();
+    const age = Math.floor((today - startDate) / (1000 * 60 * 60 * 24 * 365));
+    if (age < 18) {
+        startInput.setCustomValidity('You must be at least 18 years old to submit this form.');
+    } else {
+        startInput.setCustomValidity('');
+    }
+});
 
 
 //check password strength real time checker
@@ -483,12 +498,10 @@ document.getElementById('password').addEventListener('input', (e) => {
     var strengthIndicator = document.getElementById('password-strength');
     var regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
     var isStrong = regex.test(password);
-
     if (!password) {
         strengthIndicator.innerText = '';
         return;
     }
-
     if (isStrong) {
         strengthIndicator.innerText = 'Password is Strong';
         strengthIndicator.style.color = 'green';
@@ -567,7 +580,7 @@ document.getElementById('toggleConfirmPassword').addEventListener('click', funct
 
 
 //check if username and email is exist
-document.getElementById('username').addEventListener("input", (e) => {
+document.getElementById('username').addEventListener("keyup", (e) => {
     var username = e.target.value;
     if (username === "") {
         document.getElementById('is-valid-username').innerHTML = "";
@@ -578,7 +591,8 @@ document.getElementById('username').addEventListener("input", (e) => {
     }
     const request = new XMLHttpRequest();
     request.addEventListener("readystatechange", () => {
-        if (request.readyState === 4 && request.status === 200) {
+        console.log(request);
+        if (request.readyState === 4) {
             if (request.responseText) {
                 document.getElementById('is-valid-username').innerHTML = request.responseText;
                 document.getElementById('username-label').style.color = "red";
@@ -598,7 +612,7 @@ document.getElementById('username').addEventListener("input", (e) => {
     request.open('GET', `http://localhost:3000/ajax/fetch.php?username=${username}`, true);
     request.send();
 });
-document.getElementById('email').addEventListener("input", (e) => {
+document.getElementById('email').addEventListener("keyup", (e) => {
     var email = e.target.value;
     if (email === "") {
         document.getElementById('is-valid-email').innerHTML = "";
@@ -609,7 +623,7 @@ document.getElementById('email').addEventListener("input", (e) => {
     }
     const request = new XMLHttpRequest();
     request.addEventListener("readystatechange", () => {
-        if (request.readyState === 4 && request.status === 200) {
+        if (request.readyState === 4) {
             if (request.responseText) {
                 e.preventDefault()
                 document.getElementById('is-valid-email').innerHTML = request.responseText;

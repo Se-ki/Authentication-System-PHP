@@ -7,6 +7,7 @@ if ($_SERVER['HTTP_SEC_FETCH_MODE'] === "navigate") {
     redirect('/register');
 }
 
+//refactor
 if (isset($_GET['username'])) {
     $username = $_GET['username'];
     $exist = Validation::checkUserExist("username", $username);

@@ -23,6 +23,6 @@ class Validation
         $user = (new Database)->query("SELECT * FROM users WHERE {$type} = :{$type}", [
             "{$type}" => $value
         ])->get();
-        return count($user) > 0;
+        return $user;
     }
 }

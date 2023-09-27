@@ -45,7 +45,7 @@ class Database
             redirect("/home");
         }
     }
-    public function register($firstname, $lastname, $middlename, $extensionName, $sex, $age, $mobilenumber, $country, $province, $city, $barangay, $zipcode, $address, $username, $email, $password)
+    public function register($firstname, $lastname, $middlename, $extensionName, $sex, $birthdate, $age, $mobilenumber, $country, $province, $city, $barangay, $zipcode, $address, $username, $email, $password)
     {
         // check if username is exist 
         if (Validation::checkUserExist('username', $username)) {
@@ -53,14 +53,21 @@ class Database
             redirect('/register');
         }
 
+        //check if email is exist
+        if (Validation::checkUserExist('email', $email)) {
+            Session::flash('response', ['error-email' => "This {$email} email is already taken"]);
+            redirect('/register');
+        }
+
         $hashed_pwd = password_hash($password, PASSWORD_DEFAULT);
 
-        $this->query("INSERT INTO `users` VALUES (null, :firstname, :lastname,:middlename, :extensionName, :sex, :age, :mobilenumber, :country, :province, :city, :barangay, :zipcode, :address, :username, :email, :password, null, NOW())", [
+        $this->query("INSERT INTO `users` VALUES (null, :firstname, :lastname,:middlename, :extensionName, :sex, :birthdate, :age, :mobilenumber, :country, :province, :city, :barangay, :zipcode, :address, :username, :email, :password, null, null)", [
             "firstname" => $firstname,
             "lastname" => $lastname,
             "middlename" => $middlename,
             "extensionName" => $extensionName,
             "sex" => $sex,
+            "birthdate" => $birthdate,
             "age" => $age,
             "mobilenumber" => $mobilenumber,
             "country" => $country,
@@ -73,6 +80,7 @@ class Database
             "email" => $email,
             "password" => $hashed_pwd,
         ])->get();
+        Session::unflash();
         Session::flash('response', [
             'success' => "Successfully Registered, you can now <a href='/login'>LOGIN.</a>"
         ]);
