@@ -10,13 +10,10 @@ function validateIfCapitalize(value) {
     if (!value) {
         return true;
     }
-    var valueParts = value.split(' ');
-    for (var i = 0; i < valueParts.length; i++) {
-        if (valueParts[i][0] !== valueParts[i][0].toUpperCase()) {
-            return false;
-        }
-    }
-    return true
+    return value === value
+        .toLowerCase()
+        .split(' ')
+        .map(s => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
 }
 function validateString(value) {
     var regex = /[0-9!@#$%^&*()\-\/+<>.,?\/\\\|\[\]\{\}]+/;
@@ -478,6 +475,7 @@ function validateForm(e) {
 }
 
 
+
 //validate if the user is 18 above
 const startInput = document.getElementById('birthdate');
 startInput.addEventListener('change', () => {
@@ -490,6 +488,7 @@ startInput.addEventListener('change', () => {
         startInput.setCustomValidity('');
     }
 });
+
 
 
 //check password strength real time checker
