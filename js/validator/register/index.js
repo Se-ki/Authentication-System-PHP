@@ -135,10 +135,10 @@ function validateForm(e) {
         return false;
     }
     if (!validateOneSpacePerWord(lastname)) {
-        document.getElementById('is-valid-firstname')
+        document.getElementById('is-valid-lastname')
             .innerHTML = "Double spaces are not allowed.";
-        document.getElementById('firstname-label').style.color = "red";
-        document.getElementById('firstname').style.border = "1px solid red";
+        document.getElementById('lastname-label').style.color = "red";
+        document.getElementById('lastname').style.border = "1px solid red";
         return false;
     }
     if (!validateIfCapitalize(lastname)) {
@@ -475,15 +475,17 @@ function validateForm(e) {
 }
 
 
-
 //validate if the user is 18 above
 const startInput = document.getElementById('birthdate');
 startInput.addEventListener('change', () => {
     const startDate = new Date(startInput.value);
     const today = new Date();
     const age = Math.floor((today - startDate) / (1000 * 60 * 60 * 24 * 365));
+    document.getElementById('age').value = age;
     if (age < 18) {
         startInput.setCustomValidity('You must be at least 18 years old to submit this form.');
+    } else if (age > 100) {
+        startInput.setCustomValidity('You must be at least 100 years old below to submit this form.');
     } else {
         startInput.setCustomValidity('');
     }
@@ -579,68 +581,55 @@ document.getElementById('toggleConfirmPassword').addEventListener('click', funct
 
 
 //check if username and email is exist
-document.getElementById('username').addEventListener("keyup", (e) => {
+document.getElementById('username').addEventListener("keyup", async (e) => {
     var username = e.target.value;
-    if (username === "") {
+    const response = await fetch(`http://localhost:3000/ajax/fetch.php?username=${username}`);
+    if (!username) {
         document.getElementById('is-valid-username').innerHTML = "";
         document.getElementById('username-label').style.color = "";
         document.getElementById('username').style.border = "";
         document.getElementById('button').style.cursor = "";
         document.getElementById('button').disabled = false;
     }
-    const request = new XMLHttpRequest();
-    request.addEventListener("readystatechange", () => {
-        console.log(request);
-        if (request.readyState === 4) {
-            if (request.responseText) {
-                document.getElementById('is-valid-username').innerHTML = request.responseText;
-                document.getElementById('username-label').style.color = "red";
-                document.getElementById('username').style.border = "1px solid red";
-                document.getElementById('button').disabled = true;
-                document.getElementById('button').style.cursor = "not-allowed";
-                console.log(document.getElementById('register-form'));
-            } else {
-                document.getElementById('is-valid-username').innerHTML = "";
-                document.getElementById('username-label').style.color = "";
-                document.getElementById('username').style.border = "";
-                document.getElementById('button').style.cursor = "";
-                document.getElementById('button').disabled = false;
-            }
-        }
-    });
-    request.open('GET', `http://localhost:3000/ajax/fetch.php?username=${username}`, true);
-    request.send();
+    const data = await response.json();
+    if (data.ok) {
+        document.getElementById('is-valid-username').innerHTML = data.message;
+        document.getElementById('username-label').style.color = "red";
+        document.getElementById('username').style.border = "1px solid red";
+        document.getElementById('button').disabled = true;
+        document.getElementById('button').style.cursor = "not-allowed";
+    } else {
+        document.getElementById('is-valid-username').innerHTML = "";
+        document.getElementById('username-label').style.color = "";
+        document.getElementById('username').style.border = "";
+        document.getElementById('button').style.cursor = "";
+        document.getElementById('button').disabled = false;
+    }
 });
-document.getElementById('email').addEventListener("keyup", (e) => {
+document.getElementById('email').addEventListener("keyup", async (e) => {
     var email = e.target.value;
-    if (email === "") {
+    const response = await fetch(`http://localhost:3000/ajax/fetch.php?email=${email}`);
+    if (!email) {
         document.getElementById('is-valid-email').innerHTML = "";
         document.getElementById('email-label').style.color = "";
         document.getElementById('email').style.border = "";
         document.getElementById('button').style.cursor = "";
         document.getElementById('button').disabled = false;
     }
-    const request = new XMLHttpRequest();
-    request.addEventListener("readystatechange", () => {
-        if (request.readyState === 4) {
-            if (request.responseText) {
-                e.preventDefault()
-                document.getElementById('is-valid-email').innerHTML = request.responseText;
-                document.getElementById('email-label').style.color = "red";
-                document.getElementById('email').style.border = "1px solid red";
-                document.getElementById('button').disabled = true;
-            } else {
-                document.getElementById('is-valid-email').innerHTML = "";
-                document.getElementById('email-label').style.color = "";
-                document.getElementById('email').style.border = "";
-                document.getElementById('button').disabled = false;
-            }
-        }
-    });
-    request.open('GET', `http://localhost:3000/ajax/fetch.php?email=${email}`, true);
-    request.send();
+    const data = await response.json();
+    if (data.ok) {
+        document.getElementById('is-valid-email').innerHTML = data.message;
+        document.getElementById('email-label').style.color = "red";
+        document.getElementById('email').style.border = "1px solid red";
+        document.getElementById('button').disabled = true;
+    } else {
+        document.getElementById('is-valid-email').innerHTML = "";
+        document.getElementById('email-label').style.color = "";
+        document.getElementById('email').style.border = "";
+        document.getElementById('button').style.cursor = "";
+        document.getElementById('button').disabled = false;
+    }
 });
-
 
 
 
