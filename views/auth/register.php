@@ -12,8 +12,7 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <h3 class="fw-normal mb-5" style="color: #4835d4;">General Infomation</h3>
-                                    <form action="/register" method="POST" id="register-form"
-                                        onsubmit="return validateForm()" class="needs-validation">
+                                    <form action="/register" method="POST" id="register-form" class="needs-validation">
 
                                         <div class="row"> <!-- firstname  and lastname row -->
                                             <!-- firstname -->
