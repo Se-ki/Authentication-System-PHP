@@ -1,7 +1,7 @@
 <?php
-require "../Validation.php";
+require "../core/function.php";
 require "../model/Database.php";
-require "../function.php";
+require "../core/Validation.php";
 
 if ($_SERVER['HTTP_SEC_FETCH_MODE'] === "navigate") {
     redirect('/register');

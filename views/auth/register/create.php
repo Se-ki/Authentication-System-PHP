@@ -12,7 +12,8 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <h3 class="fw-normal mb-5" style="color: #4835d4;">General Infomation</h3>
-                                    <form action="/register" method="POST" id="register-form" class="needs-validation">
+                                    <form action="/register/store" method="POST" id="register-form"
+                                        class="needs-validation">
 
                                         <div class="row"> <!-- firstname  and lastname row -->
                                             <!-- firstname -->
@@ -84,7 +85,8 @@
                                         <!-- birthday -->
                                         <div class="mb-4 pb-2">
                                             <div class="form-floating mb-3 text-dark">
-                                                <input type="date" min="1960" max="2030" id="birthdate" name="birthdate"
+                                                <input type="date" value="<?= $user['birthdate'] ?? null ?>" min="1960"
+                                                    max="2030" id="birthdate" name="birthdate"
                                                     class="form-control input-sm" id="floatingstart"
                                                     placeholder="Birthdate" required />
                                                 <label for="floatingstart">Birthdate</label>
@@ -206,7 +208,7 @@
                                                 <input class="form-control form-control-sm" type="number"
                                                     value="<?= $user['zipcode'] ?? null ?>"
                                                     placeholder=".form-control-sm" aria-label=".form-control-sm example"
-                                                    minlength="2" maxlength="10" name="zipcode" id="zipcode" required />
+                                                    name="zipcode" id="zipcode" required />
                                                 <label for='floatingInput' id="zipcode-label">Zipcode</label>
                                                 <span class="text-danger fs-6" id="is-valid-zipcode"></span>
                                             </div>
@@ -271,4 +273,5 @@
         </div>
     </div>
 </section>
+<script src="../../js/validator/register/index.js"></script>
 <?php require "./views/partial/footer.php" ?>

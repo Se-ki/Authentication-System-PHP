@@ -473,13 +473,17 @@ document.getElementById('register-form').addEventListener('submit', (e) => {
     return true;
 })
 
+//zipcode
 document.getElementById('zipcode').addEventListener('input', () => {
-    const numberInput = document.getElementById("zipcode");
-    const inputValue = numberInput.value.trim();
-    if (inputValue === "" || isNaN(inputValue)) {
-        numberInput.setCustomValidity("Please enter a valid ZIP code");
+    const zipcode = document.getElementById("zipcode");
+    const inputValue = zipcode.value.trim();
+    const zipcodeInt = parseInt(inputValue);
+    if (zipcodeInt < 100 || zipcodeInt > 9811) {
+        zipcode.setCustomValidity("Please enter a valid ZIP code");
+    } else if (inputValue === "" || isNaN(inputValue)) {
+        zipcode.setCustomValidity("Please enter a valid ZIP code");
     } else {
-        numberInput.setCustomValidity("");
+        zipcode.setCustomValidity("");
     }
 })
 
