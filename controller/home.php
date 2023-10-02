@@ -7,4 +7,3 @@ $users = $db->query("SELECT * FROM users WHERE id = :id", [
 ])->get();
 $header = "Home";
 require "./views/home.php";
-?>

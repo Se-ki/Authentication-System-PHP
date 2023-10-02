@@ -1,4 +1,5 @@
 <?php require "./views/partial/header.php" ?>
+<?= var_dump($_SESSION) ?>
 <section class="gradient-custom">
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-0">
@@ -8,9 +9,9 @@
                         <div class="mb-md-5 mt-md-4 pb-5">
                             <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
                             <p class="text-white-50 mb-5">Please enter your login and password!</p>
-                            <form action="/login/store" method="POST">
+                            <form action="/login/store" method="POST" id="session-form">
                                 <!-- form -->
-                                <p class="text-danger">
+                                <p class="text-danger" id="error-message">
                                     <?= $message ?>
                                 </p>
                                 <div class="mb-4 pb-2">
@@ -37,8 +38,7 @@
                                     <?php $_SESSION['locked'] = time(); ?>
                                     <p id="countdown">Please wait for 30 seconds</p>
                                 <?php else: ?>
-                                    <button class="btn btn-outline-light btn-lg px-5" name="submit"
-                                        type="submit">Login</button>
+                                    <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
                                 <?php endif; ?>
                                 <!-- form -->
                             </form>

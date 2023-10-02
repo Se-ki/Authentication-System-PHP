@@ -119,39 +119,6 @@ document.getElementById('register-form').addEventListener('submit', (e) => {
 
 
 
-    //lastname validation
-    if (hasRepeatedLetters(lastname)) {
-        document.getElementById('is-valid-lastname')
-            .innerHTML = "Please enter a lastname without repeated letters.";
-        document.getElementById('lastname-label').style.color = "red";
-        document.getElementById('lastname').style.border = "1px solid red";
-        return e.preventDefault()
-    }
-    if (!validateString(lastname)) {
-        document.getElementById('is-valid-lastname')
-            .innerHTML = "Lastname should only contain letters and spaces.";
-        document.getElementById('lastname-label').style.color = "red";
-        document.getElementById('lastname').style.border = "1px solid red";
-        return e.preventDefault();
-    }
-    if (!validateOneSpacePerWord(lastname)) {
-        document.getElementById('is-valid-lastname')
-            .innerHTML = "Double spaces are not allowed.";
-        document.getElementById('lastname-label').style.color = "red";
-        document.getElementById('lastname').style.border = "1px solid red";
-        return e.preventDefault();
-    }
-    if (!validateIfCapitalize(lastname)) {
-        document.getElementById('is-valid-lastname')
-            .innerHTML = "Please enter a lastname with a capitalized first letter.";
-        document.getElementById('lastname-label').style.color = "red";
-        document.getElementById('lastname').style.border = "1px solid red";
-        return e.preventDefault()
-    }
-    document.getElementById('is-valid-lastname').innerHTML = "";
-    document.getElementById('lastname-label').style.color = "";
-    document.getElementById('lastname').style.border = "";
-
 
     //middlename validation
     if (hasRepeatedLetters(middlename)) {
@@ -186,8 +153,42 @@ document.getElementById('register-form').addEventListener('submit', (e) => {
     document.getElementById('middlename-label').style.color = "";
     document.getElementById('middlename').style.border = "";
 
+    //lastname validation
+    if (hasRepeatedLetters(lastname)) {
+        document.getElementById('is-valid-lastname')
+            .innerHTML = "Please enter a lastname without repeated letters.";
+        document.getElementById('lastname-label').style.color = "red";
+        document.getElementById('lastname').style.border = "1px solid red";
+        return e.preventDefault()
+    }
+    if (!validateString(lastname)) {
+        document.getElementById('is-valid-lastname')
+            .innerHTML = "Lastname should only contain letters and spaces.";
+        document.getElementById('lastname-label').style.color = "red";
+        document.getElementById('lastname').style.border = "1px solid red";
+        return e.preventDefault();
+    }
+    if (!validateOneSpacePerWord(lastname)) {
+        document.getElementById('is-valid-lastname')
+            .innerHTML = "Double spaces are not allowed.";
+        document.getElementById('lastname-label').style.color = "red";
+        document.getElementById('lastname').style.border = "1px solid red";
+        return e.preventDefault();
+    }
+    if (!validateIfCapitalize(lastname)) {
+        document.getElementById('is-valid-lastname')
+            .innerHTML = "Please enter a lastname with a capitalized first letter.";
+        document.getElementById('lastname-label').style.color = "red";
+        document.getElementById('lastname').style.border = "1px solid red";
+        return e.preventDefault()
+    }
+    document.getElementById('is-valid-lastname').innerHTML = "";
+    document.getElementById('lastname-label').style.color = "";
+    document.getElementById('lastname').style.border = "";
+
 
     //suffix validation
+    document.getElementById('suffix').setCustomValidity("")
     if (hasRepeatedLetters(suffix)) {
         document.getElementById('is-valid-suffix')
             .innerHTML = "Please enter a suffix without repeated letters.";
@@ -221,63 +222,34 @@ document.getElementById('register-form').addEventListener('submit', (e) => {
     document.getElementById('suffix').style.border = "";
 
 
-    //age validation
-    if (!validateInteger(age)) {
-        document.getElementById('is-valid-age').innerHTML = "Age don't contain strings. Please enter an age value.";
-        document.getElementById('age-label').style.color = "red";
-        document.getElementById('age').style.border = "1px solid red";
+    //mobile number validation
+    if (!validateInteger(mobilenumber)) {
+        document.getElementById('is-valid-mobilenum')
+            .innerHTML = "Mobile number don't contain strings. Please enter an mobile number value.";
+        document.getElementById('mobilenum-label').style.color = "red";
+        document.getElementById('mobilenum').style.border = "1px solid red";
+        return e.preventDefault();
+    }
+    if (!validatePhilippineMobileNumber(mobilenumber)) {
+        document.getElementById('is-valid-mobilenum')
+            .innerHTML = "Please enter a valid Philippine mobile number.";
+        document.getElementById('mobilenum-label').style.color = "red";
+        document.getElementById('mobilenum').style.border = "1px solid red";
+        return e.preventDefault();
+    }
+    document.getElementById('is-valid-mobilenum').innerHTML = "";
+    document.getElementById('mobilenum-label').style.color = "";
+    document.getElementById('mobilenum').style.border = "";
+
+
+    //email validation
+    if (hasRepeatedLetters(email)) {
+        document.getElementById('is-valid-email')
+            .innerHTML = "Please enter a email without repeated letters.";
+        document.getElementById('email-label').style.color = "red";
+        document.getElementById('email').style.border = "1px solid red";
         return e.preventDefault()
     }
-    document.getElementById('is-valid-age').innerHTML = "";
-    document.getElementById('age-label').style.color = "";
-    document.getElementById('age').style.border = "";
-
-
-
-    //username validation
-    if (hasRepeatedLetters(username)) {
-        document.getElementById('is-valid-username')
-            .innerHTML = "Please enter a username without repeated letters.";
-        document.getElementById('username-label').style.color = "red";
-        document.getElementById('username').style.border = "1px solid red";
-        return e.preventDefault()
-    }
-    if (!validateOneSpacePerWord(username)) {
-        document.getElementById('is-valid-username')
-            .innerHTML = "Double spaces are not allowed.";
-        document.getElementById('username-label').style.color = "red";
-        document.getElementById('username').style.border = "1px solid red";
-        return e.preventDefault();
-    }
-
-
-
-    //password
-    if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/.test(password)) {
-        document.getElementById('is-valid-password').innerHTML = "Password must contain at least one lowercase letter, one uppercase letter, one digit, one special character, and be at least 8 characters long."
-        document.getElementById('password-label').style.color = "red";
-        document.getElementById('password').style.border = "1px solid red";
-        return e.preventDefault();
-    }
-    if (password !== confirmpass) {
-        //confirm password field
-        document.getElementById('is-valid-confirmpassword')
-            .innerHTML = "Passwords must match. Please try again";
-        document.getElementById('confirmpassword-label').style.color = "red";
-        document.getElementById('confirmpassword').style.border = "1px solid red";
-
-        //password field
-        document.getElementById('password-label').style.color = "red";
-        document.getElementById('password').style.border = "1px solid red";
-        return e.preventDefault();
-    }
-    document.getElementById('is-valid-confirmpassword').innerHTML = "";
-    document.getElementById('confirmpassword-label').style.color = "";
-    document.getElementById('confirmpassword').style.border = "";
-    document.getElementById('is-valid-password').innerHTML = ""
-    document.getElementById('password-label').style.color = "";
-    document.getElementById('password').style.border = "";
-
 
     //country validation
     if (hasRepeatedLetters(country)) {
@@ -442,34 +414,51 @@ document.getElementById('register-form').addEventListener('submit', (e) => {
     document.getElementById('address').style.border = "";
 
 
-    //mobile number validation
-    if (!validateInteger(mobilenumber)) {
-        document.getElementById('is-valid-mobilenum')
-            .innerHTML = "Mobile number don't contain strings. Please enter an mobile number value.";
-        document.getElementById('mobilenum-label').style.color = "red";
-        document.getElementById('mobilenum').style.border = "1px solid red";
-        return e.preventDefault();
-    }
-    if (!validatePhilippineMobileNumber(mobilenumber)) {
-        document.getElementById('is-valid-mobilenum')
-            .innerHTML = "Please enter a valid Philippine mobile number.";
-        document.getElementById('mobilenum-label').style.color = "red";
-        document.getElementById('mobilenum').style.border = "1px solid red";
-        return e.preventDefault();
-    }
-    document.getElementById('is-valid-mobilenum').innerHTML = "";
-    document.getElementById('mobilenum-label').style.color = "";
-    document.getElementById('mobilenum').style.border = "";
-
-
-    //email validation
-    if (hasRepeatedLetters(email)) {
-        document.getElementById('is-valid-email')
-            .innerHTML = "Please enter a email without repeated letters.";
-        document.getElementById('email-label').style.color = "red";
-        document.getElementById('email').style.border = "1px solid red";
+    //username validation
+    if (hasRepeatedLetters(username)) {
+        document.getElementById('is-valid-username')
+            .innerHTML = "Please enter a username without repeated letters.";
+        document.getElementById('username-label').style.color = "red";
+        document.getElementById('username').style.border = "1px solid red";
         return e.preventDefault()
     }
+    if (!validateOneSpacePerWord(username)) {
+        document.getElementById('is-valid-username')
+            .innerHTML = "Double spaces are not allowed.";
+        document.getElementById('username-label').style.color = "red";
+        document.getElementById('username').style.border = "1px solid red";
+        return e.preventDefault();
+    }
+
+
+
+    //password
+    if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/.test(password)) {
+        document.getElementById('is-valid-password').innerHTML = "Password must contain at least one lowercase letter, one uppercase letter, one digit, one special character, and be at least 8 characters long."
+        document.getElementById('password-label').style.color = "red";
+        document.getElementById('password').style.border = "1px solid red";
+        document.getElementById("password-strength").innerHTML = "";
+        return e.preventDefault();
+    }
+    if (password !== confirmpass) {
+        //confirm password field
+        document.getElementById('is-valid-confirmpassword')
+            .innerHTML = "Passwords must match. Please try again";
+        document.getElementById('confirmpassword-label').style.color = "red";
+        document.getElementById('confirmpassword').style.border = "1px solid red";
+
+        //password field
+        document.getElementById('password-label').style.color = "red";
+        document.getElementById('password').style.border = "1px solid red";
+        return e.preventDefault();
+    }
+    document.getElementById('is-valid-confirmpassword').innerHTML = "";
+    document.getElementById('confirmpassword-label').style.color = "";
+    document.getElementById('confirmpassword').style.border = "";
+    document.getElementById('is-valid-password').innerHTML = ""
+    document.getElementById('password-label').style.color = "";
+    document.getElementById('password').style.border = "";
+
     return true;
 })
 
@@ -510,6 +499,7 @@ startInput.addEventListener('change', () => {
 document.getElementById('password').addEventListener('input', (e) => {
     var password = e.target.value;
     var strengthIndicator = document.getElementById('password-strength');
+    document.getElementById('is-valid-password').innerHTML = "";
     var regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
     var isStrong = regex.test(password);
     if (!password) {
@@ -643,6 +633,8 @@ document.getElementById('email').addEventListener("keyup", async (e) => {
         document.getElementById('button').disabled = false;
     }
 });
+
+
 
 
 
