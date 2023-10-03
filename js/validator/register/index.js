@@ -66,21 +66,24 @@ function passwordValidation(value) {
 }
 
 //validate form
-document.getElementById('register-form').addEventListener('submit', (e) => {
+document.getElementById('register-form').addEventListener('submit', async (e) => {
     //get the value that inputted
     var firstname = document.querySelector("input[name=firstname]").value;
     var middlename = document.querySelector("input[name=middlename]").value;
     var lastname = document.querySelector("input[name=lastname]").value;
     var suffix = document.querySelector("input[name=suffix]").value;
+    var sex = document.querySelector("#sex").value;
+    var birthdate = document.querySelector("input[name=birthdate]").value;
     var age = document.querySelector("input[name=age]").value;
     var mobilenumber = document.querySelector("input[name=mobilenum]").value;
+    var email = document.querySelector("input[name=email]").value;
     var country = document.querySelector("input[name=country]").value;
     var province = document.querySelector("input[name=province]").value;
     var city = document.querySelector("input[name=city]").value;
     var barangay = document.querySelector("input[name=barangay]").value;
     var address = document.querySelector("input[name=address]").value;
+    var zipcode = document.querySelector("input[name=zipcode]").value;
     var username = document.querySelector("input[name=username]").value;
-    var email = document.querySelector("input[name=email]").value;
     var password = document.querySelector("input[name=password]").value;
     var confirmpass = document.querySelector("input[name=confirmpassword]").value;
 
@@ -431,7 +434,6 @@ document.getElementById('register-form').addEventListener('submit', (e) => {
     }
 
 
-
     //password
     if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/.test(password)) {
         document.getElementById('is-valid-password').innerHTML = "Password must contain at least one lowercase letter, one uppercase letter, one digit, one special character, and be at least 8 characters long."
@@ -459,7 +461,63 @@ document.getElementById('register-form').addEventListener('submit', (e) => {
     document.getElementById('password-label').style.color = "";
     document.getElementById('password').style.border = "";
 
-    return true;
+    //if theres no any validation registered
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('firstname', firstname);
+    formData.append('middlename', middlename);
+    formData.append('lastname', lastname);
+    formData.append('suffix', suffix);
+    formData.append('sex', sex);
+    formData.append('birthdate', birthdate);
+    formData.append('age', age);
+    formData.append('mobilenum', mobilenumber);
+    formData.append('email', email);
+    formData.append('country', country);
+    formData.append('province', province);
+    formData.append('city', city);
+    formData.append('barangay', barangay);
+    formData.append('address', address);
+    formData.append('zipcode', zipcode);
+    formData.append('username', username);
+    formData.append('password', password);
+    formData.append('confirmpassword', confirmpass);
+    const response = await fetch("http://127.0.0.1:3000/register/store", {
+        method: "POST",
+        body: formData
+    });
+    const data = await response.json();
+    console.log(data);
+    if (!data.ok && data.type === "email") {
+        //display error
+        document.getElementById("is-valid-email").innerHTML = data.message;
+        document.getElementById("email-label").style.color = "red";
+        document.getElementById("email").style.border = "1px solid red";
+        document.getElementById("is-valid-username").innerHTML = "";
+        document.getElementById("username-label").style.color = "";
+        document.getElementById("username").style.border = "";
+        return;
+    } else if (!data.ok && data.type === "username") {
+        //display error
+        document.getElementById("is-valid-username").innerHTML = data.message;
+        document.getElementById("username-label").style.color = "red";
+        document.getElementById("username").style.border = "1px solid red";
+        document.getElementById("is-valid-email").innerHTML = "";
+        document.getElementById("email-label").style.color = "";
+        document.getElementById("email").style.border = "";
+        return;
+    }
+    document.getElementById("is-valid-username").innerHTML = "";
+    document.getElementById("username-label").style.color = "";
+    document.getElementById("username").style.border = "";
+    document.getElementById("is-valid-email").innerHTML = "";
+    document.getElementById("email-label").style.color = "";
+    document.getElementById("email").style.border = "";
+    document.getElementById('password-strength').innerHTML = "";
+    document.getElementById("display-success").innerHTML = data.message;
+    document.querySelectorAll("input").forEach((inputFields) => {
+        inputFields.value = "";
+    });
 })
 
 //zipcode

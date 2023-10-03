@@ -1,19 +1,3 @@
-// const countdown = document.querySelector("#countdown");
-// countdown.addEventListener('load', () => {
-//     var timeleft = 30;
-//     var downloadTimer = setInterval(() => {
-//         if (timeleft <= 0) {
-//             clearInterval(downloadTimer);
-//             countdown.innerHTML = "Done";
-//             document.location.reload();
-//         } else {
-//             countdown.innerHTML = "Please wait for " + timeleft + " seconds ";
-//         }
-//         timeleft -= 1;
-//     }, 1000);
-// })
-
-
 document.querySelector("#session-form").addEventListener('submit', async (e) => {
     e.preventDefault();
     const username = document.querySelector("input[name=username]").value;
@@ -29,7 +13,23 @@ document.querySelector("#session-form").addEventListener('submit', async (e) => 
     console.log(user)
     if (user.login) {
         window.location.href = '/login';
+        return;
     }
     document.getElementById("error-message").innerHTML = user.message;
+
+
 });
 //x-www-form-urlencoded
+document.getElementById("countdown").addEventListener('load', () => {
+    var timeleft = 30;
+    var downloadTimer = setInterval(() => {
+        if (timeleft <= 0) {
+            clearInterval(downloadTimer);
+            countdown.innerHTML = "Done";
+            document.location.reload();
+        } else {
+            countdown.innerHTML = "Please wait for " + timeleft + " seconds ";
+        }
+        timeleft -= 1;
+    }, 1000);
+})

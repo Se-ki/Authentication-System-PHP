@@ -3,7 +3,7 @@
 <div class="container py-5 h-50">
     <div class="row d-flex justify-content-center align-items-center h-0">
         <div class="col-12">
-            <div class="text-success p-3">
+            <div class="text-success p-3" id="display-success">
                 <?= $message['success'] ?? null ?>
             </div>
             <div class="card card-registration card-registration-2"
@@ -12,8 +12,7 @@
                     <div class="row g-0">
                         <div class="col-lg-12">
                             <div class="p-3">
-                                <form action="/register/store" method="POST" id="register-form"
-                                    class="needs-validation">
+                                <form action="" method="POST" id="register-form" class="needs-validation">
                                     <h3 class="mb-3 mt-3">Personal
                                         Information</h3>
                                     <div class="row"> <!-- firstname  and lastname row -->
@@ -69,7 +68,7 @@
                                     <div class="row g-3">
                                         <div class="col-md-2 pb-2">
                                             <div class="form-floating">
-                                                <select class="form-select form-select mb-3" id="floatingSelect"
+                                                <select class="form-select form-select mb-3" id="sex"
                                                     aria-label="Large select example" name="sex">
                                                     <option value="Male">Male</option>
                                                     <option value="Female">Female</option>

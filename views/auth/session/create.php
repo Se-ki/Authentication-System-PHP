@@ -32,12 +32,13 @@
                                     </div>
                                 </div>
 
-                                <?php if (isset($_SESSION['login_attempt']) && $_SESSION['login_attempt'] > 2): ?>
+                                <?php if (isset($_SESSION['attempts']) && $_SESSION['attempts'] === 0): ?>
                                     <?php unset($_SESSION['error']); ?>
                                     <?php unset($_SESSION['attempts']); ?>
                                     <?php $_SESSION['locked'] = time(); ?>
                                     <p id="countdown">Please wait for 30 seconds</p>
                                 <?php else: ?>
+                                    <p id="countdown"></p>
                                     <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
                                 <?php endif; ?>
                                 <!-- form -->
