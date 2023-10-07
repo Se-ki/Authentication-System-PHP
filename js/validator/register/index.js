@@ -701,6 +701,38 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
 })
 
 
+// firstname
+const firstname = document.getElementById('firstname');
+const firstname_label = document.getElementById('firstname-label');
+firstname.addEventListener("input", (e) => {
+    var firstnameVal = e.target.value;
+    if (hasRepeatedLetters(firstnameVal)) {
+        firstname.setCustomValidity("Please enter a firstname without repeated letters.")
+        firstname_label.style.color = "red";
+        firstname.style.border = "1px solid red";
+    } else if (containSpecialCharacters(firstnameVal)) {
+        document.getElementById('firstname-label').style.color = "red";
+        document.getElementById('firstname').style.border = "1px solid red";
+    } else if (containNumbers(firstnameVal)) {
+        document.getElementById('firstname-label').style.color = "red";
+        document.getElementById('firstname').style.border = "1px solid red";
+    } else if (startInputContainSpace(firstnameVal)) {
+        document.getElementById('firstname-label').style.color = "red";
+        document.getElementById('firstname').style.border = "1px solid red";
+    } else if (!validateOneSpacePerWord(firstnameVal)) {
+        document.getElementById('firstname-label').style.color = "red";
+        document.getElementById('firstname').style.border = "1px solid red";
+    } else if (!validateIfCapitalize(firstnameVal)) {
+        document.getElementById('firstname-label').style.color = "red";
+        document.getElementById('firstname').style.border = "1px solid red";
+    } else {
+        firstname.setCustomValidity("");
+        firstname_label.style.color = "";
+        firstname.style.border = "";
+    }
+});
+
+
 //zipcode
 document.getElementById('zipcode').addEventListener('input', () => {
     const zipcode = document.getElementById("zipcode");
