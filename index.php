@@ -11,5 +11,4 @@ const BASE_PATH = __DIR__ . '/../';
 
 $header = "Index";
 require "router.php";
-
-unset($_SESSION['error']);
+Session::unflash();
