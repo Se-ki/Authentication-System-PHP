@@ -15,31 +15,39 @@ function validateIfCapitalize(value) {
         .split(' ')
         .map(s => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
 }
-function validateString(value) {
-    var regex = /[0-9!@#$%^&*()\-\/+<>.,?\/\\\|\[\]\{\}]+/;
+function containNumbers(value) {
+    var regex = /[0-9]+/;
     if (regex.test(value)) {
-        return false
-    }
-    return true;
-}
-function validateInteger(value) {
-    if (!value) {
         return true;
     }
-    if (!/^[0-9]+$/.test(value)) {
-        return false
+    return false;
+}
+function containSpecialCharacters(value) {
+    var regex = /[!@#$%^&*()\-\/+<>.,?\/\\\|\[\]\{\}]+/;
+    if (regex.test(value)) {
+        return true
     }
-    return true;
+    return false;
+}
+function containsLetters(value) {
+    if (!value) {
+        return false;
+    }
+    if (!/^[0-9]+$/.test(value)) {
+        return true
+    }
+    return false;
 }
 function validatePhilippineMobileNumber(mobileNumber) {
     if (!mobileNumber) {
         return true;
     }
-    if (mobileNumber.length !== 11) {
+    if (mobileNumber.length < 11) {
         return false
     }
-    var patt = /^(09\d{9})$/;
-    if (!patt.test(mobileNumber)) {
+    var pattern1 = /^(09\d{9})$/;
+    var pattern2 = /^(639\d{9})$/;
+    if (!pattern1.test(mobileNumber) && !pattern2.test(mobileNumber)) {
         return false
     }
     return true;
@@ -58,15 +66,22 @@ function validateOneSpacePerWord(input) {
     var pattern = /^[0-9a-zA-Z,.-]+( [0-9a-zA-Z,.-]+)*$/;
     return pattern.test(input);
 }
+function startInputContainSpace(input) {
+    if (!input) {
+        return false;
+    }
+    var pattern = /^( [0-9a-zA-Z,.-]+)*$/;
+    return pattern.test(input);
+}
 function passwordValidation(value) {
     if (!value) {
         return true;
     }
     return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/.test(value)
 }
-
 //validate form
 document.getElementById('register-form').addEventListener('submit', async (e) => {
+    // e.preventDefault();
     //get the value that inputted
     var firstname = document.querySelector("input[name=firstname]").value;
     var middlename = document.querySelector("input[name=middlename]").value;
@@ -80,8 +95,9 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
     var country = document.querySelector("input[name=country]").value;
     var province = document.querySelector("input[name=province]").value;
     var city = document.querySelector("input[name=city]").value;
+    var purok = document.querySelector("input[name=purok]").value;
     var barangay = document.querySelector("input[name=barangay]").value;
-    var address = document.querySelector("input[name=address]").value;
+    var street = document.querySelector("input[name=street]").value;
     var zipcode = document.querySelector("input[name=zipcode]").value;
     var username = document.querySelector("input[name=username]").value;
     var password = document.querySelector("input[name=password]").value;
@@ -95,9 +111,23 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
         document.getElementById('firstname').style.border = "1px solid red";
         return e.preventDefault()
     }
-    if (!validateString(firstname)) {
+    if (containSpecialCharacters(firstname)) {
         document.getElementById('is-valid-firstname')
-            .innerHTML = "Firstname should only contain letters and spaces.";
+            .innerHTML = "Firstname should not contains special characters.";
+        document.getElementById('firstname-label').style.color = "red";
+        document.getElementById('firstname').style.border = "1px solid red";
+        return e.preventDefault()
+    }
+    if (containNumbers(firstname)) {
+        document.getElementById('is-valid-firstname')
+            .innerHTML = "Firstname should not contains numbers.";
+        document.getElementById('firstname-label').style.color = "red";
+        document.getElementById('firstname').style.border = "1px solid red";
+        return e.preventDefault()
+    }
+    if (startInputContainSpace(firstname)) {
+        document.getElementById('is-valid-firstname')
+            .innerHTML = "Firstname should not start with space.";
         document.getElementById('firstname-label').style.color = "red";
         document.getElementById('firstname').style.border = "1px solid red";
         return e.preventDefault()
@@ -111,7 +141,7 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
     }
     if (!validateIfCapitalize(firstname)) {
         document.getElementById('is-valid-firstname')
-            .innerHTML = "Please enter a firstname with a capitalized first letter.";
+            .innerHTML = "Firstname must be capitalize";
         document.getElementById('firstname-label').style.color = "red";
         document.getElementById('firstname').style.border = "1px solid red";
         return e.preventDefault()
@@ -119,7 +149,6 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
     document.getElementById('is-valid-firstname').innerHTML = "";
     document.getElementById('firstname-label').style.color = "";
     document.getElementById('firstname').style.border = "";
-
 
 
 
@@ -131,9 +160,23 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
         document.getElementById('middlename').style.border = "1px solid red";
         return e.preventDefault()
     }
-    if (!validateString(middlename)) {
+    if (containSpecialCharacters(middlename)) {
         document.getElementById('is-valid-middlename')
-            .innerHTML = "Middlename should only contain letters and spaces.";
+            .innerHTML = "Middlename should not contains special characters.";
+        document.getElementById('middlename-label').style.color = "red";
+        document.getElementById('middlename').style.border = "1px solid red";
+        return e.preventDefault()
+    }
+    if (containNumbers(middlename)) {
+        document.getElementById('is-valid-middlename')
+            .innerHTML = "Middlename should not contains numbers";
+        document.getElementById('middlename-label').style.color = "red";
+        document.getElementById('middlename').style.border = "1px solid red";
+        return e.preventDefault()
+    }
+    if (startInputContainSpace(middlename)) {
+        document.getElementById('is-valid-middlename')
+            .innerHTML = "Middlename should not start with space.";
         document.getElementById('middlename-label').style.color = "red";
         document.getElementById('middlename').style.border = "1px solid red";
         return e.preventDefault()
@@ -147,7 +190,7 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
     }
     if (!validateIfCapitalize(middlename)) {
         document.getElementById('is-valid-middlename')
-            .innerHTML = "Please enter a middlename with a capitalized first letter.";
+            .innerHTML = "Middlename must be capitalize";
         document.getElementById('middlename-label').style.color = "red";
         document.getElementById('middlename').style.border = "1px solid red";
         return e.preventDefault()
@@ -155,6 +198,7 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
     document.getElementById('is-valid-middlename').innerHTML = "";
     document.getElementById('middlename-label').style.color = "";
     document.getElementById('middlename').style.border = "";
+
 
     //lastname validation
     if (hasRepeatedLetters(lastname)) {
@@ -164,12 +208,26 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
         document.getElementById('lastname').style.border = "1px solid red";
         return e.preventDefault()
     }
-    if (!validateString(lastname)) {
+    if (containSpecialCharacters(lastname)) {
         document.getElementById('is-valid-lastname')
-            .innerHTML = "Lastname should only contain letters and spaces.";
+            .innerHTML = "Lastname should not contains special characters.";
         document.getElementById('lastname-label').style.color = "red";
         document.getElementById('lastname').style.border = "1px solid red";
-        return e.preventDefault();
+        return e.preventDefault()
+    }
+    if (containNumbers(lastname)) {
+        document.getElementById('is-valid-lastname')
+            .innerHTML = "Lastname should not contains numbers";
+        document.getElementById('lastname-label').style.color = "red";
+        document.getElementById('lastname').style.border = "1px solid red";
+        return e.preventDefault()
+    }
+    if (startInputContainSpace(lastname)) {
+        document.getElementById('is-valid-lastname')
+            .innerHTML = "Lastname should not start with space.";
+        document.getElementById('lastname-label').style.color = "red";
+        document.getElementById('lastname').style.border = "1px solid red";
+        return e.preventDefault()
     }
     if (!validateOneSpacePerWord(lastname)) {
         document.getElementById('is-valid-lastname')
@@ -180,7 +238,7 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
     }
     if (!validateIfCapitalize(lastname)) {
         document.getElementById('is-valid-lastname')
-            .innerHTML = "Please enter a lastname with a capitalized first letter.";
+            .innerHTML = "Lastname must be capitalize.";
         document.getElementById('lastname-label').style.color = "red";
         document.getElementById('lastname').style.border = "1px solid red";
         return e.preventDefault()
@@ -191,7 +249,6 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
 
 
     //suffix validation
-    document.getElementById('suffix').setCustomValidity("")
     if (hasRepeatedLetters(suffix)) {
         document.getElementById('is-valid-suffix')
             .innerHTML = "Please enter a suffix without repeated letters.";
@@ -199,9 +256,23 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
         document.getElementById('suffix').style.border = "1px solid red";
         return e.preventDefault()
     }
-    if (!validateString(suffix)) {
+    if (containSpecialCharacters(suffix)) {
         document.getElementById('is-valid-suffix')
-            .innerHTML = "Suffix should only contain letters and spaces.";
+            .innerHTML = "Suffix should not contains special characters.";
+        document.getElementById('suffix-label').style.color = "red";
+        document.getElementById('suffix').style.border = "1px solid red";
+        return e.preventDefault()
+    }
+    if (containNumbers(suffix)) {
+        document.getElementById('is-valid-suffix')
+            .innerHTML = "Suffix should not contains numbers";
+        document.getElementById('suffix-label').style.color = "red";
+        document.getElementById('suffix').style.border = "1px solid red";
+        return e.preventDefault()
+    }
+    if (startInputContainSpace(suffix)) {
+        document.getElementById('is-valid-suffix')
+            .innerHTML = "Suffix should not start with space.";
         document.getElementById('suffix-label').style.color = "red";
         document.getElementById('suffix').style.border = "1px solid red";
         return e.preventDefault()
@@ -215,7 +286,7 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
     }
     if (!validateIfCapitalize(suffix)) {
         document.getElementById('is-valid-suffix')
-            .innerHTML = "Please enter a suffix with a capitalized first letter.";
+            .innerHTML = "Suffix must be capitalize.";
         document.getElementById('suffix-label').style.color = "red";
         document.getElementById('suffix').style.border = "1px solid red";
         return e.preventDefault()
@@ -226,7 +297,7 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
 
 
     //mobile number validation
-    if (!validateInteger(mobilenumber)) {
+    if (containsLetters(mobilenumber)) {
         document.getElementById('is-valid-mobilenum')
             .innerHTML = "Mobile number don't contain strings. Please enter an mobile number value.";
         document.getElementById('mobilenum-label').style.color = "red";
@@ -235,7 +306,7 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
     }
     if (!validatePhilippineMobileNumber(mobilenumber)) {
         document.getElementById('is-valid-mobilenum')
-            .innerHTML = "Please enter a valid Philippine mobile number.";
+            .innerHTML = "Please enter a valid Philippine mobile number. e.g 639123456789 or 09123456789";
         document.getElementById('mobilenum-label').style.color = "red";
         document.getElementById('mobilenum').style.border = "1px solid red";
         return e.preventDefault();
@@ -248,7 +319,7 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
     //email validation
     if (hasRepeatedLetters(email)) {
         document.getElementById('is-valid-email')
-            .innerHTML = "Please enter a email without repeated letters.";
+            .innerHTML = "Please enter an email without repeated letters.";
         document.getElementById('email-label').style.color = "red";
         document.getElementById('email').style.border = "1px solid red";
         return e.preventDefault()
@@ -262,9 +333,23 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
         document.getElementById('country').style.border = "1px solid red";
         return e.preventDefault()
     }
-    if (!validateString(country)) {
+    if (containSpecialCharacters(country)) {
         document.getElementById('is-valid-country')
-            .innerHTML = "Country should only contain letters and spaces.";
+            .innerHTML = "Country should not contains special characters.";
+        document.getElementById('country-label').style.color = "red";
+        document.getElementById('country').style.border = "1px solid red";
+        return e.preventDefault()
+    }
+    if (containNumbers(country)) {
+        document.getElementById('is-valid-country')
+            .innerHTML = "Country should not contains numbers";
+        document.getElementById('country-label').style.color = "red";
+        document.getElementById('country').style.border = "1px solid red";
+        return e.preventDefault()
+    }
+    if (startInputContainSpace(country)) {
+        document.getElementById('is-valid-country')
+            .innerHTML = "Country should not start with space.";
         document.getElementById('country-label').style.color = "red";
         document.getElementById('country').style.border = "1px solid red";
         return e.preventDefault()
@@ -278,7 +363,7 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
     }
     if (!validateIfCapitalize(country)) {
         document.getElementById('is-valid-country')
-            .innerHTML = "Please enter a country with a capitalized first letter.";
+            .innerHTML = "Country must be capitalize.";
         document.getElementById('country-label').style.color = "red";
         document.getElementById('country').style.border = "1px solid red";
         return e.preventDefault()
@@ -297,9 +382,23 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
         document.getElementById('province').style.border = "1px solid red";
         return e.preventDefault()
     }
-    if (!validateString(province)) {
+    if (containSpecialCharacters(province)) {
         document.getElementById('is-valid-province')
-            .innerHTML = "Province should only contain letters and spaces.";
+            .innerHTML = "Province should not contain special characters.";
+        document.getElementById('province-label').style.color = "red";
+        document.getElementById('province').style.border = "1px solid red";
+        return e.preventDefault()
+    }
+    if (containNumbers(province)) {
+        document.getElementById('is-valid-province')
+            .innerHTML = "Province should not contain numbers";
+        document.getElementById('province-label').style.color = "red";
+        document.getElementById('province').style.border = "1px solid red";
+        return e.preventDefault()
+    }
+    if (startInputContainSpace(province)) {
+        document.getElementById('is-valid-province')
+            .innerHTML = "Province should not start with space.";
         document.getElementById('province-label').style.color = "red";
         document.getElementById('province').style.border = "1px solid red";
         return e.preventDefault()
@@ -313,7 +412,7 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
     }
     if (!validateIfCapitalize(province)) {
         document.getElementById('is-valid-province')
-            .innerHTML = "Please enter a municipal / province with a capitalized first letter.";
+            .innerHTML = "Please enter a municipal / province with a capitalized first letter for each word.";
         document.getElementById('province-label').style.color = "red";
         document.getElementById('province').style.border = "1px solid red";
         return e.preventDefault()
@@ -326,14 +425,28 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
     //city validation
     if (hasRepeatedLetters(city)) {
         document.getElementById('is-valid-city')
-            .innerHTML = "Please enter a municipal / city without repeated letters.";
+            .innerHTML = "Please enter a municipal or city without repeated letters.";
         document.getElementById('city-label').style.color = "red";
         document.getElementById('city').style.border = "1px solid red";
         return e.preventDefault()
     }
-    if (!validateString(city)) {
+    if (containSpecialCharacters(city)) {
         document.getElementById('is-valid-city')
-            .innerHTML = "Municipal / City should only contain letters and spaces.";
+            .innerHTML = "Municipal or City should not contain special characters.";
+        document.getElementById('city-label').style.color = "red";
+        document.getElementById('city').style.border = "1px solid red";
+        return e.preventDefault()
+    }
+    if (containNumbers(city)) {
+        document.getElementById('is-valid-city')
+            .innerHTML = "Municipal or City should not contain numbers";
+        document.getElementById('city-label').style.color = "red";
+        document.getElementById('city').style.border = "1px solid red";
+        return e.preventDefault()
+    }
+    if (startInputContainSpace(city)) {
+        document.getElementById('is-valid-city')
+            .innerHTML = "Municipal or City should not start with space.";
         document.getElementById('city-label').style.color = "red";
         document.getElementById('city').style.border = "1px solid red";
         return e.preventDefault()
@@ -347,7 +460,7 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
     }
     if (!validateIfCapitalize(city)) {
         document.getElementById('is-valid-city')
-            .innerHTML = "Please enter a municipal / city with a capitalized first letter.";
+            .innerHTML = "Municipal or City must be captitalize.";
         document.getElementById('city-label').style.color = "red";
         document.getElementById('city').style.border = "1px solid red";
         return e.preventDefault()
@@ -357,10 +470,65 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
     document.getElementById('city').style.border = "";
 
 
+    //purok validation
+    if (hasRepeatedLetters(purok)) {
+        document.getElementById('is-valid-purok')
+            .innerHTML = "Please enter a purok without repeated letters.";
+        document.getElementById('purok-label').style.color = "red";
+        document.getElementById('purok').style.border = "1px solid red";
+        return e.preventDefault()
+    }
+    if (containSpecialCharacters(purok)) {
+        document.getElementById('is-valid-purok')
+            .innerHTML = "Purok should not contain special characters.";
+        document.getElementById('purok-label').style.color = "red";
+        document.getElementById('purok').style.border = "1px solid red";
+        return e.preventDefault()
+    }
+    if (startInputContainSpace(purok)) {
+        document.getElementById('is-valid-purok')
+            .innerHTML = "Purok should not start with space.";
+        document.getElementById('purok-label').style.color = "red";
+        document.getElementById('purok').style.border = "1px solid red";
+        return e.preventDefault()
+    }
+    if (!validateOneSpacePerWord(purok)) {
+        document.getElementById('is-valid-purok')
+            .innerHTML = "Double spaces are not allowed.";
+        document.getElementById('purok-label').style.color = "red";
+        document.getElementById('purok').style.border = "1px solid red";
+        return e.preventDefault();
+    }
+    if (!validateIfCapitalize(purok)) {
+        document.getElementById('is-valid-purok')
+            .innerHTML = "Purok must be capitalize.";
+        document.getElementById('purok-label').style.color = "red";
+        document.getElementById('purok').style.border = "1px solid red";
+        return e.preventDefault();
+    }
+    document.getElementById('is-valid-purok').innerHTML = "";
+    document.getElementById('purok-label').style.color = "";
+    document.getElementById('purok').style.border = "";
+
+
     //barangay validation
     if (hasRepeatedLetters(barangay)) {
         document.getElementById('is-valid-barangay')
             .innerHTML = "Please enter a barangay without repeated letters.";
+        document.getElementById('barangay-label').style.color = "red";
+        document.getElementById('barangay').style.border = "1px solid red";
+        return e.preventDefault()
+    }
+    if (containSpecialCharacters(barangay)) {
+        document.getElementById('is-valid-barangay')
+            .innerHTML = "Barangay should not contain special characters.";
+        document.getElementById('barangay-label').style.color = "red";
+        document.getElementById('barangay').style.border = "1px solid red";
+        return e.preventDefault()
+    }
+    if (startInputContainSpace(barangay)) {
+        document.getElementById('is-valid-barangay')
+            .innerHTML = "Barangay should not start with space.";
         document.getElementById('barangay-label').style.color = "red";
         document.getElementById('barangay').style.border = "1px solid red";
         return e.preventDefault()
@@ -374,7 +542,7 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
     }
     if (!validateIfCapitalize(barangay)) {
         document.getElementById('is-valid-barangay')
-            .innerHTML = "Please enter a barangay with a capitalized first letter.";
+            .innerHTML = "Barangay must be capitalize.";
         document.getElementById('barangay-label').style.color = "red";
         document.getElementById('barangay').style.border = "1px solid red";
         return e.preventDefault();
@@ -384,37 +552,46 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
     document.getElementById('barangay').style.border = "";
 
 
-    //address validation
-    if (hasRepeatedLetters(address)) {
-        document.getElementById('is-valid-address')
-            .innerHTML = "Please enter a address without repeated letters.";
-        document.getElementById('address-label').style.color = "red";
-        document.getElementById('address').style.border = "1px solid red";
+    // street validation
+    if (hasRepeatedLetters(street)) {
+        document.getElementById('is-valid-street')
+            .innerHTML = "Please enter a street without repeated letters.";
+        document.getElementById('street-label').style.color = "red";
+        document.getElementById('street').style.border = "1px solid red";
         return e.preventDefault()
     }
-    if (!isValidAddress(address)) {
-        document.getElementById('is-valid-address').innerHTML = "Only accept letters (a-z, A-Z), numbers (0-9), commas (,), periods (.), and hyphens (-). Please correct your input.";
-        document.getElementById('address-label').style.color = "red";
-        document.getElementById('address').style.border = "1px solid red";
-        return e.preventDefault();
+    if (containSpecialCharacters(street)) {
+        document.getElementById('is-valid-street')
+            .innerHTML = "Street should not contain special characters.";
+        document.getElementById('street-label').style.color = "red";
+        document.getElementById('street').style.border = "1px solid red";
+        return e.preventDefault()
     }
-    if (!validateOneSpacePerWord(address)) {
-        document.getElementById('is-valid-address')
+    if (startInputContainSpace(street)) {
+        document.getElementById('is-valid-street')
+            .innerHTML = "Street should not start with space.";
+        document.getElementById('street-label').style.color = "red";
+        document.getElementById('street').style.border = "1px solid red";
+        return e.preventDefault()
+    }
+    if (!validateOneSpacePerWord(street)) {
+        document.getElementById('is-valid-street')
             .innerHTML = "Double spaces are not allowed.";
-        document.getElementById('address-label').style.color = "red";
-        document.getElementById('address').style.border = "1px solid red";
+        document.getElementById('street-label').style.color = "red";
+        document.getElementById('street').style.border = "1px solid red";
         return e.preventDefault();
     }
-    if (!validateIfCapitalize(address)) {
-        document.getElementById('is-valid-address')
-            .innerHTML = "Please enter a address with a capitalized first letter.";
-        document.getElementById('address-label').style.color = "red";
-        document.getElementById('address').style.border = "1px solid red";
-        return e.preventDefault()
+    if (!validateIfCapitalize(street)) {
+        document.getElementById('is-valid-street')
+            .innerHTML = "Street must be capitalize.";
+        document.getElementById('street-label').style.color = "red";
+        document.getElementById('street').style.border = "1px solid red";
+        return e.preventDefault();
     }
-    document.getElementById('is-valid-address').innerHTML = "";
-    document.getElementById('address-label').style.color = "";
-    document.getElementById('address').style.border = "";
+    document.getElementById('is-valid-street').innerHTML = "";
+    document.getElementById('street-label').style.color = "";
+    document.getElementById('street').style.border = "";
+
 
 
     //username validation
@@ -476,8 +653,9 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
     formData.append('country', country);
     formData.append('province', province);
     formData.append('city', city);
+    formData.append('purok', purok);
     formData.append('barangay', barangay);
-    formData.append('address', address);
+    formData.append('street', street);
     formData.append('zipcode', zipcode);
     formData.append('username', username);
     formData.append('password', password);
@@ -514,11 +692,14 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
     document.getElementById("email-label").style.color = "";
     document.getElementById("email").style.border = "";
     document.getElementById('password-strength').innerHTML = "";
-    document.getElementById("display-success").innerHTML = data.message;
+    document.getElementById("display-success").innerHTML = "Successfully Registered. You can now <a href='/login'>Login</a>";
+    document.getElementById("display-success").setAttribute("class", "alert alert-success");
+    alert(data.message);
     document.querySelectorAll("input").forEach((inputFields) => {
         inputFields.value = "";
     });
 })
+
 
 //zipcode
 document.getElementById('zipcode').addEventListener('input', () => {
@@ -542,12 +723,22 @@ startInput.addEventListener('change', () => {
     const today = new Date();
     const age = Math.floor((today - startDate) / (1000 * 60 * 60 * 24 * 365));
     document.getElementById('age').value = age;
-    if (age < 18) {
+    if (isNaN(age)) {
+        startInput.setCustomValidity('Invalid Birthdate.');
+        startInput.style.border = "1px solid red";
+        document.getElementById("birthdate-label").style.color = "red";
+        return;
+    } else if (age < 18) {
         startInput.setCustomValidity('You must be at least 18 years old to submit this form.');
+        startInput.style.border = "1px solid red";
+        document.getElementById("birthdate-label").style.color = "red";
+        return
     } else if (age > 100) {
         startInput.setCustomValidity('You must be at least 100 years old below to submit this form.');
     } else {
         startInput.setCustomValidity('');
+        startInput.style.border = "";
+        document.getElementById("birthdate-label").style.color = "";
     }
 });
 
@@ -642,7 +833,7 @@ document.getElementById('toggleConfirmPassword').addEventListener('click', funct
 
 
 //check if username and email is exist
-document.getElementById('username').addEventListener("keyup", async (e) => {
+document.getElementById('username').addEventListener("input", async (e) => {
     var username = e.target.value;
     const response = await fetch(`http://127.0.0.1:3000/ajax/fetch.php?username=${username}`);
     if (!username) {
@@ -667,7 +858,7 @@ document.getElementById('username').addEventListener("keyup", async (e) => {
         document.getElementById('button').disabled = false;
     }
 });
-document.getElementById('email').addEventListener("keyup", async (e) => {
+document.getElementById('email').addEventListener("input", async (e) => {
     var email = e.target.value;
     const response = await fetch(`http://127.0.0.1:3000/ajax/fetch.php?email=${email}`);
     if (!email) {

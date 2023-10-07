@@ -5,6 +5,9 @@ body{
 #age{
     background-color: white;
 }
+.alert{
+    width: 22rem;
+}
 h3{
     color: black; 
     font-weight: bold; 

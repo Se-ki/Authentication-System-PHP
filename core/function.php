@@ -28,7 +28,7 @@ function attempts()
     }
 }
 
-function remainData($firstname, $lastname, $middlename, $suffix, $sex, $birthdate, $age, $mobilenum, $country, $province, $city, $barangay, $zipcode, $address, $username, $email, $password, $confirmpassword)
+function remainData($firstname, $lastname, $middlename, $suffix, $sex, $birthdate, $age, $mobilenum, $country, $province, $city, $purok, $barangay, $street, $zipcode, $username, $email, $password, $confirmpassword)
 {
     Session::flash('users', [
         'firstname' => $firstname,
@@ -42,9 +42,10 @@ function remainData($firstname, $lastname, $middlename, $suffix, $sex, $birthdat
         'country' => $country,
         'province' => $province,
         'city' => $city,
+        'purok' => $purok,
         'barangay' => $barangay,
+        'street' => $street,
         'zipcode' => $zipcode,
-        'address' => $address,
         'username' => $username,
         'email' => $email,
         'password' => $password,
