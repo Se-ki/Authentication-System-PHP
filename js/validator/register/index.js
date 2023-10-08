@@ -663,7 +663,7 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
     formData.append('username', username);
     formData.append('password', password);
     formData.append('confirmpassword', confirmpass);
-    const response = await fetch("http://127.0.0.1:3000/register/store", {
+    const response = await fetch("/register/store", {
         method: "POST",
         body: formData
     });
@@ -838,7 +838,7 @@ document.getElementById('toggleConfirmPassword').addEventListener('click', funct
 //check if username and email is exist
 document.getElementById('username').addEventListener("input", async (e) => {
     var username = e.target.value;
-    const response = await fetch(`http://127.0.0.1:3000/ajax/fetch.php?username=${username}`);
+    const response = await fetch(`/ajax/fetch.php?username=${username}`);
     if (!username) {
         document.getElementById('is-valid-username').innerHTML = "";
         document.getElementById('username-label').style.color = "";
@@ -863,7 +863,7 @@ document.getElementById('username').addEventListener("input", async (e) => {
 });
 document.getElementById('email').addEventListener("input", async (e) => {
     var email = e.target.value;
-    const response = await fetch(`http://127.0.0.1:3000/ajax/fetch.php?email=${email}`);
+    const response = await fetch(`/ajax/fetch.php?email=${email}`);
     if (!email) {
         document.getElementById('is-valid-email').innerHTML = "";
         document.getElementById('email-label').style.color = "";
