@@ -702,39 +702,43 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
 
 
 // firstname validation
-const firstname = document.getElementById('firstname');
-const firstname_label = document.getElementById('firstname-label');
+var firstname = document.getElementById('firstname');
+var firstname_label = document.getElementById('firstname-label');
 firstname.addEventListener("input", (e) => {
     var firstnameVal = e.target.value;
     if (hasRepeatedLetters(firstnameVal)) {
         firstname.setCustomValidity("Please enter a firstname without repeated letters.")
         firstname_label.style.color = "red";
         firstname.style.border = "1px solid red";
-    } else if (containSpecialCharacters(firstnameVal)) {
+    }
+    if (containSpecialCharacters(firstnameVal)) {
         firstname.setCustomValidity("Firstname should not contains special characters.")
         firstname_label.style.color = "red";
         firstname.style.border = "1px solid red";
-    } else if (containNumbers(firstnameVal)) {
+    }
+    if (containNumbers(firstnameVal)) {
         firstname.setCustomValidity("Firstname should not contains numbers.")
         firstname_label.style.color = "red";
         firstname.style.border = "1px solid red";
-    } else if (startInputContainSpace(firstnameVal)) {
+    }
+    if (startInputContainSpace(firstnameVal)) {
         firstname.setCustomValidity("Firstname should not start with space.")
         firstname_label.style.color = "red";
         firstname.style.border = "1px solid red";
-    } else if (!validateOneSpacePerWord(firstnameVal)) {
+    }
+    if (!validateOneSpacePerWord(firstnameVal)) {
         firstname.setCustomValidity("Double spaces are not allowed.")
         firstname_label.style.color = "red";
         firstname.style.border = "1px solid red";
-    } else if (!validateIfCapitalize(firstnameVal)) {
+    }
+    if (!validateIfCapitalize(firstnameVal)) {
         firstname.setCustomValidity("Firstname must be capitalize")
         firstname_label.style.color = "red";
         firstname.style.border = "1px solid red";
-    } else {
-        firstname.setCustomValidity("");
-        firstname_label.style.color = "";
-        firstname.style.border = "";
     }
+    firstname.setCustomValidity("");
+    firstname_label.style.color = "";
+    firstname.style.border = "";
 });
 
 
@@ -748,23 +752,28 @@ middlename.addEventListener("input", (e) => {
         middlename.setCustomValidity("Please enter a middlename without repeated letters.")
         middlename_label.style.color = "red";
         middlename.style.border = "1px solid red";
-    } if (containSpecialCharacters(middlenameVal)) {
+    }
+    if (containSpecialCharacters(middlenameVal)) {
         middlename.setCustomValidity("Middlename should not contains special characters.")
         middlename_label.style.color = "red";
         middlename.style.border = "1px solid red";
-    } if (containNumbers(middlenameVal)) {
+    }
+    if (containNumbers(middlenameVal)) {
         middlename.setCustomValidity("Middlename should not contains numbers.")
         middlename_label.style.color = "red";
         middlename.style.border = "1px solid red";
-    } if (startInputContainSpace(middlenameVal)) {
+    }
+    if (startInputContainSpace(middlenameVal)) {
         middlename.setCustomValidity("Middlename should not start with space.")
         middlename_label.style.color = "red";
         middlename.style.border = "1px solid red";
-    } if (!validateOneSpacePerWord(middlenameVal)) {
+    }
+    if (!validateOneSpacePerWord(middlenameVal)) {
         middlename.setCustomValidity("Double spaces are not allowed.")
         middlename_label.style.color = "red";
         middlename.style.border = "1px solid red";
-    } if (!validateIfCapitalize(middlenameVal)) {
+    }
+    if (!validateIfCapitalize(middlenameVal)) {
         middlename.setCustomValidity("Middlename must be capitalize")
         middlename_label.style.color = "red";
         middlename.style.border = "1px solid red";
@@ -772,6 +781,48 @@ middlename.addEventListener("input", (e) => {
     middlename.setCustomValidity("");
     middlename_label.style.color = "";
     middlename.style.border = "";
+});
+
+
+// lastname validation
+const lastname = document.getElementById('lastname');
+const lastname_label = document.getElementById('lastname-label');
+lastname.addEventListener("input", (e) => {
+    var lastnameVal = e.target.value;
+    if (hasRepeatedLetters(lastnameVal)) {
+        console.log(lastnameVal)
+        lastname.setCustomValidity("Please enter a lastname without repeated letters.")
+        lastname_label.style.color = "red";
+        lastname.style.border = "1px solid red";
+    }
+    if (containSpecialCharacters(lastnameVal)) {
+        lastname.setCustomValidity("Lastname should not contains special characters.")
+        lastname_label.style.color = "red";
+        lastname.style.border = "1px solid red";
+    }
+    if (containNumbers(lastnameVal)) {
+        lastname.setCustomValidity("Lastname should not contains numbers.")
+        lastname_label.style.color = "red";
+        lastname.style.border = "1px solid red";
+    }
+    if (startInputContainSpace(lastnameVal)) {
+        lastname.setCustomValidity("Lastname should not start with space.")
+        lastname_label.style.color = "red";
+        lastname.style.border = "1px solid red";
+    }
+    if (!validateOneSpacePerWord(lastnameVal)) {
+        lastname.setCustomValidity("Double spaces are not allowed.")
+        lastname_label.style.color = "red";
+        lastname.style.border = "1px solid red";
+    }
+    if (!validateIfCapitalize(lastnameVal)) {
+        lastname.setCustomValidity("Lastname must be capitalize")
+        lastname_label.style.color = "red";
+        lastname.style.border = "1px solid red";
+    }
+    lastname.setCustomValidity("");
+    lastname_label.style.color = "";
+    lastname.style.border = "";
 });
 
 
