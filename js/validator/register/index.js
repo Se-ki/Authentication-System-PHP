@@ -701,7 +701,7 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
 })
 
 
-// firstname
+// firstname validation
 const firstname = document.getElementById('firstname');
 const firstname_label = document.getElementById('firstname-label');
 firstname.addEventListener("input", (e) => {
@@ -711,25 +711,67 @@ firstname.addEventListener("input", (e) => {
         firstname_label.style.color = "red";
         firstname.style.border = "1px solid red";
     } else if (containSpecialCharacters(firstnameVal)) {
-        document.getElementById('firstname-label').style.color = "red";
-        document.getElementById('firstname').style.border = "1px solid red";
+        firstname.setCustomValidity("Firstname should not contains special characters.")
+        firstname_label.style.color = "red";
+        firstname.style.border = "1px solid red";
     } else if (containNumbers(firstnameVal)) {
-        document.getElementById('firstname-label').style.color = "red";
-        document.getElementById('firstname').style.border = "1px solid red";
+        firstname.setCustomValidity("Firstname should not contains numbers.")
+        firstname_label.style.color = "red";
+        firstname.style.border = "1px solid red";
     } else if (startInputContainSpace(firstnameVal)) {
-        document.getElementById('firstname-label').style.color = "red";
-        document.getElementById('firstname').style.border = "1px solid red";
+        firstname.setCustomValidity("Firstname should not start with space.")
+        firstname_label.style.color = "red";
+        firstname.style.border = "1px solid red";
     } else if (!validateOneSpacePerWord(firstnameVal)) {
-        document.getElementById('firstname-label').style.color = "red";
-        document.getElementById('firstname').style.border = "1px solid red";
+        firstname.setCustomValidity("Double spaces are not allowed.")
+        firstname_label.style.color = "red";
+        firstname.style.border = "1px solid red";
     } else if (!validateIfCapitalize(firstnameVal)) {
-        document.getElementById('firstname-label').style.color = "red";
-        document.getElementById('firstname').style.border = "1px solid red";
+        firstname.setCustomValidity("Firstname must be capitalize")
+        firstname_label.style.color = "red";
+        firstname.style.border = "1px solid red";
     } else {
         firstname.setCustomValidity("");
         firstname_label.style.color = "";
         firstname.style.border = "";
     }
+});
+
+
+
+// middlename validation
+const middlename = document.getElementById('middlename');
+const middlename_label = document.getElementById('middlename-label');
+middlename.addEventListener("input", (e) => {
+    var middlenameVal = e.target.value;
+    if (hasRepeatedLetters(middlenameVal)) {
+        middlename.setCustomValidity("Please enter a middlename without repeated letters.")
+        middlename_label.style.color = "red";
+        middlename.style.border = "1px solid red";
+    } if (containSpecialCharacters(middlenameVal)) {
+        middlename.setCustomValidity("Middlename should not contains special characters.")
+        middlename_label.style.color = "red";
+        middlename.style.border = "1px solid red";
+    } if (containNumbers(middlenameVal)) {
+        middlename.setCustomValidity("Middlename should not contains numbers.")
+        middlename_label.style.color = "red";
+        middlename.style.border = "1px solid red";
+    } if (startInputContainSpace(middlenameVal)) {
+        middlename.setCustomValidity("Middlename should not start with space.")
+        middlename_label.style.color = "red";
+        middlename.style.border = "1px solid red";
+    } if (!validateOneSpacePerWord(middlenameVal)) {
+        middlename.setCustomValidity("Double spaces are not allowed.")
+        middlename_label.style.color = "red";
+        middlename.style.border = "1px solid red";
+    } if (!validateIfCapitalize(middlenameVal)) {
+        middlename.setCustomValidity("Middlename must be capitalize")
+        middlename_label.style.color = "red";
+        middlename.style.border = "1px solid red";
+    }
+    middlename.setCustomValidity("");
+    middlename_label.style.color = "";
+    middlename.style.border = "";
 });
 
 
