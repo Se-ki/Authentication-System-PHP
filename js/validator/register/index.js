@@ -70,6 +70,9 @@ function startInputContainSpace(input) {
     if (!input) {
         return false;
     }
+    if (input === " ") {
+        return true;
+    }
     var pattern = /^( [0-9a-zA-Z,.-]+)*$/;
     return pattern.test(input);
 }
