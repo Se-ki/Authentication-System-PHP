@@ -12,8 +12,6 @@ $user = $db->query("SELECT * FROM users WHERE username = :username", [
 ])->find();
 if (!$user || !password_verify($password, $user['password'])) {
     $_SESSION["attempts"] -= 1;
-    // Session::flash('error', "Incorrect username or password. </br> You only have {$_SESSION['attempts']} attempts");
-    // redirect('/login');
     $login = false;
     $message = "Incorrect username or password. </br> You only have {$_SESSION["attempts"]} attempts";
 } else {
@@ -30,4 +28,3 @@ echo json_encode([
     "login" => $login,
     "message" => $message
 ]);
-// redirect("/home");

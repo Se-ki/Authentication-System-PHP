@@ -5,7 +5,7 @@ document.querySelector("#session-form").addEventListener('submit', async (e) => 
     const formData = new FormData();
     formData.append('username', username);
     formData.append('password', password);
-    const response = await fetch("http://127.0.0.1:3000/login/store", {
+    const response = await fetch("/login/store", {
         method: "POST",
         body: formData
     })
@@ -19,6 +19,7 @@ document.querySelector("#session-form").addEventListener('submit', async (e) => 
 
 
 });
+
 //x-www-form-urlencoded
 document.getElementById("countdown").addEventListener('load', () => {
     var timeleft = 30;

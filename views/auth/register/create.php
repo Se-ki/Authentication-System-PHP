@@ -293,5 +293,5 @@
     </div>
 </div>
 </section>
-<script src="../../js/validator/register/index.js"></script>
+<script src="../../js/validator/register/index.min.js"></script>
 <?php require "./views/partial/footer.php" ?>

@@ -23,7 +23,7 @@ function containNumbers(value) {
     return false;
 }
 function containSpecialCharacters(value) {
-    var regex = /[!@#$%^&*()\-\/+<>.,?\/\\\|\[\]\{\}]+/;
+    var regex = /[!@'';:#$%^&*()\-\/+<>.,?\/\\\|\[\]\{\}]+/;
     if (regex.test(value)) {
         return true
     }
@@ -163,8 +163,8 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
     document.getElementById("email-label").style.color = "";
     document.getElementById("email").style.border = "";
     document.getElementById('password-strength').innerHTML = "";
-    document.getElementById("display-success").innerHTML = "Successfully Registered. You can now <a href='/login'>Login</a>";
     document.getElementById("display-success").setAttribute("class", "alert alert-success");
+    document.getElementById("display-success").innerHTML = "Successfully Registered. You can now <a href='/login'>Login</a>";
     alert(data.message);
     document.querySelectorAll("input").forEach((inputFields) => {
         inputFields.value = "";

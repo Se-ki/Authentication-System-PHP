@@ -1,6 +1,6 @@
 <?php
-if (!empty($_SESSION['username'])) {
-    header('location: /home.php');
+if (isset($_SESSION['user']['login'])) {
+    header('location: /home');
 }
 
 ?>
