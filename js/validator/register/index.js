@@ -62,6 +62,13 @@ function isValidAddress(value) {
 /*
     #TODO no words nor letter but if contains 1 space at the beginning will restrict
 */
+function validateOneSpaceAtTheEnd(input) {
+    if (!input) {
+        return false;
+    }
+    var pattern = /^([0-9a-zA-Z,.-]+ )*$/;
+    return pattern.test(input);
+}
 function validateOneSpacePerWord(input) {
     if (!input) {
         return true;
@@ -87,7 +94,6 @@ function passwordValidation(value) {
 }
 //validate form
 document.getElementById('register-form').addEventListener('submit', async (e) => {
-    // e.preventDefault();
     //get the value that inputted
     var firstname = document.querySelector("input[name=firstname]").value;
     var middlename = document.querySelector("input[name=middlename]").value;
@@ -163,12 +169,10 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
     document.getElementById("email-label").style.color = "";
     document.getElementById("email").style.border = "";
     document.getElementById('password-strength').innerHTML = "";
-    document.getElementById("display-success").setAttribute("class", "alert alert-success");
-    document.getElementById("display-success").innerHTML = "Successfully Registered. You can now <a href='/login'>Login</a>";
-    alert(data.message);
     document.querySelectorAll("input").forEach((inputFields) => {
         inputFields.value = "";
     });
+    alert(data.message);
 })
 
 
@@ -192,6 +196,10 @@ firstname.addEventListener("input", (e) => {
         firstname.style.border = "1px solid red";
     } else if (startInputContainSpace(firstname_value)) {
         firstname.setCustomValidity("Firstname should not start with space.")
+        firstname_label.style.color = "red";
+        firstname.style.border = "1px solid red";
+    } else if (validateOneSpaceAtTheEnd(firstname_value)) {
+        firstname.setCustomValidity("Firstname should not end with space.")
         firstname_label.style.color = "red";
         firstname.style.border = "1px solid red";
     } else if (!validateOneSpacePerWord(firstname_value)) {
@@ -229,6 +237,10 @@ middlename.addEventListener("input", (e) => {
         middlename.style.border = "1px solid red";
     } else if (startInputContainSpace(middlename_value)) {
         middlename.setCustomValidity("Middlename should not start with space.")
+        middlename_label.style.color = "red";
+        middlename.style.border = "1px solid red";
+    } else if (validateOneSpaceAtTheEnd(middlename_value)) {
+        middlename.setCustomValidity("Middlename should not end with space.")
         middlename_label.style.color = "red";
         middlename.style.border = "1px solid red";
     } else if (!validateOneSpacePerWord(middlename_value)) {
@@ -269,6 +281,10 @@ lastname.addEventListener("input", (e) => {
         lastname.setCustomValidity("Lastname should not start with space.")
         lastname_label.style.color = "red";
         lastname.style.border = "1px solid red";
+    } else if (validateOneSpaceAtTheEnd(lastname_value)) {
+        lastname.setCustomValidity("Lastname should not end with space.")
+        lastname_label.style.color = "red";
+        lastname.style.border = "1px solid red";
     } else if (!validateOneSpacePerWord(lastname_value)) {
         lastname.setCustomValidity("Double spaces are not allowed.")
         lastname_label.style.color = "red";
@@ -306,6 +322,10 @@ suffix.addEventListener("input", (e) => {
         suffix.style.border = "1px solid red";
     } else if (startInputContainSpace(suffix_value)) {
         suffix.setCustomValidity("Suffix should not start with space.")
+        suffix_label.style.color = "red";
+        suffix.style.border = "1px solid red";
+    } else if (validateOneSpaceAtTheEnd(suffix_value)) {
+        suffix.setCustomValidity("Suffix should not end with space.")
         suffix_label.style.color = "red";
         suffix.style.border = "1px solid red";
     } else if (!validateOneSpacePerWord(suffix_value)) {
@@ -363,6 +383,10 @@ mobilenumber.addEventListener("input", (e) => {
         mobilenumber.setCustomValidity("Mobile number should not start with space");
         document.getElementById('mobilenum-label').style.color = "red";
         document.getElementById('mobilenum').style.border = "1px solid red";
+    } else if (validateOneSpaceAtTheEnd(mobilenum_value)) {
+        mobilenumber.setCustomValidity("Mobile number should not end with space.")
+        mobilenumber_label.style.color = "red";
+        mobilenumber.style.border = "1px solid red";
     } else if (containsLetters(mobilenum_value)) {
         mobilenumber.setCustomValidity("Mobile number don't contain strings. Please enter an mobile number value.");
         document.getElementById('mobilenum-label').style.color = "red";
@@ -377,7 +401,6 @@ mobilenumber.addEventListener("input", (e) => {
         document.getElementById('mobilenum').style.border = "";
     }
 });
-
 
 // country validation
 const country = document.getElementById('country');
@@ -399,6 +422,10 @@ country.addEventListener("input", (e) => {
         country.style.border = "1px solid red";
     } else if (startInputContainSpace(country_value)) {
         country.setCustomValidity("Country should not start with space.")
+        country_label.style.color = "red";
+        country.style.border = "1px solid red";
+    } else if (validateOneSpaceAtTheEnd(country_value)) {
+        country.setCustomValidity("Country should not end with space.")
         country_label.style.color = "red";
         country.style.border = "1px solid red";
     } else if (!validateOneSpacePerWord(country_value)) {
@@ -434,6 +461,10 @@ province.addEventListener("input", (e) => {
         province.style.border = "1px solid red";
     } else if (containNumbers(province_value)) {
         province.setCustomValidity("Province should not contains numbers.")
+        province_label.style.color = "red";
+        province.style.border = "1px solid red";
+    } else if (validateOneSpaceAtTheEnd(province_value)) {
+        province.setCustomValidity("Province should not end with space.")
         province_label.style.color = "red";
         province.style.border = "1px solid red";
     } else if (startInputContainSpace(province_value)) {
@@ -478,6 +509,10 @@ city.addEventListener("input", (e) => {
         city.setCustomValidity("City or Municipality should not start with space.")
         city_label.style.color = "red";
         city.style.border = "1px solid red";
+    } else if (validateOneSpaceAtTheEnd(city_value)) {
+        city.setCustomValidity("City or Municipality should not end with space.")
+        city_label.style.color = "red";
+        city.style.border = "1px solid red";
     } else if (!validateOneSpacePerWord(city_value)) {
         city.setCustomValidity("Double spaces are not allowed.")
         city_label.style.color = "red";
@@ -512,6 +547,10 @@ purok.addEventListener("input", (e) => {
         purok.setCustomValidity("Purok should not start with space.")
         purok_label.style.color = "red";
         purok.style.border = "1px solid red";
+    } else if (validateOneSpaceAtTheEnd(purok_value)) {
+        purok.setCustomValidity("Purok should not end with space.")
+        purok_label.style.color = "red";
+        purok.style.border = "1px solid red";
     } else if (!validateOneSpacePerWord(purok_value)) {
         purok.setCustomValidity("Double spaces are not allowed.")
         purok_label.style.color = "red";
@@ -544,6 +583,10 @@ barangay.addEventListener("input", (e) => {
         barangay.style.border = "1px solid red";
     } else if (startInputContainSpace(barangay_value)) {
         barangay.setCustomValidity("Barangay should not start with space.")
+        barangay_label.style.color = "red";
+        barangay.style.border = "1px solid red";
+    } else if (validateOneSpaceAtTheEnd(barangay_value)) {
+        barangay.setCustomValidity("Barangay should not end with space.")
         barangay_label.style.color = "red";
         barangay.style.border = "1px solid red";
     } else if (!validateOneSpacePerWord(barangay_value)) {
@@ -583,6 +626,10 @@ street.addEventListener("input", (e) => {
         street.setCustomValidity("Street should not start with space.")
         street_label.style.color = "red";
         street.style.border = "1px solid red";
+    } else if (validateOneSpaceAtTheEnd(street_value)) {
+        street.setCustomValidity("Street should not end with space.")
+        street_label.style.color = "red";
+        street.style.border = "1px solid red";
     } else if (!validateOneSpacePerWord(street_value)) {
         street.setCustomValidity("Double spaces are not allowed.")
         street_label.style.color = "red";
@@ -598,42 +645,25 @@ street.addEventListener("input", (e) => {
     }
 });
 
+
 //zipcode
-document.getElementById('zipcode').addEventListener('input', () => {
+document.getElementById('zipcode').addEventListener("input", (e) => {
     const zipcode = document.getElementById("zipcode");
-    const inputValue = zipcode.value.trim();
+    const zipcode_label = document.getElementById("zipcode-label");
+    const inputValue = e.target.value.trim();
     const zipcodeInt = parseInt(inputValue);
     if (zipcodeInt < 100 || zipcodeInt > 9811) {
         zipcode.setCustomValidity("Please enter a valid ZIP code");
-    } else if (inputValue === "" || isNaN(inputValue)) {
+        zipcode.style.border = "1px solid red";
+        zipcode_label.style.color = "red";
+    } else if (isNaN(inputValue)) {
         zipcode.setCustomValidity("Please enter a valid ZIP code");
+        zipcode_label.style.color = "red";
+        zipcode.style.border = "1px solid red";
     } else {
         zipcode.setCustomValidity("");
-    }
-})
-
-
-//username validation
-const username = document.getElementById('username');
-const username_label = document.getElementById('username-label')
-username.addEventListener("input", (e) => {
-    var username_value = e.target.value;
-    if (hasRepeatedLetters(username_value)) {
-        username.setCustomValidity("Please enter a username without repeated letters.")
-        username_label.style.color = "red";
-        username.style.border = "1px solid red";
-    } else if (startInputContainSpace(username_value)) {
-        username.setCustomValidity("Username should not start with space.")
-        username_label.style.color = "red";
-        username.style.border = "1px solid red";
-    } else if (!validateOneSpacePerWord(username_value)) {
-        username.setCustomValidity("Double spaces are not allowed.")
-        username_label.style.color = "red";
-        username.style.border = "1px solid red";
-    } else {
-        username.setCustomValidity("");
-        username_label.style.color = "";
-        username.style.border = "";
+        zipcode_label.style.color = "";
+        zipcode.style.border = "";
     }
 })
 
@@ -738,51 +768,57 @@ document.getElementById('toggleConfirmPassword').addEventListener('click', funct
 
 
 //check if username and email is exist
-document.getElementById('username').addEventListener("input", async (e) => {
-    var username = e.target.value;
-    const response = await fetch(`/ajax/fetch.php?username=${username}`);
-    if (!username) {
-        document.getElementById('is-valid-username').innerHTML = "";
-        document.getElementById('username-label').style.color = "";
-        document.getElementById('username').style.border = "";
-        document.getElementById('button').style.cursor = "";
-        document.getElementById('button').disabled = false;
-    }
+const button = document.getElementById('button');
+const username = document.getElementById('username')
+const username_label = document.getElementById('username-label')
+username.addEventListener("input", async (e) => {
+    var username_value = e.target.value;
+    const response = await fetch(`/ajax/fetch.php?username=${username_value}`);
     const data = await response.json();
-    if (data.ok) {
+    if (hasRepeatedLetters(username_value)) { //validation input user
+        username.setCustomValidity("Please enter a username without repeated letters.")
+        username_label.style.color = "red";
+        username.style.border = "1px solid red";
+    } else if (username_value.includes(" ")) {
+        username.setCustomValidity("Username should not contains with spaces.")
+        username_label.style.color = "red";
+        username.style.border = "1px solid red";
+    } else if (data.ok) { //this part is if username is already exist
+        username_label.style.color = "red";
+        username.style.border = "1px solid red";
+        button.disabled = true;
+        button.style.cursor = "not-allowed";
         document.getElementById('is-valid-username').innerHTML = data.message;
-        document.getElementById('username-label').style.color = "red";
-        document.getElementById('username').style.border = "1px solid red";
-        document.getElementById('button').disabled = true;
-        document.getElementById('button').style.cursor = "not-allowed";
     } else {
+        username.setCustomValidity("");
+        username_label.style.color = "";
+        username.style.border = "";
+        button.style.cursor = "";
+        button.disabled = false;
         document.getElementById('is-valid-username').innerHTML = "";
-        document.getElementById('button').style.cursor = "";
-        document.getElementById('button').disabled = false;
     }
 });
+const email = document.getElementById('email');
+const email_label = document.getElementById('email-label');
 document.getElementById('email').addEventListener("input", async (e) => {
-    var email = e.target.value;
-    const response = await fetch(`/ajax/fetch.php?email=${email}`);
-    if (!email) {
-        document.getElementById('is-valid-email').innerHTML = "";
-        document.getElementById('email-label').style.color = "";
-        document.getElementById('email').style.border = "";
-        document.getElementById('button').style.cursor = "";
-        document.getElementById('button').disabled = false;
-    }
+    var email_value = e.target.value;
+    const response = await fetch(`/ajax/fetch.php?email=${email_value}`);
     const data = await response.json();
-    if (data.ok) {
+    if (hasRepeatedLetters(email_value)) { //validation input user
+        email.setCustomValidity("Please enter a email without repeated letters.")
+        email_label.style.color = "red";
+        email.style.border = "1px solid red";
+    } else if (data.ok) {
+        email_label.style.color = "red";
+        email.style.border = "1px solid red";
+        button.disabled = true;
         document.getElementById('is-valid-email').innerHTML = data.message;
-        document.getElementById('email-label').style.color = "red";
-        document.getElementById('email').style.border = "1px solid red";
-        document.getElementById('button').disabled = true;
     } else if (!data.ok) {
+        email_label.style.color = "";
+        email.style.border = "";
+        button.style.cursor = "";
+        button.disabled = false;
         document.getElementById('is-valid-email').innerHTML = "";
-        document.getElementById('email-label').style.color = "";
-        document.getElementById('email').style.border = "";
-        document.getElementById('button').style.cursor = "";
-        document.getElementById('button').disabled = false;
     }
 });
 

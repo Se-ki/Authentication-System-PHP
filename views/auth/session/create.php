@@ -1,7 +1,6 @@
 <?php require "./views/partial/header.php" ?>
-<?= var_dump($_SESSION) ?>
 <section class="gradient-custom">
-    <div class="container py-5 h-100">
+    <div class="container">
         <div class="row d-flex justify-content-center align-items-center h-0">
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                 <div class="card bg-dark text-white" style="border-radius: 1rem;">
@@ -44,13 +43,15 @@
                                 <!-- form -->
                             </form>
                         </div>
-                        <div>
-                            <p class="mb-0">Don't have an account? <a href="/register"
-                                    class="text-white-50 fw-bold">Sign
+                    </div>
+                    <center>
+                        <div style="margin-bottom:-110px">
+                            <p style="position:relative; bottom:80px" class="mb-0">Don't have an account? <a
+                                    href="/register" class="text-white-50 fw-bold">Sign
                                     Up</a>
                             </p>
                         </div>
-                    </div>
+                    </center>
                 </div>
             </div>
         </div>
