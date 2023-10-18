@@ -7,6 +7,18 @@ function dd($value)
     die();
 }
 
+function IPAddress()
+{
+    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+        $ipAddr = $_SERVER['HTTP_CLIENT_IP'];
+    } elseif (!empty($_SERVER['HTTP_X_FORWARD_FOR'])) {
+        $ipAddr = $_SERVER['HTTP_X_FORWARD_FOR'];
+    } else {
+        $ipAddr = $_SERVER['REMOTE_ADDR'];
+    }
+    return $ipAddr;
+}
+
 function test_input($data)
 {
     $data = trim($data);
@@ -20,13 +32,6 @@ function redirect($path)
 {
     header("location: {$path}");
     exit();
-}
-
-function attempts()
-{
-    if (!isset($_SESSION['attempts'])) {
-        $_SESSION['attempts'] = 3;
-    }
 }
 
 function remainData($firstname, $lastname, $middlename, $suffix, $sex, $birthdate, $age, $mobilenum, $country, $province, $city, $purok, $barangay, $street, $zipcode, $username, $email, $password, $confirmpassword)
@@ -52,4 +57,10 @@ function remainData($firstname, $lastname, $middlename, $suffix, $sex, $birthdat
         'password' => $password,
         'confirmpassword' => $confirmpassword
     ]);
+}
+
+function getTimer()
+{
+    $localStorageData = "<script>document.write(localStorage.getItem('count_timer'))</script>";
+    return $localStorageData;
 }

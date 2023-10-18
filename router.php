@@ -9,6 +9,7 @@ $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 $routes = [
     "/" => "./controller/index.php",
     "/login" => "./controller/auth/session/create.php",
+    "/logins" => "./controller/auth/session/invalid.php",
     "/register" => "./controller/auth/register/create.php",
     "/register/store" => "./controller/auth/register/store.php",
     "/login/store" => "./controller/auth/session/store.php",

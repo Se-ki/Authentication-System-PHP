@@ -9,7 +9,7 @@
                     <div class="row g-0">
                         <div class="col-lg-12">
                             <div class="olala p-3">
-                                <form action="" method="POST" id="register-form" class="needs-validation">
+                                <form action="/login/store" method="POST" id="register-form" class="needs-validation">
                                     <h3 class="header mb-2 mt-3">Personal
                                         Information</h3>
                                     <div class="row"> <!-- firstname  and lastname row -->
@@ -287,5 +287,5 @@
     </div>
 </div>
 </section>
-<script src="../../js/validator/register/index.js"></script>
+<script src="../../js/validator/register/index.min.js"></script>
 <?php require "./views/partial/footer.php" ?>
