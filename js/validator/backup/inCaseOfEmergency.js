@@ -106,9 +106,9 @@ function passwordValidation(value) {
     }
     return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/.test(value)
 }
-// function capitalizeFirstLetter(inputString) {
-//     return inputString.charAt(0).toUpperCase() + inputString.slice(1);
-// }
+function capitalizeFirstLetter(inputString) {
+    return inputString.charAt(0).toUpperCase() + inputString.slice(1);
+}
 function forSuffixValidation(suffixValue) {
     //suffix
     // Allow empty suffix or valid Roman numerals, "Jr.", or "Sr."
@@ -178,24 +178,6 @@ function restrictDoubleSpaces(event, fieldName) {
 
     // Replace double spaces with a single space
     const sanitizedValue = inputValue.replace(/\s{2,}/g, ' ');
-
-    // Update the input value if it was changed
-    if (sanitizedValue !== inputValue) {
-        inputElement.value = sanitizedValue;
-    }
-}
-function restrictNonNumeric(input) {
-    input.value = input.value.replace(/[^0-9+]/g, '');
-}
-function restrictNonNumeric(input) {
-    input.value = input.value.replace(/[^0-9+]/g, '');
-}
-function restrictSpaces(event, fieldName) {
-    const inputElement = event.target;
-    const inputValue = inputElement.value;
-
-    // Remove spaces from the input value
-    const sanitizedValue = inputValue.replace(/\s/g, '');
 
     // Update the input value if it was changed
     if (sanitizedValue !== inputValue) {
@@ -293,11 +275,40 @@ const firstname = document.getElementById('firstname');
 const firstname_label = document.getElementById('firstname-label');
 firstname.addEventListener("input", (e) => {
     //get the value of firstname
-    capitalizeFirstLetter('firstname');
-    restrictSpaceStart(e);
-    restrictDoubleSpaces(e, 'firstname');
-    restrictTwoConsecutiveLetters(e, 'firstname');
-    restrictNonLetters('firstname');
+    var firstname_value = e.target.value;
+    if (hasRepeatedLetters(firstname_value)) {
+        firstname.setCustomValidity("Please enter a firstname without repeated letters.")
+        firstname_label.style.color = "red";
+        firstname.style.border = "1px solid red";
+    } else if (containSpecialCharacters(firstname_value)) {
+        firstname.setCustomValidity("Firstname should not contains special characters.")
+        firstname_label.style.color = "red";
+        firstname.style.border = "1px solid red";
+    } else if (containNumbers(firstname_value)) {
+        firstname.setCustomValidity("Firstname should not contains numbers.")
+        firstname_label.style.color = "red";
+        firstname.style.border = "1px solid red";
+    } else if (startInputContainSpace(firstname_value)) {
+        firstname.setCustomValidity("Firstname should not start with space.")
+        firstname_label.style.color = "red";
+        firstname.style.border = "1px solid red";
+    } else if (validateOneSpaceAtTheEnd(firstname_value)) {
+        firstname.setCustomValidity("Firstname should not end with space.")
+        firstname_label.style.color = "red";
+        firstname.style.border = "1px solid red";
+    } else if (!validateOneSpacePerWord(firstname_value)) {
+        firstname.setCustomValidity("Double spaces are not allowed.")
+        firstname_label.style.color = "red";
+        firstname.style.border = "1px solid red";
+    } else if (!validateIfCapitalize(firstname_value)) {
+        firstname.setCustomValidity("Firstname must be capitalize")
+        firstname_label.style.color = "red";
+        firstname.style.border = "1px solid red";
+    } else {
+        firstname.setCustomValidity("");
+        firstname_label.style.color = "";
+        firstname.style.border = "";
+    }
 });
 
 
@@ -305,11 +316,40 @@ firstname.addEventListener("input", (e) => {
 const middlename = document.getElementById('middlename');
 const middlename_label = document.getElementById('middlename-label');
 middlename.addEventListener("input", (e) => {
-    capitalizeFirstLetter('middlename');
-    restrictSpaceStart(e);
-    restrictDoubleSpaces(e, 'middlename');
-    restrictTwoConsecutiveLetters(e, 'middlename');
-    restrictNonLetters('middlename');
+    var middlename_value = e.target.value;
+    if (hasRepeatedLetters(middlename_value)) {
+        middlename.setCustomValidity("Please enter a middlename without repeated letters.")
+        middlename_label.style.color = "red";
+        middlename.style.border = "1px solid red";
+    } else if (containSpecialCharacters(middlename_value)) {
+        middlename.setCustomValidity("Middlename should not contains special characters.")
+        middlename_label.style.color = "red";
+        middlename.style.border = "1px solid red";
+    } else if (containNumbers(middlename_value)) {
+        middlename.setCustomValidity("Middlename should not contains numbers.")
+        middlename_label.style.color = "red";
+        middlename.style.border = "1px solid red";
+    } else if (startInputContainSpace(middlename_value)) {
+        middlename.setCustomValidity("Middlename should not start with space.")
+        middlename_label.style.color = "red";
+        middlename.style.border = "1px solid red";
+    } else if (validateOneSpaceAtTheEnd(middlename_value)) {
+        middlename.setCustomValidity("Middlename should not end with space.")
+        middlename_label.style.color = "red";
+        middlename.style.border = "1px solid red";
+    } else if (!validateOneSpacePerWord(middlename_value)) {
+        middlename.setCustomValidity("Double spaces are not allowed.")
+        middlename_label.style.color = "red";
+        middlename.style.border = "1px solid red";
+    } else if (!validateIfCapitalize(middlename_value)) {
+        middlename.setCustomValidity("Middlename must be capitalize")
+        middlename_label.style.color = "red";
+        middlename.style.border = "1px solid red";
+    } else {
+        middlename.setCustomValidity("");
+        middlename_label.style.color = "";
+        middlename.style.border = "";
+    }
 });
 
 
@@ -317,11 +357,41 @@ middlename.addEventListener("input", (e) => {
 const lastname = document.getElementById('lastname');
 const lastname_label = document.getElementById('lastname-label');
 lastname.addEventListener("input", (e) => {
-    capitalizeFirstLetter('lastname');
-    restrictSpaceStart(e);
-    restrictDoubleSpaces(e, 'lastname');
-    restrictTwoConsecutiveLetters(e, 'lastname');
-    restrictNonLetters('lastname');
+    var lastname_value = e.target.value;
+    if (hasRepeatedLetters(lastname_value)) {
+        console.log(lastname_value)
+        lastname.setCustomValidity("Please enter a lastname without repeated letters.")
+        lastname_label.style.color = "red";
+        lastname.style.border = "1px solid red";
+    } else if (containSpecialCharacters(lastname_value)) {
+        lastname.setCustomValidity("Lastname should not contains special characters.")
+        lastname_label.style.color = "red";
+        lastname.style.border = "1px solid red";
+    } else if (containNumbers(lastname_value)) {
+        lastname.setCustomValidity("Lastname should not contains numbers.")
+        lastname_label.style.color = "red";
+        lastname.style.border = "1px solid red";
+    } else if (startInputContainSpace(lastname_value)) {
+        lastname.setCustomValidity("Lastname should not start with space.")
+        lastname_label.style.color = "red";
+        lastname.style.border = "1px solid red";
+    } else if (validateOneSpaceAtTheEnd(lastname_value)) {
+        lastname.setCustomValidity("Lastname should not end with space.")
+        lastname_label.style.color = "red";
+        lastname.style.border = "1px solid red";
+    } else if (!validateOneSpacePerWord(lastname_value)) {
+        lastname.setCustomValidity("Double spaces are not allowed.")
+        lastname_label.style.color = "red";
+        lastname.style.border = "1px solid red";
+    } else if (!validateIfCapitalize(lastname_value)) {
+        lastname.setCustomValidity("Lastname must be capitalize")
+        lastname_label.style.color = "red";
+        lastname.style.border = "1px solid red";
+    } else {
+        lastname.setCustomValidity("");
+        lastname_label.style.color = "";
+        lastname.style.border = "";
+    }
 });
 
 
@@ -330,10 +400,34 @@ const suffix = document.getElementById('suffix');
 const suffix_label = document.getElementById('suffix-label');
 suffix.addEventListener("input", (e) => {
     var suffix_value = e.target.value;
-    restrictSpaceStart(e);
-    restrictDoubleSpaces(e, 'suffix');
-    if (forSuffixValidation(suffix_value)) {
+    suffix.value = capitalizeFirstLetter(suffix_value);
+    if (hasRepeatedLettersInSuffix(suffix_value)) {
+        console.log(suffix_value)
+        suffix.setCustomValidity("Please enter a suffix without repeated letters.")
+        suffix_label.style.color = "red";
+        suffix.style.border = "1px solid red";
+    } else if (forSuffixValidation(suffix_value)) {
         suffix.setCustomValidity("Invalid Suffix (example format: Jr., Sr., I, II, III, IV...)")
+        suffix_label.style.color = "red";
+        suffix.style.border = "1px solid red";
+    } else if (containSpecialCharacters(suffix_value)) {
+        suffix.setCustomValidity("Suffix should not contains special characters.")
+        suffix_label.style.color = "red";
+        suffix.style.border = "1px solid red";
+    } else if (containNumbers(suffix_value)) {
+        suffix.setCustomValidity("Suffix should not contains numbers.")
+        suffix_label.style.color = "red";
+        suffix.style.border = "1px solid red";
+    } else if (startInputContainSpace(suffix_value)) {
+        suffix.setCustomValidity("Suffix should not start with space.")
+        suffix_label.style.color = "red";
+        suffix.style.border = "1px solid red";
+    } else if (validateOneSpaceAtTheEnd(suffix_value)) {
+        suffix.setCustomValidity("Suffix should not end with space.")
+        suffix_label.style.color = "red";
+        suffix.style.border = "1px solid red";
+    } else if (!validateOneSpacePerWord(suffix_value)) {
+        suffix.setCustomValidity("Double spaces are not allowed.")
         suffix_label.style.color = "red";
         suffix.style.border = "1px solid red";
     } else {
@@ -376,9 +470,6 @@ const mobilenumber = document.getElementById("mobilenum");
 const mobilenumber_label = document.getElementById("mobilenum-label")
 mobilenumber.addEventListener("input", (e) => {
     var mobilenum_value = e.target.value;
-    restrictSpaceStart(e);
-    restrictDoubleSpaces(e, 'mobilenum');
-    restrictNonNumeric(mobilenumber);
     if (startInputContainSpace(mobilenum_value)) {
         mobilenumber.setCustomValidity("Mobile number should not start with space");
         document.getElementById('mobilenum-label').style.color = "red";
@@ -387,7 +478,13 @@ mobilenumber.addEventListener("input", (e) => {
         mobilenumber.setCustomValidity("Mobile number should not end with space.")
         mobilenumber_label.style.color = "red";
         mobilenumber.style.border = "1px solid red";
-    } else if (!validatePhilippineMobileNumber(mobilenum_value)) {
+    }
+    //  else if (containsLetters(mobilenum_value)) {
+    //     mobilenumber.setCustomValidity("Mobile number don't contain strings. Please enter an mobile number value.");
+    //     document.getElementById('mobilenum-label').style.color = "red";
+    //     document.getElementById('mobilenum').style.border = "1px solid red";
+    // } 
+    else if (!validatePhilippineMobileNumber(mobilenum_value)) {
         mobilenumber.setCustomValidity("Please enter a valid Philippine mobile number. e.g +639123456789 or 09123456789");
         document.getElementById('mobilenum-label').style.color = "red";
         document.getElementById('mobilenum').style.border = "1px solid red";
@@ -407,11 +504,41 @@ mobilenumber.addEventListener('click', () => {
 const country = document.getElementById('country');
 const country_label = document.getElementById('country-label');
 country.addEventListener("input", (e) => {
-    capitalizeFirstLetter('country');
-    restrictSpaceStart(e);
-    restrictDoubleSpaces(e, 'country');
-    restrictTwoConsecutiveLetters(e, 'country');
-    restrictNonLetters('country');
+    var country_value = e.target.value;
+    if (hasRepeatedLetters(country_value)) {
+        console.log(country_value)
+        country.setCustomValidity("Please enter a country without repeated letters.")
+        country_label.style.color = "red";
+        country.style.border = "1px solid red";
+    } else if (containSpecialCharacters(country_value)) {
+        country.setCustomValidity("Country should not contains special characters.")
+        country_label.style.color = "red";
+        country.style.border = "1px solid red";
+    } else if (containNumbers(country_value)) {
+        country.setCustomValidity("Country should not contains numbers.")
+        country_label.style.color = "red";
+        country.style.border = "1px solid red";
+    } else if (startInputContainSpace(country_value)) {
+        country.setCustomValidity("Country should not start with space.")
+        country_label.style.color = "red";
+        country.style.border = "1px solid red";
+    } else if (validateOneSpaceAtTheEnd(country_value)) {
+        country.setCustomValidity("Country should not end with space.")
+        country_label.style.color = "red";
+        country.style.border = "1px solid red";
+    } else if (!validateOneSpacePerWord(country_value)) {
+        country.setCustomValidity("Double spaces are not allowed.")
+        country_label.style.color = "red";
+        country.style.border = "1px solid red";
+    } else if (!validateIfCapitalize(country_value)) {
+        country.setCustomValidity("Country must be capitalize")
+        country_label.style.color = "red";
+        country.style.border = "1px solid red";
+    } else {
+        country.setCustomValidity("");
+        country_label.style.color = "";
+        country.style.border = "";
+    }
 });
 
 
@@ -420,11 +547,41 @@ country.addEventListener("input", (e) => {
 const province = document.getElementById('province');
 const province_label = document.getElementById('province-label');
 province.addEventListener("input", (e) => {
-    capitalizeFirstLetter('province');
-    restrictSpaceStart(e);
-    restrictDoubleSpaces(e, 'province');
-    restrictTwoConsecutiveLetters(e, 'province');
-    restrictNonLetters('province');
+    var province_value = e.target.value;
+    if (hasRepeatedLetters(province_value)) {
+        console.log(province_value)
+        province.setCustomValidity("Please enter a province without repeated letters.")
+        province_label.style.color = "red";
+        province.style.border = "1px solid red";
+    } else if (containSpecialCharacters(province_value)) {
+        province.setCustomValidity("Province should not contains special characters.")
+        province_label.style.color = "red";
+        province.style.border = "1px solid red";
+    } else if (containNumbers(province_value)) {
+        province.setCustomValidity("Province should not contains numbers.")
+        province_label.style.color = "red";
+        province.style.border = "1px solid red";
+    } else if (validateOneSpaceAtTheEnd(province_value)) {
+        province.setCustomValidity("Province should not end with space.")
+        province_label.style.color = "red";
+        province.style.border = "1px solid red";
+    } else if (startInputContainSpace(province_value)) {
+        province.setCustomValidity("Province should not start with space.")
+        province_label.style.color = "red";
+        province.style.border = "1px solid red";
+    } else if (!validateOneSpacePerWord(province_value)) {
+        province.setCustomValidity("Double spaces are not allowed.")
+        province_label.style.color = "red";
+        province.style.border = "1px solid red";
+    } else if (!validateIfCapitalize(province_value)) {
+        province.setCustomValidity("Province must be capitalize")
+        province_label.style.color = "red";
+        province.style.border = "1px solid red";
+    } else {
+        province.setCustomValidity("");
+        province_label.style.color = "";
+        province.style.border = "";
+    }
 });
 
 
@@ -432,11 +589,41 @@ province.addEventListener("input", (e) => {
 const city = document.getElementById('city');
 const city_label = document.getElementById('city-label');
 city.addEventListener("input", (e) => {
-    capitalizeFirstLetter('city');
-    restrictSpaceStart(e);
-    restrictDoubleSpaces(e, 'city');
-    restrictTwoConsecutiveLetters(e, 'city');
-    restrictNonLetters('city');
+    var city_value = e.target.value;
+    if (hasRepeatedLetters(city_value)) {
+        console.log(city_value)
+        city.setCustomValidity("Please enter a city or municipality without repeated letters.")
+        city_label.style.color = "red";
+        city.style.border = "1px solid red";
+    } else if (containSpecialCharacters(city_value)) {
+        city.setCustomValidity("City or Municipality should not contains special characters.")
+        city_label.style.color = "red";
+        city.style.border = "1px solid red";
+    } else if (containNumbers(city_value)) {
+        city.setCustomValidity("City or Municipality should not contains numbers.")
+        city_label.style.color = "red";
+        city.style.border = "1px solid red";
+    } else if (startInputContainSpace(city_value)) {
+        city.setCustomValidity("City or Municipality should not start with space.")
+        city_label.style.color = "red";
+        city.style.border = "1px solid red";
+    } else if (validateOneSpaceAtTheEnd(city_value)) {
+        city.setCustomValidity("City or Municipality should not end with space.")
+        city_label.style.color = "red";
+        city.style.border = "1px solid red";
+    } else if (!validateOneSpacePerWord(city_value)) {
+        city.setCustomValidity("Double spaces are not allowed.")
+        city_label.style.color = "red";
+        city.style.border = "1px solid red";
+    } else if (!validateIfCapitalize(city_value)) {
+        city.setCustomValidity("City or Municipality must be capitalize")
+        city_label.style.color = "red";
+        city.style.border = "1px solid red";
+    } else {
+        city.setCustomValidity("");
+        city_label.style.color = "";
+        city.style.border = "";
+    }
 });
 
 
@@ -444,10 +631,37 @@ city.addEventListener("input", (e) => {
 const purok = document.getElementById('purok');
 const purok_label = document.getElementById('purok-label');
 purok.addEventListener("input", (e) => {
-    capitalizeFirstLetter('purok');
-    restrictSpaceStart(e);
-    restrictDoubleSpaces(e, 'purok');
-    restrictTwoConsecutiveLetters(e, 'purok');
+    var purok_value = e.target.value;
+    if (hasRepeatedLetters(purok_value)) {
+        console.log(purok_value)
+        purok.setCustomValidity("Please enter a purok without repeated letters.")
+        purok_label.style.color = "red";
+        purok.style.border = "1px solid red";
+    } else if (containSpecialCharacters(purok_value)) {
+        purok.setCustomValidity("Purok should not contains special characters.")
+        purok_label.style.color = "red";
+        purok.style.border = "1px solid red";
+    } else if (startInputContainSpace(purok_value)) {
+        purok.setCustomValidity("Purok should not start with space.")
+        purok_label.style.color = "red";
+        purok.style.border = "1px solid red";
+    } else if (validateOneSpaceAtTheEnd(purok_value)) {
+        purok.setCustomValidity("Purok should not end with space.")
+        purok_label.style.color = "red";
+        purok.style.border = "1px solid red";
+    } else if (!validateOneSpacePerWord(purok_value)) {
+        purok.setCustomValidity("Double spaces are not allowed.")
+        purok_label.style.color = "red";
+        purok.style.border = "1px solid red";
+    } else if (!validateIfCapitalize(purok_value)) {
+        purok.setCustomValidity("Purok must be capitalize")
+        purok_label.style.color = "red";
+        purok.style.border = "1px solid red";
+    } else {
+        purok.setCustomValidity("");
+        purok_label.style.color = "";
+        purok.style.border = "";
+    }
 });
 
 
@@ -455,20 +669,78 @@ purok.addEventListener("input", (e) => {
 const barangay = document.getElementById('barangay');
 const barangay_label = document.getElementById('barangay-label');
 barangay.addEventListener("input", (e) => {
-    capitalizeFirstLetter('barangay');
-    restrictSpaceStart(e);
-    restrictDoubleSpaces(e, 'barangay');
-    restrictTwoConsecutiveLetters(e, 'barangay');
+    var barangay_value = e.target.value;
+    if (hasRepeatedLetters(barangay_value)) {
+        console.log(barangay_value)
+        barangay.setCustomValidity("Please enter a barangay without repeated letters.")
+        barangay_label.style.color = "red";
+        barangay.style.border = "1px solid red";
+    } else if (containSpecialCharacters(barangay_value)) {
+        barangay.setCustomValidity("Barangay should not contains special characters.")
+        barangay_label.style.color = "red";
+        barangay.style.border = "1px solid red";
+    } else if (startInputContainSpace(barangay_value)) {
+        barangay.setCustomValidity("Barangay should not start with space.")
+        barangay_label.style.color = "red";
+        barangay.style.border = "1px solid red";
+    } else if (validateOneSpaceAtTheEnd(barangay_value)) {
+        barangay.setCustomValidity("Barangay should not end with space.")
+        barangay_label.style.color = "red";
+        barangay.style.border = "1px solid red";
+    } else if (!validateOneSpacePerWord(barangay_value)) {
+        barangay.setCustomValidity("Double spaces are not allowed.")
+        barangay_label.style.color = "red";
+        barangay.style.border = "1px solid red";
+    } else if (!validateIfCapitalize(barangay_value)) {
+        barangay.setCustomValidity("Barangay must be capitalize")
+        barangay_label.style.color = "red";
+        barangay.style.border = "1px solid red";
+    } else {
+        barangay.setCustomValidity("");
+        barangay_label.style.color = "";
+        barangay.style.border = "";
+    }
 });
 
 // street validation
 const street = document.getElementById('street');
 const street_label = document.getElementById('street-label');
 street.addEventListener("input", (e) => {
-    capitalizeFirstLetter('street');
-    restrictSpaceStart(e);
-    restrictDoubleSpaces(e, 'street');
-    restrictTwoConsecutiveLetters(e, 'street');
+    var street_value = e.target.value;
+    if (hasRepeatedLetters(street_value)) {
+        console.log(street_value)
+        street.setCustomValidity("Please enter a street without repeated letters.")
+        street_label.style.color = "red";
+        street.style.border = "1px solid red";
+    } else if (containSpecialCharacters(street_value)) {
+        street.setCustomValidity("Street should not contains special characters.")
+        street_label.style.color = "red";
+        street.style.border = "1px solid red";
+    } else if (containNumbers(street_value)) {
+        street.setCustomValidity("Street should not contains numbers.")
+        street_label.style.color = "red";
+        street.style.border = "1px solid red";
+    } else if (startInputContainSpace(street_value)) {
+        street.setCustomValidity("Street should not start with space.")
+        street_label.style.color = "red";
+        street.style.border = "1px solid red";
+    } else if (validateOneSpaceAtTheEnd(street_value)) {
+        street.setCustomValidity("Street should not end with space.")
+        street_label.style.color = "red";
+        street.style.border = "1px solid red";
+    } else if (!validateOneSpacePerWord(street_value)) {
+        street.setCustomValidity("Double spaces are not allowed.")
+        street_label.style.color = "red";
+        street.style.border = "1px solid red";
+    } else if (!validateIfCapitalize(street_value)) {
+        street.setCustomValidity("Street must be capitalize")
+        street_label.style.color = "red";
+        street.style.border = "1px solid red";
+    } else {
+        street.setCustomValidity("");
+        street_label.style.color = "";
+        street.style.border = "";
+    }
 });
 
 
@@ -598,7 +870,6 @@ const button = document.getElementById('button');
 const username = document.getElementById('username')
 const username_label = document.getElementById('username-label')
 username.addEventListener("input", async (e) => {
-    restrictSpaces(e, 'username')
     var username_value = e.target.value;
     const response = await fetch(`/ajax/fetch.php?username=${username_value}`);
     const data = await response.json();
@@ -627,9 +898,8 @@ username.addEventListener("input", async (e) => {
 });
 const email = document.getElementById('email');
 const email_label = document.getElementById('email-label');
-email.addEventListener("input", async (event) => {
-    restrictSpaces(event, "email")
-    var email_value = event.target.value;
+document.getElementById('email').addEventListener("input", async (e) => {
+    var email_value = e.target.value;
     const response = await fetch(`/ajax/fetch.php?email=${email_value}`);
     const data = await response.json();
     if (hasRepeatedLetters(email_value)) { //validation input user

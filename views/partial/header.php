@@ -8,9 +8,9 @@
         <?= $header ?>
     </title>
     <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
-    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link href="<?= path('/css/login.css') ?>" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
-    <link rel="stylesheet" href="./css/index.css">
 </head>
 
 <body>

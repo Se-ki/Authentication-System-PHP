@@ -16,6 +16,7 @@ $routes = [
     "/session/destroy" => "./controller/auth/session/destroy.php",
     "/home" => "./controller/home.php",
 ];
+
 if (array_key_exists($uri, $routes)) {
     require $routes[$uri];
 } else {

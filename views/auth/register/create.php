@@ -1,4 +1,6 @@
 <?php require "./views/partial/header.php" ?>
+<link href=" <?= path('/css/bootstrap.min.css') ?>" rel="stylesheet">
+<link rel="stylesheet" href="<?= path('/css/index.css') ?>">
 <!-- <section class="h-100 h-custom gradient-custom-2">-->
 <div class="container">
     <div class="row d-flex justify-content-center align-items-center h-0">
@@ -77,7 +79,7 @@
                                         </div>
 
                                         <!-- birthdate -->
-                                        <div class="col-md-2 pb-2">
+                                        <div class="col-md-3 pb-2">
                                             <div class="form-floating mb-3 text-dark">
                                                 <input type="date" value="<?= $user['birthdate'] ?? null ?>" min="1960"
                                                     max="2030" id="birthdate" name="birthdate"
@@ -105,21 +107,21 @@
                                                 <input class="form-control form-control-sm " type="text"
                                                     placeholder=".form-control-sm" aria-label=".form-control-sm example"
                                                     value="<?= $user['mobilenum'] ?? null ?>" minlength="3"
-                                                    maxlength="12" name="mobilenum" id="mobilenum" autofocus required />
+                                                    maxlength="13" name="mobilenum" id="mobilenum" autofocus required />
                                                 <label for='floatingInput' id="mobilenum-label">Mobile Number</label>
                                                 <span class="text-danger fs-6" id="is-valid-mobilenum"></span>
                                             </div>
                                         </div>
 
                                         <!-- email address -->
-                                        <div class="col-md-5 pb-2">
+                                        <div class="col-md-4 pb-2">
                                             <div class="form-floating mb-3 text-dark">
-                                                <input class="form-control form-control-sm " type="email"
-                                                    placeholder=".form-control-sm" aria-label=".form-control-sm example"
+                                                <input class="form-control form-control-sm" type="text" name="email"
+                                                    id="email" placeholder=".form-control-sm"
+                                                    aria-label=".form-control-sm example"
                                                     value="<?= $user['email'] ?? null ?>"
                                                     style="border: <?= isset($message['error-email']) ? "1px solid red" : "" ?>"
-                                                    minlength="5" maxlength="60" name="email" id="email" autofocus
-                                                    required />
+                                                    minlength="5" maxlength="60" autofocus required />
                                                 <label for='floatingInput'
                                                     style="color: <?= isset($message['error-email']) ? "red" : "" ?>"
                                                     id="email-label">Email</label>
@@ -134,6 +136,55 @@
                                     <h3 class="header mt-0">
                                         Address
                                         Information</h3>
+                                    <div class="row g-3">
+                                        <!-- Purok -->
+                                        <div class="col-md-3 mb-0">
+                                            <div class="form-floating mb-3 text-dark">
+                                                <input class="form-control form-control-sm " type="text"
+                                                    placeholder=".form-control-sm" aria-label=".form-control-sm example"
+                                                    value="<?= $user['purok'] ?? null ?>" minlength="1" maxlength="20"
+                                                    name="purok" id="purok" autofocus required />
+                                                <label for='floatingInput' id="purok-label">Purok</label>
+                                                <span class="text-danger fs-6" id="is-valid-purok"></span>
+                                            </div>
+                                        </div>
+
+                                        <!-- barangay -->
+                                        <div class="col-md-3 mb-0">
+                                            <div class="form-floating mb-3 text-dark">
+                                                <input class="form-control form-control-sm " type="text"
+                                                    placeholder=".form-control-sm" aria-label=".form-control-sm example"
+                                                    value="<?= $user['barangay'] ?? null ?>" minlength="1"
+                                                    maxlength="20" name="barangay" id="barangay" autofocus required />
+                                                <label for='floatingInput' id="barangay-label">Barangay</label>
+                                                <span class="text-danger fs-6" id="is-valid-barangay"></span>
+                                            </div>
+                                        </div>
+
+                                        <!-- street -->
+                                        <div class="col-md-3 mb-0">
+                                            <div class="form-floating mb-3 text-dark">
+                                                <input class="form-control form-control-sm " type="text"
+                                                    placeholder=".form-control-sm" aria-label=".form-control-sm example"
+                                                    value="<?= $user['street'] ?? null ?>" minlength="1" maxlength="20"
+                                                    name="street" id="street" autofocus />
+                                                <label for='floatingInput' id="street-label">Street</label>
+                                                <span class="text-danger fs-6" id="is-valid-street"></span>
+                                            </div>
+                                        </div>
+
+                                        <!-- zipcode -->
+                                        <div class="col-md-3 mb-0">
+                                            <div class="form-floating mb-3 text-dark">
+                                                <input class="form-control form-control-sm" type="text"
+                                                    value="<?= $user['zipcode'] ?? null ?>"
+                                                    placeholder=".form-control-sm" aria-label=".form-control-sm example"
+                                                    name="zipcode" id="zipcode" autofocus required />
+                                                <label for='floatingInput' id="zipcode-label">Zipcode</label>
+                                                <span class="text-danger fs-6" id="is-valid-zipcode"></span>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="row g-3">
                                         <div class="col-md-4 mb-0">
                                             <!-- country -->
@@ -169,55 +220,6 @@
                                                     name="city" id="city" autofocus required />
                                                 <label for='floatingInput' id="city-label">Municipal / City</label>
                                                 <span class="text-danger fs-6" id="is-valid-city"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row g-3">
-                                        <!-- Purok -->
-                                        <div class="col-md-3 mb-0">
-                                            <div class="form-floating mb-3 text-dark">
-                                                <input class="form-control form-control-sm " type="text"
-                                                    placeholder=".form-control-sm" aria-label=".form-control-sm example"
-                                                    value="<?= $user['purok'] ?? null ?>" minlength="1" maxlength="20"
-                                                    name="purok" id="purok" autofocus required />
-                                                <label for='floatingInput' id="purok-label">Purok</label>
-                                                <span class="text-danger fs-6" id="is-valid-purok"></span>
-                                            </div>
-                                        </div>
-
-                                        <!-- barangay -->
-                                        <div class="col-md-3 mb-0">
-                                            <div class="form-floating mb-3 text-dark">
-                                                <input class="form-control form-control-sm " type="text"
-                                                    placeholder=".form-control-sm" aria-label=".form-control-sm example"
-                                                    value="<?= $user['barangay'] ?? null ?>" minlength="1"
-                                                    maxlength="20" name="barangay" id="barangay" autofocus required />
-                                                <label for='floatingInput' id="barangay-label">Barangay</label>
-                                                <span class="text-danger fs-6" id="is-valid-barangay"></span>
-                                            </div>
-                                        </div>
-
-                                        <!-- street -->
-                                        <div class="col-md-3 mb-0">
-                                            <div class="form-floating mb-3 text-dark">
-                                                <input class="form-control form-control-sm " type="text"
-                                                    placeholder=".form-control-sm" aria-label=".form-control-sm example"
-                                                    value="<?= $user['street'] ?? null ?>" minlength="1" maxlength="20"
-                                                    name="street" id="street" autofocus required />
-                                                <label for='floatingInput' id="street-label">Street</label>
-                                                <span class="text-danger fs-6" id="is-valid-street"></span>
-                                            </div>
-                                        </div>
-
-                                        <!-- zipcode -->
-                                        <div class="col-md-3 mb-0">
-                                            <div class="form-floating mb-3 text-dark">
-                                                <input class="form-control form-control-sm" type="text"
-                                                    value="<?= $user['zipcode'] ?? null ?>"
-                                                    placeholder=".form-control-sm" aria-label=".form-control-sm example"
-                                                    name="zipcode" id="zipcode" autofocus required />
-                                                <label for='floatingInput' id="zipcode-label">Zipcode</label>
-                                                <span class="text-danger fs-6" id="is-valid-zipcode"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -287,5 +289,5 @@
     </div>
 </div>
 </section>
-<script src="../../js/validator/register/index.min.js"></script>
+<script src="<?= path('/js/validator/register/index.js') ?>"></script>
 <?php require "./views/partial/footer.php" ?>

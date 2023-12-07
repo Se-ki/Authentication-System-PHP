@@ -59,8 +59,8 @@ function remainData($firstname, $lastname, $middlename, $suffix, $sex, $birthdat
     ]);
 }
 
-function getTimer()
+function path($path)
 {
-    $localStorageData = "<script>document.write(localStorage.getItem('count_timer'))</script>";
-    return $localStorageData;
+    $url = "http://" . $_SERVER['SERVER_NAME'] . ":" . $_SERVER['SERVER_PORT'];
+    return $url . $path;
 }

@@ -4,8 +4,12 @@ if ($_SERVER['HTTP_SEC_FETCH_SITE'] === "none") {
     exit;
 }
 
+$username = test_input($_POST['username']);
+$password = test_input($_POST['password']);
+// Session::flash('username', $username);
+$_SESSION['username'] = $username;
 $ip = IPAddress();
-$time = time() - 30;
+$time = time() - 15;
 $check_login_row = $db->query("SELECT COUNT(*) AS total_count FROM attempts WHERE login_time > :time AND
  ip_address= :ip", [
     'ip' => $ip,
@@ -15,9 +19,6 @@ $total_count = $check_login_row['total_count'];
 if ($total_count >= 3) {
     redirect('/logins');
 } else {
-    $username = test_input($_POST['username']);
-    $password = test_input($_POST['password']);
-
     $user = $db->query("SELECT * FROM users WHERE username = :username", [
         'username' => $username,
     ])->find();
@@ -34,6 +35,10 @@ if ($total_count >= 3) {
             'ip' => $ip,
         ])->find();
         unset($_SESSION['timeIncrement']);
+        unset($_SESSION['based']);
+        // Session::unflash('username');
+        unset($_SESSION['username']);
+        $_SESSION['username'] = $username;
         redirect('/home');
     } else {
         $login_time = time();
@@ -44,9 +49,10 @@ if ($total_count >= 3) {
         $total_count++;
         $_SESSION['attempts'] = 3 - $total_count;
         if ($_SESSION['attempts'] <= 0) {
+            $_SESSION['based'] += 1;
             redirect('/logins');
         } else {
-            Session::flash('error', "Incorrect username or password. </br> You only have {$_SESSION['attempts']} attempts");
+            Session::flash('error', "These credentials do not match our records.");
         }
         redirect('/login');
     }
