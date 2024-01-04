@@ -138,19 +138,19 @@
                                         Information</h3>
                                     <div class="row g-3">
                                         <!-- Purok -->
-                                        <div class="col-md-3 mb-0">
+                                        <div class="col-md-4 mb-0">
                                             <div class="form-floating mb-3 text-dark">
                                                 <input class="form-control form-control-sm " type="text"
                                                     placeholder=".form-control-sm" aria-label=".form-control-sm example"
                                                     value="<?= $user['purok'] ?? null ?>" minlength="1" maxlength="20"
                                                     name="purok" id="purok" autofocus required />
-                                                <label for='floatingInput' id="purok-label">Purok</label>
+                                                <label for='floatingInput' id="purok-label">Purok/Street</label>
                                                 <span class="text-danger fs-6" id="is-valid-purok"></span>
                                             </div>
                                         </div>
 
                                         <!-- barangay -->
-                                        <div class="col-md-3 mb-0">
+                                        <div class="col-md-4 mb-0">
                                             <div class="form-floating mb-3 text-dark">
                                                 <input class="form-control form-control-sm " type="text"
                                                     placeholder=".form-control-sm" aria-label=".form-control-sm example"
@@ -162,43 +162,31 @@
                                         </div>
 
                                         <!-- street -->
-                                        <div class="col-md-3 mb-0">
+                                        <!-- <div class="col-md-3 mb-0">
                                             <div class="form-floating mb-3 text-dark">
                                                 <input class="form-control form-control-sm " type="text"
                                                     placeholder=".form-control-sm" aria-label=".form-control-sm example"
                                                     value="<?= $user['street'] ?? null ?>" minlength="1" maxlength="20"
                                                     name="street" id="street" autofocus />
-                                                <label for='floatingInput' id="street-label">Street</label>
+                                                <label for='floatingInput' id="street-label">Street (optional)</label>
                                                 <span class="text-danger fs-6" id="is-valid-street"></span>
                                             </div>
-                                        </div>
+                                        </div> -->
 
-                                        <!-- zipcode -->
-                                        <div class="col-md-3 mb-0">
-                                            <div class="form-floating mb-3 text-dark">
-                                                <input class="form-control form-control-sm" type="text"
-                                                    value="<?= $user['zipcode'] ?? null ?>"
-                                                    placeholder=".form-control-sm" aria-label=".form-control-sm example"
-                                                    name="zipcode" id="zipcode" autofocus required />
-                                                <label for='floatingInput' id="zipcode-label">Zipcode</label>
-                                                <span class="text-danger fs-6" id="is-valid-zipcode"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row g-3">
+                                        <!-- city -->
                                         <div class="col-md-4 mb-0">
-                                            <!-- country -->
                                             <div class="form-floating mb-3 text-dark">
                                                 <input class="form-control form-control-sm " type="text"
                                                     placeholder=".form-control-sm" aria-label=".form-control-sm example"
-                                                    value="<?= $user['country'] ?? null ?>" minlength="3" maxlength="20"
-                                                    name="country" id="country" autofocus required />
-                                                <label for='floatingInput' id="country-label">Country</label>
-                                                <span class="text-danger text-bg-light fs-6"
-                                                    id="is-valid-country"></span>
+                                                    value="<?= $user['city'] ?? null ?>" minlength="2" maxlength="20"
+                                                    name="city" id="city" autofocus required />
+                                                <label for='floatingInput' id="city-label">Municipal / City</label>
+                                                <span class="text-danger fs-6" id="is-valid-city"></span>
                                             </div>
                                         </div>
 
+                                    </div>
+                                    <div class="row g-3">
                                         <!-- province -->
                                         <div class="col-md-4 mb-0">
                                             <div class="form-floating mb-3 text-dark">
@@ -211,15 +199,28 @@
                                             </div>
                                         </div>
 
-                                        <!-- city -->
+                                        <!-- country -->
                                         <div class="col-md-4 mb-0">
                                             <div class="form-floating mb-3 text-dark">
                                                 <input class="form-control form-control-sm " type="text"
                                                     placeholder=".form-control-sm" aria-label=".form-control-sm example"
-                                                    value="<?= $user['city'] ?? null ?>" minlength="2" maxlength="20"
-                                                    name="city" id="city" autofocus required />
-                                                <label for='floatingInput' id="city-label">Municipal / City</label>
-                                                <span class="text-danger fs-6" id="is-valid-city"></span>
+                                                    value="<?= $user['country'] ?? null ?>" minlength="3" maxlength="20"
+                                                    name="country" id="country" autofocus required />
+                                                <label for='floatingInput' id="country-label">Country</label>
+                                                <span class="text-danger text-bg-light fs-6"
+                                                    id="is-valid-country"></span>
+                                            </div>
+                                        </div>
+
+                                        <!-- zipcode -->
+                                        <div class="col-md-4 mb-0">
+                                            <div class="form-floating mb-3 text-dark">
+                                                <input class="form-control form-control-sm" type="text"
+                                                    value="<?= $user['zipcode'] ?? null ?>"
+                                                    placeholder=".form-control-sm" aria-label=".form-control-sm example"
+                                                    name="zipcode" id="zipcode" autofocus required />
+                                                <label for='floatingInput' id="zipcode-label">Zipcode</label>
+                                                <span class="text-danger fs-6" id="is-valid-zipcode"></span>
                                             </div>
                                         </div>
                                     </div>

@@ -119,6 +119,8 @@ function forSuffixValidation(suffixValue) {
     return false;
 }
 
+/* //////////////////////////////////////////////////////////// */
+
 //validation that it will automatically restrict when you type
 function capitalizeFirstLetter(inputId) {
     const inputElement = document.getElementById(inputId);
@@ -132,6 +134,28 @@ function capitalizeFirstLetter(inputId) {
     }
     inputElement.value = words.join(' ');
 }
+function preventSpace(event, inputId) {
+    if (event.which === 32 && document.getElementById(inputId).selectionStart === 0) {
+        event.preventDefault();
+    }
+}
+function restrictNonAlphanumeric(inputElementId) {
+    var inputElement = document.getElementById(inputElementId);
+
+    if (!inputElement) {
+        console.error('Input element not found with id: ' + inputElementId);
+        return;
+    }
+
+    inputElement.addEventListener('input', function (event) {
+        var inputValue = event.target.value;
+
+        var cleanedValue = inputValue.replace(/[^A-Za-z0-9]/g, ' ');
+
+        event.target.value = cleanedValue;
+
+    });
+}
 function restrictNonLetters(inputElementId) {
     var inputElement = document.getElementById(inputElementId);
 
@@ -143,49 +167,45 @@ function restrictNonLetters(inputElementId) {
     inputElement.addEventListener('input', function (event) {
         var inputValue = event.target.value;
 
-        // Remove any non-letter characters
         var cleanedValue = inputValue.replace(/[^A-Za-z]/g, ' ');
 
-        // Update the input field with the cleaned value
         event.target.value = cleanedValue;
 
-        // You can add additional validation logic here if needed
     });
 }
 function restrictTwoConsecutiveLetters(event, fieldName) {
     const inputElement = event.target;
     let inputValue = inputElement.value;
 
-    // Remove more than 2 consecutive repeated letters
     inputValue = inputValue.replace(/([a-zA-Z])\1{2,}/gi, function (match, group) {
-        return group + group; // Keep only 2 consecutive
+        return group + group;
     });
 
-    // Update the input value if it was changed
     if (inputValue !== inputElement.value) {
         inputElement.value = inputValue;
     }
 }
 function restrictSpaceStart(event) {
-    // Check if the first character is a space
-    if (event.target.value.charAt(0) === ' ') {
-        event.target.value = '';  // Clear the value if it starts with a space
+    const input = event.target;
+    const cursorStart = input.selectionStart;
+    const cursorEnd = input.selectionEnd;
+
+    if (input.value.charAt(0) === ' ') {
+        setTimeout(() => {
+            input.value = input.value.trim();
+            input.setSelectionRange(cursorStart - 1, cursorEnd - 1);
+        });
     }
 }
 function restrictDoubleSpaces(event, fieldName) {
     const inputElement = event.target;
     const inputValue = inputElement.value;
 
-    // Replace double spaces with a single space
     const sanitizedValue = inputValue.replace(/\s{2,}/g, ' ');
 
-    // Update the input value if it was changed
     if (sanitizedValue !== inputValue) {
         inputElement.value = sanitizedValue;
     }
-}
-function restrictNonNumeric(input) {
-    input.value = input.value.replace(/[^0-9+]/g, '');
 }
 function restrictNonNumeric(input) {
     input.value = input.value.replace(/[^0-9+]/g, '');
@@ -194,10 +214,8 @@ function restrictSpaces(event, fieldName) {
     const inputElement = event.target;
     const inputValue = inputElement.value;
 
-    // Remove spaces from the input value
     const sanitizedValue = inputValue.replace(/\s/g, '');
 
-    // Update the input value if it was changed
     if (sanitizedValue !== inputValue) {
         inputElement.value = sanitizedValue;
     }
@@ -221,7 +239,7 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
     var city = document.querySelector("input[name=city]").value;
     var purok = document.querySelector("input[name=purok]").value;
     var barangay = document.querySelector("input[name=barangay]").value;
-    var street = document.querySelector("input[name=street]").value;
+    // var street = document.querySelector("input[name=street]").value;
     var zipcode = document.querySelector("input[name=zipcode]").value;
     var username = document.querySelector("input[name=username]").value;
     var password = document.querySelector("input[name=password]").value;
@@ -244,7 +262,7 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
     formData.append('city', city);
     formData.append('purok', purok);
     formData.append('barangay', barangay);
-    formData.append('street', street);
+    // formData.append('street', street);
     formData.append('zipcode', zipcode);
     formData.append('username', username);
     formData.append('password', password);
@@ -292,6 +310,11 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
 const firstname = document.getElementById('firstname');
 const firstname_label = document.getElementById('firstname-label');
 firstname.addEventListener("input", (e) => {
+    if (e.target.value.length < 3) {
+        firstname.setCustomValidity('You must enter more than 3 characters');
+    } else {
+        firstname.setCustomValidity('');
+    }
     //get the value of firstname
     capitalizeFirstLetter('firstname');
     restrictSpaceStart(e);
@@ -305,6 +328,11 @@ firstname.addEventListener("input", (e) => {
 const middlename = document.getElementById('middlename');
 const middlename_label = document.getElementById('middlename-label');
 middlename.addEventListener("input", (e) => {
+    if (e.target.value.length < 3 && e.target.value != "") {
+        middlename.setCustomValidity('You must enter more than 3 characters');
+    } else {
+        middlename.setCustomValidity('');
+    }
     capitalizeFirstLetter('middlename');
     restrictSpaceStart(e);
     restrictDoubleSpaces(e, 'middlename');
@@ -317,6 +345,11 @@ middlename.addEventListener("input", (e) => {
 const lastname = document.getElementById('lastname');
 const lastname_label = document.getElementById('lastname-label');
 lastname.addEventListener("input", (e) => {
+    if (e.target.value.length < 3) {
+        lastname.setCustomValidity('You must enter more than 3 characters');
+    } else {
+        lastname.setCustomValidity('');
+    }
     capitalizeFirstLetter('lastname');
     restrictSpaceStart(e);
     restrictDoubleSpaces(e, 'lastname');
@@ -407,6 +440,11 @@ mobilenumber.addEventListener('click', () => {
 const country = document.getElementById('country');
 const country_label = document.getElementById('country-label');
 country.addEventListener("input", (e) => {
+    if (e.target.value.length < 3) {
+        country.setCustomValidity('You must enter more than 3 characters');
+    } else {
+        country.setCustomValidity('');
+    }
     capitalizeFirstLetter('country');
     restrictSpaceStart(e);
     restrictDoubleSpaces(e, 'country');
@@ -420,6 +458,11 @@ country.addEventListener("input", (e) => {
 const province = document.getElementById('province');
 const province_label = document.getElementById('province-label');
 province.addEventListener("input", (e) => {
+    if (e.target.value.length < 3) {
+        province.setCustomValidity('You must enter more than 3 characters');
+    } else {
+        province.setCustomValidity('');
+    }
     capitalizeFirstLetter('province');
     restrictSpaceStart(e);
     restrictDoubleSpaces(e, 'province');
@@ -432,6 +475,11 @@ province.addEventListener("input", (e) => {
 const city = document.getElementById('city');
 const city_label = document.getElementById('city-label');
 city.addEventListener("input", (e) => {
+    if (e.target.value.length < 3) {
+        city.setCustomValidity('You must enter more than 3 characters');
+    } else {
+        city.setCustomValidity('');
+    }
     capitalizeFirstLetter('city');
     restrictSpaceStart(e);
     restrictDoubleSpaces(e, 'city');
@@ -444,10 +492,16 @@ city.addEventListener("input", (e) => {
 const purok = document.getElementById('purok');
 const purok_label = document.getElementById('purok-label');
 purok.addEventListener("input", (e) => {
+    if (e.target.value.length < 3) {
+        purok.setCustomValidity('You must enter more than 3 characters');
+    } else {
+        purok.setCustomValidity('');
+    }
     capitalizeFirstLetter('purok');
     restrictSpaceStart(e);
     restrictDoubleSpaces(e, 'purok');
     restrictTwoConsecutiveLetters(e, 'purok');
+    restrictNonAlphanumeric('purok')
 });
 
 
@@ -455,21 +509,27 @@ purok.addEventListener("input", (e) => {
 const barangay = document.getElementById('barangay');
 const barangay_label = document.getElementById('barangay-label');
 barangay.addEventListener("input", (e) => {
+    if (e.target.value.length < 3) {
+        barangay.setCustomValidity('You must enter more than 3 characters');
+    } else {
+        barangay.setCustomValidity('');
+    }
     capitalizeFirstLetter('barangay');
     restrictSpaceStart(e);
     restrictDoubleSpaces(e, 'barangay');
     restrictTwoConsecutiveLetters(e, 'barangay');
+    restrictNonAlphanumeric('barangay')
 });
 
 // street validation
-const street = document.getElementById('street');
-const street_label = document.getElementById('street-label');
-street.addEventListener("input", (e) => {
-    capitalizeFirstLetter('street');
-    restrictSpaceStart(e);
-    restrictDoubleSpaces(e, 'street');
-    restrictTwoConsecutiveLetters(e, 'street');
-});
+// const street = document.getElementById('street');
+// const street_label = document.getElementById('street-label');
+// street.addEventListener("input", (e) => {
+//     capitalizeFirstLetter('street');
+//     restrictSpaceStart(e);
+//     restrictDoubleSpaces(e, 'street');
+//     restrictTwoConsecutiveLetters(e, 'street');
+// });
 
 
 //zipcode
@@ -599,14 +659,11 @@ const username = document.getElementById('username')
 const username_label = document.getElementById('username-label')
 username.addEventListener("input", async (e) => {
     restrictSpaces(e, 'username')
+    restrictTwoConsecutiveLetters(e)
     var username_value = e.target.value;
     const response = await fetch(`/ajax/fetch.php?username=${username_value}`);
     const data = await response.json();
-    if (hasRepeatedLetters(username_value)) { //validation input user
-        username.setCustomValidity("Please enter a username without repeated letters.")
-        username_label.style.color = "red";
-        username.style.border = "1px solid red";
-    } else if (username_value.includes(" ")) {
+    if (username_value.includes(" ")) {
         username.setCustomValidity("Username should not contains with spaces.")
         username_label.style.color = "red";
         username.style.border = "1px solid red";
@@ -629,6 +686,7 @@ const email = document.getElementById('email');
 const email_label = document.getElementById('email-label');
 email.addEventListener("input", async (event) => {
     restrictSpaces(event, "email")
+    restrictTwoConsecutiveLetters(event, "email")
     var email_value = event.target.value;
     const response = await fetch(`/ajax/fetch.php?email=${email_value}`);
     const data = await response.json();

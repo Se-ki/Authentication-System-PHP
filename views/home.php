@@ -98,7 +98,6 @@
                                 <p class="text-muted mb-0">
                                     <?= $user['purok'] ?>,
                                     <?= $user['barangay'] ?>,
-                                    <?= $user['street'] ?>.
                                     <?= $user['city'] ?>,
                                     <?= $user['province'] ?>,
                                     <?= $user['country'] ?>
