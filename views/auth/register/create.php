@@ -1,23 +1,22 @@
 <?php require "./views/partial/header.php" ?>
+<link href=" <?= path('/css/bootstrap.min.css') ?>" rel="stylesheet">
+<link rel="stylesheet" href="<?= path('/css/index.css') ?>">
 <!-- <section class="h-100 h-custom gradient-custom-2">-->
-<div class="container py-5 h-50">
+<div class="container">
     <div class="row d-flex justify-content-center align-items-center h-0">
         <div class="col-12">
-            <div class="alert" id="display-success">
-                <?= $message['success'] ?? null ?>
-            </div>
             <div class="card card-registration card-registration-2"
-                style="border-radius: 15px; background: linear-gradient(to right,white,white,white,white,white,white,white); ">
+                style="border-radius: 15px; background: linear-gradient(to right,white,white,white,white,white,white,white);">
                 <div class="card-body p-0">
                     <div class="row g-0">
                         <div class="col-lg-12">
-                            <div class="p-3">
-                                <form action="" method="POST" id="register-form" class="needs-validation">
-                                    <h3 class="mb-3 mt-3">Personal
+                            <div class="olala p-3">
+                                <form action="/login/store" method="POST" id="register-form" class="needs-validation">
+                                    <h3 class="header mb-2 mt-3">Personal
                                         Information</h3>
                                     <div class="row"> <!-- firstname  and lastname row -->
                                         <!-- firstname -->
-                                        <div class="col-md-4 mb-4">
+                                        <div class="col-md-3 mb-0">
                                             <div class="form-floating mb-3">
                                                 <input class="form-control form-control-sm" type="text"
                                                     placeholder=".form-control-sm" aria-label=".form-control-sm example"
@@ -29,7 +28,7 @@
                                         </div>
 
                                         <!-- middlename -->
-                                        <div class="col-md-2 mb-4">
+                                        <div class="col-md-3 mb-0">
                                             <div class="form-floating mb-3">
                                                 <input class="form-control form-control-sm " type="text"
                                                     placeholder=".form-control-sm" aria-label=".form-control-sm example"
@@ -41,7 +40,7 @@
                                         </div>
 
                                         <!-- lastname -->
-                                        <div class="col-md-4 mb-4">
+                                        <div class="col-md-3 mb-0">
                                             <div class="form-floating mb-3">
                                                 <input class="form-control form-control-sm" type="text"
                                                     placeholder=".form-control-sm" aria-label=".form-control-sm example"
@@ -53,7 +52,7 @@
                                         </div>
 
                                         <!-- suffix name -->
-                                        <div class="col-md-2 mb-4">
+                                        <div class="col-md-3 mb-0">
                                             <div class="form-floating mb-3">
                                                 <input class="form-control form-control-sm " type="text"
                                                     placeholder=".form-control-sm" aria-label=".form-control-sm example"
@@ -80,7 +79,7 @@
                                         </div>
 
                                         <!-- birthdate -->
-                                        <div class="col-md-2 pb-2">
+                                        <div class="col-md-3 pb-2">
                                             <div class="form-floating mb-3 text-dark">
                                                 <input type="date" value="<?= $user['birthdate'] ?? null ?>" min="1960"
                                                     max="2030" id="birthdate" name="birthdate"
@@ -108,21 +107,21 @@
                                                 <input class="form-control form-control-sm " type="text"
                                                     placeholder=".form-control-sm" aria-label=".form-control-sm example"
                                                     value="<?= $user['mobilenum'] ?? null ?>" minlength="3"
-                                                    maxlength="12" name="mobilenum" id="mobilenum" autofocus required />
+                                                    maxlength="13" name="mobilenum" id="mobilenum" autofocus required />
                                                 <label for='floatingInput' id="mobilenum-label">Mobile Number</label>
                                                 <span class="text-danger fs-6" id="is-valid-mobilenum"></span>
                                             </div>
                                         </div>
 
                                         <!-- email address -->
-                                        <div class="col-md-5 pb-2">
+                                        <div class="col-md-4 pb-2">
                                             <div class="form-floating mb-3 text-dark">
-                                                <input class="form-control form-control-sm " type="email"
-                                                    placeholder=".form-control-sm" aria-label=".form-control-sm example"
+                                                <input class="form-control form-control-sm" type="text" name="email"
+                                                    id="email" placeholder=".form-control-sm"
+                                                    aria-label=".form-control-sm example"
                                                     value="<?= $user['email'] ?? null ?>"
                                                     style="border: <?= isset($message['error-email']) ? "1px solid red" : "" ?>"
-                                                    minlength="5" maxlength="60" name="email" id="email" autofocus
-                                                    required />
+                                                    minlength="5" maxlength="60" autofocus required />
                                                 <label for='floatingInput'
                                                     style="color: <?= isset($message['error-email']) ? "red" : "" ?>"
                                                     id="email-label">Email</label>
@@ -134,62 +133,24 @@
                                     </div>
 
 
-                                    <h3 class="mt-3">
+                                    <h3 class="header mt-0">
                                         Address
                                         Information</h3>
                                     <div class="row g-3">
-                                        <div class="col-md-4 pb-2">
-                                            <!-- country -->
-                                            <div class="form-floating mb-3 text-dark">
-                                                <input class="form-control form-control-sm " type="text"
-                                                    placeholder=".form-control-sm" aria-label=".form-control-sm example"
-                                                    value="<?= $user['country'] ?? null ?>" minlength="3" maxlength="20"
-                                                    name="country" id="country" autofocus required />
-                                                <label for='floatingInput' id="country-label">Country</label>
-                                                <span class="text-danger text-bg-light fs-6"
-                                                    id="is-valid-country"></span>
-                                            </div>
-                                        </div>
-
-                                        <!-- province -->
-                                        <div class="col-md-4 mb-4">
-                                            <div class="form-floating mb-3 text-dark">
-                                                <input class="form-control form-control-sm " type="text"
-                                                    placeholder=".form-control-sm" aria-label=".form-control-sm example"
-                                                    value="<?= $user['province'] ?? null ?>" minlength="2"
-                                                    maxlength="20" name="province" id="province" autofocus required />
-                                                <label for='floatingInput' id="province-label">Province</label>
-                                                <span class="text-danger fs-6" id="is-valid-province"></span>
-                                            </div>
-                                        </div>
-
-                                        <!-- city -->
-                                        <div class="col-md-4 mb-4">
-                                            <div class="form-floating mb-3 text-dark">
-                                                <input class="form-control form-control-sm " type="text"
-                                                    placeholder=".form-control-sm" aria-label=".form-control-sm example"
-                                                    value="<?= $user['city'] ?? null ?>" minlength="2" maxlength="20"
-                                                    name="city" id="city" autofocus required />
-                                                <label for='floatingInput' id="city-label">Municipal / City</label>
-                                                <span class="text-danger fs-6" id="is-valid-city"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row g-3">
                                         <!-- Purok -->
-                                        <div class="col-md-3 mb-4">
+                                        <div class="col-md-4 mb-0">
                                             <div class="form-floating mb-3 text-dark">
                                                 <input class="form-control form-control-sm " type="text"
                                                     placeholder=".form-control-sm" aria-label=".form-control-sm example"
                                                     value="<?= $user['purok'] ?? null ?>" minlength="1" maxlength="20"
                                                     name="purok" id="purok" autofocus required />
-                                                <label for='floatingInput' id="purok-label">Purok</label>
+                                                <label for='floatingInput' id="purok-label">Purok/Street</label>
                                                 <span class="text-danger fs-6" id="is-valid-purok"></span>
                                             </div>
                                         </div>
 
                                         <!-- barangay -->
-                                        <div class="col-md-3 mb-4">
+                                        <div class="col-md-4 mb-0">
                                             <div class="form-floating mb-3 text-dark">
                                                 <input class="form-control form-control-sm " type="text"
                                                     placeholder=".form-control-sm" aria-label=".form-control-sm example"
@@ -201,21 +162,60 @@
                                         </div>
 
                                         <!-- street -->
-                                        <div class="col-md-3 mb-4">
+                                        <!-- <div class="col-md-3 mb-0">
                                             <div class="form-floating mb-3 text-dark">
                                                 <input class="form-control form-control-sm " type="text"
                                                     placeholder=".form-control-sm" aria-label=".form-control-sm example"
                                                     value="<?= $user['street'] ?? null ?>" minlength="1" maxlength="20"
-                                                    name="street" id="street" autofocus required />
-                                                <label for='floatingInput' id="street-label">Street</label>
+                                                    name="street" id="street" autofocus />
+                                                <label for='floatingInput' id="street-label">Street (optional)</label>
                                                 <span class="text-danger fs-6" id="is-valid-street"></span>
+                                            </div>
+                                        </div> -->
+
+                                        <!-- city -->
+                                        <div class="col-md-4 mb-0">
+                                            <div class="form-floating mb-3 text-dark">
+                                                <input class="form-control form-control-sm " type="text"
+                                                    placeholder=".form-control-sm" aria-label=".form-control-sm example"
+                                                    value="<?= $user['city'] ?? null ?>" minlength="2" maxlength="20"
+                                                    name="city" id="city" autofocus required />
+                                                <label for='floatingInput' id="city-label">Municipal / City</label>
+                                                <span class="text-danger fs-6" id="is-valid-city"></span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row g-3">
+                                        <!-- province -->
+                                        <div class="col-md-4 mb-0">
+                                            <div class="form-floating mb-3 text-dark">
+                                                <input class="form-control form-control-sm " type="text"
+                                                    placeholder=".form-control-sm" aria-label=".form-control-sm example"
+                                                    value="<?= $user['province'] ?? null ?>" minlength="2"
+                                                    maxlength="20" name="province" id="province" autofocus required />
+                                                <label for='floatingInput' id="province-label">Province</label>
+                                                <span class="text-danger fs-6" id="is-valid-province"></span>
+                                            </div>
+                                        </div>
+
+                                        <!-- country -->
+                                        <div class="col-md-4 mb-0">
+                                            <div class="form-floating mb-3 text-dark">
+                                                <input class="form-control form-control-sm " type="text"
+                                                    placeholder=".form-control-sm" aria-label=".form-control-sm example"
+                                                    value="<?= $user['country'] ?? null ?>" minlength="3" maxlength="20"
+                                                    name="country" id="country" autofocus required />
+                                                <label for='floatingInput' id="country-label">Country</label>
+                                                <span class="text-danger text-bg-light fs-6"
+                                                    id="is-valid-country"></span>
                                             </div>
                                         </div>
 
                                         <!-- zipcode -->
-                                        <div class="col-md-3 mb-4">
+                                        <div class="col-md-4 mb-0">
                                             <div class="form-floating mb-3 text-dark">
-                                                <input class="form-control form-control-sm" type="number"
+                                                <input class="form-control form-control-sm" type="text"
                                                     value="<?= $user['zipcode'] ?? null ?>"
                                                     placeholder=".form-control-sm" aria-label=".form-control-sm example"
                                                     name="zipcode" id="zipcode" autofocus required />
@@ -224,7 +224,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <h3 class="mb-3">Identity</h3>
+                                    <h3 class="header mt-1">Identity</h3>
                                     <div class="row g-3">
                                         <div class="col-md-4 pb-2">
                                             <!-- username -->
@@ -271,22 +271,15 @@
                                                 <span class="text-danger fs-6" id="is-valid-confirmpassword"></span>
                                             </div>
                                         </div>
-
                                         <!-- submit button to registered -->
-                                        <button type="submit" id="button" class="btn btn-success btn-lg"
-                                            data-mdb-ripple-color="dark">Register</button>
-
-                                        <center>
-                                            <p class="mt-2 mb-0 text-dark">Have already an account?
+                                        <center style="margin-top:auto">
+                                            <button type="submit" id="button" class="btn btn-success btn-lg"
+                                                data-mdb-ripple-color="dark">Register</button>
+                                            <p class="mt-4 mb-0 text-dark">Have already an account?
                                                 <a href="/login" class="fw-bold text-secondary"><u>Login here</u></a>
                                             </p>
                                         </center>
-
                                     </div>
-
-
-
-
                             </div>
                         </div>
                     </div>
@@ -297,5 +290,5 @@
     </div>
 </div>
 </section>
-<script src="../../js/validator/register/index.js"></script>
+<script src="<?= path('/js/validator/register/index.js') ?>"></script>
 <?php require "./views/partial/footer.php" ?>

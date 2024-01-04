@@ -17,7 +17,7 @@ $province = test_input($_POST['province']);
 $city = test_input($_POST['city']);
 $purok = test_input($_POST['purok']);
 $barangay = test_input($_POST['barangay']);
-$street = test_input($_POST['street']);
+// $street = test_input($_POST['street']);
 $zipcode = test_input($_POST['zipcode']);
 $username = test_input($_POST['username']);
 $email = test_input($_POST['email']);
@@ -38,12 +38,11 @@ remainData(
     $city,
     $purok,
     $barangay,
-    $street,
     $zipcode,
     $username,
     $email,
     $password,
-    $confirmpassword
+    $confirmpassword,
 );
 
 // check if username is exist 
@@ -73,7 +72,6 @@ if (Validation::checkUserExist('email', $email)) {
     :city, 
     :purok,
     :barangay,
-    :street, 
     :zipcode, 
     :username, 
     :email, 
@@ -93,7 +91,6 @@ if (Validation::checkUserExist('email', $email)) {
         "city" => $city,
         "purok" => $purok,
         "barangay" => $barangay,
-        "street" => $street,
         "zipcode" => $zipcode,
         "username" => $username,
         "email" => $email,
