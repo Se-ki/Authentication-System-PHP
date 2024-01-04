@@ -1,14 +1,19 @@
 <?php
 session_start();
-require 'vendor/autoload.php';
+require("./src/Core/function.php");
+const BASE_PATH = __DIR__ . '/../';
+require('vendor/autoload.php');
 
-use Dotenv\Dotenv;
+use Src\Core\Session;
+use Symfony\Component\Dotenv\Dotenv;
 
-$dotenv = Dotenv::createImmutable(__DIR__);
-$dotenv->load();
+spl_autoload_register(function ($class) {
+    require("./src/Core/{$class}.php");
+});
 
-const BASE_PATH = __DIR__.'/../';
+
+(new Dotenv)->load(__DIR__ . '/.env');
 
 $header = "Index";
-require "router.php";
+require("router.php");
 Session::unflash();

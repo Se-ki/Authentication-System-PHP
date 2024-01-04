@@ -167,9 +167,15 @@ function restrictTwoConsecutiveLetters(event, fieldName) {
     }
 }
 function restrictSpaceStart(event) {
-    // Check if the first character is a space
-    if (event.target.value.charAt(0) === ' ') {
-        event.target.value = '';  // Clear the value if it starts with a space
+    const input = event.target;
+    const cursorStart = input.selectionStart;
+    const cursorEnd = input.selectionEnd;
+
+    if (input.value.charAt(0) === ' ') {
+        setTimeout(() => {
+            input.value = input.value.trim();
+            input.setSelectionRange(cursorStart - 1, cursorEnd - 1);
+        });
     }
 }
 function restrictDoubleSpaces(event, fieldName) {
@@ -202,9 +208,14 @@ function restrictSpaces(event, fieldName) {
         inputElement.value = sanitizedValue;
     }
 }
+function preventSpace(event, inputId) {
+    if (event.which === 32 && document.getElementById(inputId).selectionStart === 0) {
+        event.preventDefault();
+    }
+}
 
 
-//validate form
+// //validate form
 document.getElementById('register-form').addEventListener('submit', async (e) => {
     //get the value that inputted
     var firstname = document.querySelector("input[name=firstname]").value;
@@ -221,7 +232,6 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
     var city = document.querySelector("input[name=city]").value;
     var purok = document.querySelector("input[name=purok]").value;
     var barangay = document.querySelector("input[name=barangay]").value;
-    var street = document.querySelector("input[name=street]").value;
     var zipcode = document.querySelector("input[name=zipcode]").value;
     var username = document.querySelector("input[name=username]").value;
     var password = document.querySelector("input[name=password]").value;
@@ -244,7 +254,6 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
     formData.append('city', city);
     formData.append('purok', purok);
     formData.append('barangay', barangay);
-    formData.append('street', street);
     formData.append('zipcode', zipcode);
     formData.append('username', username);
     formData.append('password', password);
@@ -293,6 +302,7 @@ const firstname = document.getElementById('firstname');
 const firstname_label = document.getElementById('firstname-label');
 firstname.addEventListener("input", (e) => {
     //get the value of firstname
+    preventSpace(e, 'firstname')
     capitalizeFirstLetter('firstname');
     restrictSpaceStart(e);
     restrictDoubleSpaces(e, 'firstname');
@@ -461,15 +471,15 @@ barangay.addEventListener("input", (e) => {
     restrictTwoConsecutiveLetters(e, 'barangay');
 });
 
-// street validation
-const street = document.getElementById('street');
-const street_label = document.getElementById('street-label');
-street.addEventListener("input", (e) => {
-    capitalizeFirstLetter('street');
-    restrictSpaceStart(e);
-    restrictDoubleSpaces(e, 'street');
-    restrictTwoConsecutiveLetters(e, 'street');
-});
+// // street validation
+// const street = document.getElementById('street');
+// const street_label = document.getElementById('street-label');
+// street.addEventListener("input", (e) => {
+//     capitalizeFirstLetter('street');
+//     restrictSpaceStart(e);
+//     restrictDoubleSpaces(e, 'street');
+//     restrictTwoConsecutiveLetters(e, 'street');
+// });
 
 
 //zipcode
@@ -600,7 +610,7 @@ const username_label = document.getElementById('username-label')
 username.addEventListener("input", async (e) => {
     restrictSpaces(e, 'username')
     var username_value = e.target.value;
-    const response = await fetch(`/ajax/fetch.php?username=${username_value}`);
+    const response = await fetch(`/register?username=${username_value}`);
     const data = await response.json();
     if (hasRepeatedLetters(username_value)) { //validation input user
         username.setCustomValidity("Please enter a username without repeated letters.")
@@ -630,7 +640,7 @@ const email_label = document.getElementById('email-label');
 email.addEventListener("input", async (event) => {
     restrictSpaces(event, "email")
     var email_value = event.target.value;
-    const response = await fetch(`/ajax/fetch.php?email=${email_value}`);
+    const response = await fetch(`/register?email=${email_value}`);
     const data = await response.json();
     if (hasRepeatedLetters(email_value)) { //validation input user
         email.setCustomValidity("Please enter a email without repeated letters.")
